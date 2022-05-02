@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+    id 'java-library'
+
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api "de.fraunhofer.sit.sse.flowdroid:soot-infoflow-cmd:2.10.0"
+    api "de.fraunhofer.sit.sse.flowdroid:soot-infoflow:2.10.0"
+    api "de.fraunhofer.sit.sse.flowdroid:soot-infoflow-summaries:2.10.0"
+    api "de.fraunhofer.sit.sse.flowdroid:soot-infoflow-android:2.10.0"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
