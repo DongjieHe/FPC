@@ -101,17 +101,33 @@ def downlaodApp(appUrl, saveToDir, fileName):
         os.makedirs(saveToDir)
     open(os.path.join(saveToDir, fileName), 'wb').write(r.content)
 
+def readPackages():
+    if not os.path.exists('packages.txt'):
+        open('packages.txt', 'a').close()
+    pkgsFile = open('packages.txt', 'r')
+    pkgs = pkgsFile.readlines()
+    return pkgs
+
 def crawlFlowDroid():
     for category in CATEGORIES:
         navilist = naviLists(category)
         for navpage in navilist:
-            packages = packageList(navpage)
-            for pkg in packages:
-                app = FDROID_HOST + pkg
-                appUrl = appDownloadURL(app)
-                print("start downloading " + appUrl)
-                downlaodApp(appUrl, os.path.join(CURRENT_DIR, "FDroid", category), appUrl.split("/")[-1])
-                print("finish downloading " + appUrl)
+            pkgs = readPackages()
+            pkgsFile = open('packages.txt', 'a')
+            try:
+                packages = packageList(navpage)
+                for pkg in packages:
+                    if pkg in pkgs:
+                        continue
+                    app = FDROID_HOST + pkg
+                    appUrl = appDownloadURL(app)
+                    print("start downloading " + appUrl)
+                    downlaodApp(appUrl, os.path.join(CURRENT_DIR, "FDroid", category), appUrl.split("/")[-1])
+                    print("finish downloading " + appUrl)
+                    pkgsFile.write(pkg + "\n")
+                pkgsFile.close()
+            except Exception:
+                pkgsFile.close()
 
 # Main
 if __name__ == '__main__':
