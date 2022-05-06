@@ -94,6 +94,8 @@ def appDownloadURL(app):
     return parser.getDownloadUrls()[0]
 
 def downlaodApp(appUrl, saveToDir, fileName):
+    if os.path.exists(os.path.join(saveToDir, fileName)):
+        return
     r = requests.get(appUrl, allow_redirects = True)
     if not os.path.exists(saveToDir):
         os.makedirs(saveToDir)
