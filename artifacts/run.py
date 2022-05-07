@@ -37,11 +37,11 @@ BENCHMARKS = {
 
 # global variables
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-JVMARG = '-Xmx120G'
+JVMARG = '-Xmx220G'
 FLOWDROID = 'soot-infoflow-cmd-jar-with-dependencies.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
-OUTPUTPATH = 'output'
+OUTPUTPATH = 'output2'
 RESULT_TIMEOUT = 1800
 DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
