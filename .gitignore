@@ -1,8 +1,11 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
+soot-infoflow-summaries/build/
+soot-infoflow-summaries/target/
+/.metadata
+/.recommenders
+.idea/
+*.iml
+target/
+*/target
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
