@@ -10,6 +10,8 @@ def extractXmlMap(xml):
     root = tree.getroot()
     perf = root.find("PerformanceData")
     ret = {}
+    if perf is None:
+        print(xml)
     for perfEntry in perf:
         entryMap = perfEntry.items()
         if perfEntry.tag == "PerformanceEntry":
@@ -37,6 +39,15 @@ def outputList(outdir):
             ret.append(xmlMap)
     return ret
 
+def outputMap(outdir):
+    ret = {}
+    for f in os.listdir(outdir):
+        filePath = os.path.join(outdir, f)
+        if os.path.isfile(filePath) and f.endswith(".xml"):
+            xmlMap = extractXmlMap(filePath)
+            ret[f[:-4]] = xmlMap
+    return ret
+
 def buildTable(outList):
     table = PrettyTable()
     table.field_names = ["APP", "CG construction time (s)", "IFDS Time (s)", "Max Memory (MB)", "#Leaks", "#Sources", "#Sinks"]
@@ -44,21 +55,24 @@ def buildTable(outList):
         table.add_row([xmlMap["APP"], xmlMap["CallgraphConstructionSeconds"], xmlMap["TaintPropagationSeconds"], xmlMap["MaxMemoryConsumption"], xmlMap["LeakNum"], xmlMap["SourceCount"], xmlMap["SinkCount"]])
     return table
 
-def buildTable2(outList, outList2):
+def buildTable2(outMap, outMap2):
     table = PrettyTable()
     table.field_names = ["APP", "CG construction time (s)", "IFDS Time (s)", "Max Memory (MB)", "#Leaks", "#Sources", "#Sinks"]
-    for i in range(len(outList)):
-        xmlMap = outList[i]
-        xmlMap2 = outList2[i]
-        table.add_row([xmlMap["APP"], xmlMap["CallgraphConstructionSeconds"], xmlMap["TaintPropagationSeconds"], xmlMap["MaxMemoryConsumption"], xmlMap["LeakNum"], xmlMap["SourceCount"], xmlMap["SinkCount"]])
-        table.add_row(["", xmlMap2["CallgraphConstructionSeconds"], xmlMap2["TaintPropagationSeconds"], xmlMap2["MaxMemoryConsumption"], xmlMap2["LeakNum"], xmlMap2["SourceCount"], xmlMap2["SinkCount"]])
+    for app in outMap:
+        if app in outMap2:
+            xmlMap = outMap[app]
+            xmlMap2 = outMap2[app]
+            table.add_row([app, xmlMap["CallgraphConstructionSeconds"], xmlMap["TaintPropagationSeconds"], xmlMap["MaxMemoryConsumption"], xmlMap["LeakNum"], xmlMap["SourceCount"], xmlMap["SinkCount"]])
+            table.add_row(["", xmlMap2["CallgraphConstructionSeconds"], xmlMap2["TaintPropagationSeconds"], xmlMap2["MaxMemoryConsumption"], xmlMap2["LeakNum"], xmlMap2["SourceCount"], xmlMap2["SinkCount"]])
     return table
 
 # Main
 if __name__ == '__main__':
     # outputxml = "/home/hedj/Work/OnlineIFDS/artifacts/output/run1/graphics.xml"
     # print(extractXmlMap(outputxml))
-    outdir = "/home/hedj/Work/OnlineIFDS/artifacts/output/run1"
-    outdir2 = "/home/hedj/Work/OnlineIFDS/artifacts/output/run2"
-    table = buildTable2(outputList(outdir), outputList(outdir2))
+    # outdir = "/home/hedj/Work/OnlineIFDS/artifacts/output/run1"
+    # outdir2 = "/home/hedj/Work/OnlineIFDS/artifacts/output/run2"
+    outdir = "/home/hedj/Work/OnlineIFDS/artifacts/output/qilin/FDroid/connectivity/"
+    outdir2 = "/home/hedj/Work/OnlineIFDS/artifacts/output/tower/FDroid/connectivity/"
+    table = buildTable2(outputMap(outdir), outputMap(outdir2))
     print(table)

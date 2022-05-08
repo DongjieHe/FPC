@@ -2,7 +2,8 @@
 import os,sys, shutil
 
 '''
-Use FlowDroid to analyze all applications in FDroid.
+Use FlowDroid to analyze a single Android application.
+The only argument is the path to the application.
 '''
 
 # terminal colors
@@ -12,12 +13,6 @@ WHITE = '\033[37m'
 GREEN = '\033[32m'
 BOLD = '\033[1m'
 RED = '\033[31m'
-
-CATEGORIES = [
-    "connectivity", "development", "games", "graphics", "internet", "money", "multimedia", "navigation",
-    "phone-sms", "reading", "science-education", "security", "sports-health", "system", "theming",
-    "time", "writing"
-]
 
 # global variables
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -32,9 +27,9 @@ MAX_THREAD_NUM = 10
 isPrint = False
 collectMemory = False
 
-def genCmd(category, app):
+def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
-    args += ['-a', os.path.join(CURRENT_DIR, app), '-p', PLATFORMS_DIR]
+    args += ['-a', os.path.join(app), '-p', PLATFORMS_DIR]
     args += ['-s', SOURCE_SINK_SPEC]
     args += ['--mergedexfiles']
     args += ['-rt', str(RESULT_TIMEOUT)]
@@ -42,9 +37,9 @@ def genCmd(category, app):
     args += ['-mt', str(MAX_THREAD_NUM)]
     if collectMemory:
         args += ['-sm']
-    if not os.path.exists(os.path.join(CURRENT_DIR, OUTPUTPATH, category)):
-        os.makedirs(os.path.join(CURRENT_DIR, OUTPUTPATH, category))
-    output = os.path.join(CURRENT_DIR, OUTPUTPATH, category, app.split("/")[-1][:-4] + ".xml")
+    if not os.path.exists(os.path.join(CURRENT_DIR, OUTPUTPATH)):
+        os.makedirs(os.path.join(CURRENT_DIR, OUTPUTPATH))
+    output = os.path.join(CURRENT_DIR, OUTPUTPATH, app.split("/")[-1][:-4] + ".xml")
     # outlog = os.path.join(OUTPUTPATH, BENCHMARKS[app] + ".log")
     if not isPrint and os.path.exists(output):
         print('old result found. skip this.')
@@ -56,20 +51,15 @@ def genCmd(category, app):
     cmd = ' '.join(args)
     return cmd
 
-def run(category, app):
-    cmd = genCmd(category, app)
+def run(app):
+    print(YELLOW + BOLD + 'Analyzing ' + RED + BOLD + app + YELLOW + BOLD + ' ...' + RESET)
+    cmd = genCmd(app)
     if cmd is not None:
         print(cmd)
         os.system(cmd)
 
-def runAll():
-    for category in CATEGORIES:
-        for app in os.listdir(os.path.join(CURRENT_DIR, "benchmarks", "FDroid", category)):
-            if app.endswith(".apk"):
-                print(YELLOW + BOLD + 'Analyzing ' + RED + BOLD + app + YELLOW + BOLD + ' ...' + RESET)
-                run(category, os.path.join("benchmarks", "FDroid", category, app))
-
 if __name__ == '__main__':
     if not os.path.exists(OUTPUTPATH):
         os.mkdir(OUTPUTPATH)
-    runAll()
+    appPath = sys.argv[1]
+    run(appPath)
