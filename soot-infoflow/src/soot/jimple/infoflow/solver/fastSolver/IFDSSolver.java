@@ -13,6 +13,9 @@
  ******************************************************************************/
 package soot.jimple.infoflow.solver.fastSolver;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -23,6 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -100,7 +104,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	protected final Map<N, Set<D>> initialSeeds;
 
 	@DontSynchronize("benign races")
-	public long propagationCount;
+	// public long propagationCount;
+	public AtomicLong propagationCount = new AtomicLong(0);
 
 	@DontSynchronize("stateless")
 	protected final D zeroValue;
@@ -261,7 +266,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			return;
 
 		executor.execute(new PathEdgeProcessingTask(edge, solverId));
-		propagationCount++;
+		// propagationCount++;
+		propagationCount.incrementAndGet();
 	}
 
 	/**
@@ -871,4 +877,20 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		this.maxAbstractionPathLength = maxAbstractionPathLength;
 	}
 
+	public void dumpPathEdges() {
+		StringBuilder builder = new StringBuilder();
+		for(PathEdge<N, D> pe : jumpFunctions.keySet()) {
+			builder.append(pe.toString() + "#" + icfg.getMethodOf(pe.getTarget()) + "\n");
+		}
+		String str = builder.toString();
+		File output = new File("output.txt");
+		try {
+			FileWriter writer = new FileWriter(output);
+			writer.write(str);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
