@@ -24,7 +24,7 @@ OUTPUTPATH = 'output2'
 RESULT_TIMEOUT = 1800
 DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
-isPrint = False
+isPrint = True
 collectMemory = False
 
 def genCmd(app):
