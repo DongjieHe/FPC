@@ -654,12 +654,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 				}
 			}
 		} else {
-			// If this is an inactive abstraction and we have already processed
-			// its active counterpart, we can skip this one
-//			if (activeVal != targetVal) {
-//				if (jumpFunctions.containsKey(activeEdge))
-//					return;
-//			}
 			scheduleEdgeProcessing(edge);
 		}
 	}
