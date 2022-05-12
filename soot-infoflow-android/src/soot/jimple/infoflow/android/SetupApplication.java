@@ -1182,8 +1182,9 @@ public class SetupApplication implements ITaintWrapperDataFlowAnalysis {
 
 		// Load whatever we need
 		logger.info("Loading dex files...");
-		Scene.v().addBasicClass("androidx.activity.ComponentActivity",SootClass.BODIES);
-		Scene.v().addBasicClass("androidx.fragment.app.FragmentActivity",SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.activity.ComponentActivity", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.fragment.app.FragmentActivity", SootClass.BODIES);
+		Scene.v().addBasicClass("android.app.Service", SootClass.HIERARCHY);
 
 		Scene.v().loadNecessaryClasses();
 
