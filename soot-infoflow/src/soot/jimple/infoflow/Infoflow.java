@@ -92,6 +92,7 @@ import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.memory.DefaultMemoryManagerFactory;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.infoflow.solver.memory.IMemoryManagerFactory;
+import soot.jimple.infoflow.solver.onlineSolver.OnlineSolverPeerGroup;
 import soot.jimple.infoflow.sourcesSinks.manager.IOneSourceAtATimeManager;
 import soot.jimple.infoflow.sourcesSinks.manager.ISourceSinkManager;
 import soot.jimple.infoflow.threading.DefaultExecutorFactory;
@@ -385,7 +386,13 @@ public class Infoflow extends AbstractInfoflow {
 			manager = initializeInfoflowManager(sourcesSinks, iCfg, globalTaintManager);
 
 			// Create the solver peer group
-			solverPeerGroup = new GCSolverPeerGroup();
+			switch (manager.getConfig().getSolverConfiguration().getDataFlowSolver()) {
+				case Online:
+					solverPeerGroup = new OnlineSolverPeerGroup();
+					break;
+				default:
+					solverPeerGroup = new GCSolverPeerGroup();
+			}
 
 			// Initialize the alias analysis
 			Abstraction zeroValue = null;
@@ -1078,6 +1085,12 @@ public class Infoflow extends AbstractInfoflow {
 			solverPeerGroup.addSolver(solver);
 			solver.setPeerGroup(solverPeerGroup);
 			return solver;
+		case Online:
+			logger.info("Using online solver");
+			IInfoflowSolver onlineSolver = new soot.jimple.infoflow.solver.onlineSolver.InfoflowSolver(problem, executor);
+			solverPeerGroup.addSolver(onlineSolver);
+			onlineSolver.setPeerGroup(solverPeerGroup);
+			return onlineSolver;
 		default:
 			throw new RuntimeException("Unsupported data flow solver");
 		}

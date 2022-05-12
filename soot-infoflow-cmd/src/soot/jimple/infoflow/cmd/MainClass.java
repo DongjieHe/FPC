@@ -225,7 +225,7 @@ public class MainClass {
 		options.addOption(OPTION_CALLBACK_ANALYZER, "callbackanalyzer", true,
 				"Use the specified callback analyzer (DEFAULT, FAST)");
 		options.addOption(OPTION_DATA_FLOW_SOLVER, "dataflowsolver", true,
-				"Use the specified data flow solver (CONTEXTFLOWSENSITIVE, FLOWINSENSITIVE)");
+				"Use the specified data flow solver (CONTEXTFLOWSENSITIVE, FLOWINSENSITIVE, ONLINE)");
 		options.addOption(OPTION_ALIAS_ALGO, "aliasalgo", true,
 				"Use the specified aliasing algorithm (NONE, FLOWSENSITIVE, PTSBASED, LAZY)");
 		options.addOption(OPTION_CODE_ELIMINATION_MODE, "codeelimination", true,
@@ -644,6 +644,8 @@ public class MainClass {
 			return DataFlowSolver.FlowInsensitive;
 		else if (solver.equalsIgnoreCase("GC"))
 			return DataFlowSolver.GarbageCollecting;
+		else if (solver.equalsIgnoreCase("ONLINE"))
+			return DataFlowSolver.Online;
 		else {
 			System.err.println(String.format("Invalid data flow solver: %s", solver));
 			throw new AbortAnalysisException();

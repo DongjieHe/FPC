@@ -133,7 +133,12 @@ public class InfoflowConfiguration {
 		/**
 		 * Use the garbage-collecting solver
 		 */
-		GarbageCollecting
+		GarbageCollecting,
+
+		/**
+		 * Use the online memory-saving solver
+		 */
+		Online,
 	}
 
 	/**
