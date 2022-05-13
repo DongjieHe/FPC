@@ -105,7 +105,7 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 
 	@Override
 	public Set<Pair<Unit, Abstraction>> endSummary(SootMethod m, Abstraction d3) {
-		return super.endSummary(m, d3);
+		return partitionManager.getEndSummary(m, d3);
 	}
 
 	@Override

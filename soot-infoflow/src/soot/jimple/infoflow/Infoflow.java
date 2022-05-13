@@ -87,7 +87,6 @@ import soot.jimple.infoflow.solver.SolverPeerGroup;
 import soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG;
 import soot.jimple.infoflow.solver.cfg.IInfoflowCFG;
 import soot.jimple.infoflow.solver.executors.InterruptableExecutor;
-import soot.jimple.infoflow.solver.fastSolver.InfoflowSolver;
 import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.memory.DefaultMemoryManagerFactory;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
@@ -587,9 +586,6 @@ public class Infoflow extends AbstractInfoflow {
 						forwardSolver.getPropagationCount(),
 						aliasingStrategy.getSolver() == null ? 0 : aliasingStrategy.getSolver().getPropagationCount(),
 						taintPropagationSeconds, res == null ? 0 : res.size());
-				logger.info("xxx {}" , forwardSolver.getClass().toString());
-				InfoflowSolver tmpSolver = (InfoflowSolver) forwardSolver;
-				tmpSolver.dumpPathEdges();
 
 				// Update the statistics
 				{

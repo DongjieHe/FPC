@@ -38,8 +38,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 				return endSummary;
 			if (loopHeaderQuerier.isLoopEntry(stmt))
 				return headerEdges;
-			else
-				return otherEdges;
+			return otherEdges;
 		}
 
 		public D insert(N n, D d2) {
@@ -138,18 +137,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		Partitions p = pathEdges.get(new Pair<>(m, d3));
 		if (p == null)
 			return null;
-		Map<Pair<N, D>, D> map = p.endSummary;
-		return map == null ? null : map.keySet();
-	}
-
-	public boolean addEndSummary(SootMethod m, D d1, N eP, D d2) {
-		Partitions p = pathEdges.putIfAbsentElseGet(new Pair<>(m, d1), () -> new Partitions());
-		D oldD2 = p.insert(eP, d2);
-		if (oldD2 != null) {
-			oldD2.addNeighbor(d2);
-			return false;
-		}
-		return true;
+		return p.endSummary.keySet();
 	}
 
 	public Map<N, Map<D, D>> getIncoming(SootMethod m, D d1) {

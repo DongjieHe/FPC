@@ -343,7 +343,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	protected void applyEndSummaryOnCall(final D d1, final N n, final D d2, Collection<N> returnSiteNs,
 			SootMethod sCalledProcN, D d3) {
 		// line 15.2
-		Set<Pair<N, D>> endSumm = endSummary(sCalledProcN, d3);
+		Set<Pair<N, D>> endSumm = partitionManager.getEndSummary(sCalledProcN, d3);
 
 		// still line 15.2 of Naeem/Lhotak/Rodriguez
 		// for each already-queried exit value <eP,d4> reachable
@@ -436,9 +436,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		// for each of the method's start points, determine incoming calls
 
 		// line 21.1 of Naeem/Lhotak/Rodriguez
-		// register end-summary
-		if (!addEndSummary(methodThatNeedsSummary, d1, n, d2))
-			return;
+		// end-summary already registered when adding the PathEdge
 		Map<N, Map<D, D>> inc = partitionManager.getIncoming(methodThatNeedsSummary, d1);
 
 		// for each incoming call edge already processed
@@ -621,7 +619,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		if (maxAbstractionPathLength >= 0 && targetVal.getPathLength() > maxAbstractionPathLength)
 			return;
 
-		final D existingVal = partitionManager.addPathEdge(sourceVal, target, targetVal);
+		D activeVal = targetVal.getActiveCopy();
+		final D existingVal = partitionManager.addPathEdge(sourceVal, target, activeVal);
 		if (existingVal != null) {
 			if (existingVal != targetVal) {
 				// Check whether we need to retain this abstraction
@@ -637,25 +636,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 				}
 			}
 		} else {
-			// If this is an inactive abstraction and we have already processed
-			// its active counterpart, we can skip this one
-			D activeVal = targetVal.getActiveCopy();
-			if (activeVal != targetVal && partitionManager.containsPathEdge(sourceVal, target, activeVal))
-				return;
-
 			partitionManager.increaseReferenceCount(sourceVal, target, targetVal);
 			scheduleEdgeProcessing(new PathEdge<N, D>(sourceVal, target, targetVal));
 		}
-	}
-
-	protected Set<Pair<N, D>> endSummary(SootMethod m, D d3) {
-		return partitionManager.getEndSummary(m, d3);
-	}
-
-	private boolean addEndSummary(SootMethod m, D d1, N eP, D d2) {
-		if (d1 == zeroValue)
-			return true;
-		return partitionManager.addEndSummary(m, d1, eP, d2);
 	}
 
 	/**
