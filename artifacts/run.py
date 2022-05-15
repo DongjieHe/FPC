@@ -47,6 +47,7 @@ DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
 isPrint = False
 SOLVER = "ONLINE"
+# SOLVER = "GC"
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
@@ -56,9 +57,13 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
+    outDir = os.path.join(CURRENT_DIR, OUTPUTPATH)
     if SOLVER is not None:
         args += ['-ds', SOLVER]
-    output = os.path.join(CURRENT_DIR, OUTPUTPATH, app + ".xml")
+        outDir = os.path.join(CURRENT_DIR, OUTPUTPATH, SOLVER)
+    if not os.path.exists(outDir):
+        os.makedirs(outDir)
+    output = os.path.join(outDir, app + ".xml")
     # outlog = os.path.join(OUTPUTPATH, BENCHMARKS[app] + ".log")
     if not isPrint and os.path.exists(output):
         print('old result found. skip this.')
