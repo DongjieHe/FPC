@@ -139,6 +139,7 @@ public class InfoflowResultsSerializer {
 		writePerformanceEntry(XmlConstants.Values.PERF_MAX_MEMORY_CONSUMPTION,
 				performanceData.getMaxMemoryConsumption(), writer);
 
+		writePerformanceEntry(XmlConstants.Values.PERF_PROPAGATION_COUNT, performanceData.getEdgePropagationCount(), writer);
 		writePerformanceEntry(XmlConstants.Values.PERF_SOURCE_COUNT, performanceData.getSourceCount(), writer);
 		writePerformanceEntry(XmlConstants.Values.PERF_SINK_COUNT, performanceData.getSinkCount(), writer);
 	}
@@ -152,7 +153,7 @@ public class InfoflowResultsSerializer {
 	 * @param writer     The stream writer into which to write the data
 	 * @throws XMLStreamException Thrown if the XML data cannot be written
 	 */
-	private void writePerformanceEntry(String entryName, int entryValue, XMLStreamWriter writer)
+	private void writePerformanceEntry(String entryName, long entryValue, XMLStreamWriter writer)
 			throws XMLStreamException {
 		if (entryValue > 0) {
 			writer.writeStartElement(XmlConstants.Tags.performanceEntry);

@@ -61,6 +61,7 @@ class XmlConstants {
 		public static final String PERF_TOTAL_RUNTIME_SECONDS = "TotalRuntimeSeconds";
 		public static final String PERF_MAX_MEMORY_CONSUMPTION = "MaxMemoryConsumption";
 
+		public static final String PERF_PROPAGATION_COUNT = "PropagationCount";
 		public static final String PERF_SOURCE_COUNT = "SourceCount";
 		public static final String PERF_SINK_COUNT = "SinkCount";
 
