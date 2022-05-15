@@ -139,6 +139,7 @@ public class InfoflowResultsSerializer {
 		writePerformanceEntry(XmlConstants.Values.PERF_MAX_MEMORY_CONSUMPTION,
 				performanceData.getMaxMemoryConsumption(), writer);
 
+		writePerformanceEntry(XmlConstants.Values.PERF_RESULT_COUNT, performanceData.getResultsCount(), writer);
 		writePerformanceEntry(XmlConstants.Values.PERF_PROPAGATION_COUNT, performanceData.getEdgePropagationCount(), writer);
 		writePerformanceEntry(XmlConstants.Values.PERF_SOURCE_COUNT, performanceData.getSourceCount(), writer);
 		writePerformanceEntry(XmlConstants.Values.PERF_SINK_COUNT, performanceData.getSinkCount(), writer);

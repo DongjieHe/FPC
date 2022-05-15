@@ -20,8 +20,22 @@ public class InfoflowPerformanceData {
 	private int sourceCount = -1;
 	private int sinkCount = -1;
 
+	/*
+	* The number of abstractions that could be leaked at Sinks.
+	* refer to AbstractionAtSink.
+	* */
+	private int resultsCount = -1;
+
 	public InfoflowPerformanceData() {
 		//
+	}
+
+	public int getResultsCount() {
+		return resultsCount;
+	}
+
+	public void setResultsCount(int resultsCount) {
+		this.resultsCount = resultsCount;
 	}
 
 	/**

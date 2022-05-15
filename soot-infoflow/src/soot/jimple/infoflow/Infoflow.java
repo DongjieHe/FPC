@@ -586,6 +586,7 @@ public class Infoflow extends AbstractInfoflow {
 						forwardSolver.getPropagationCount(),
 						aliasingStrategy.getSolver() == null ? 0 : aliasingStrategy.getSolver().getPropagationCount(),
 						taintPropagationSeconds, res == null ? 0 : res.size());
+				performanceData.setResultsCount(res.size());
 
 				// Update the statistics
 				{

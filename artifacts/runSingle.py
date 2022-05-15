@@ -24,8 +24,9 @@ OUTPUTPATH = 'output2'
 RESULT_TIMEOUT = 1800
 DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
-isPrint = True
-collectMemory = False
+# isPrint = True
+isPrint = False
+SOLVER = 'ONLINE'
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
@@ -35,8 +36,8 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
-    if collectMemory:
-        args += ['-sm']
+    if SOLVER is not None:
+        args += ['-ds', SOLVER]
     if not os.path.exists(os.path.join(CURRENT_DIR, OUTPUTPATH)):
         os.makedirs(os.path.join(CURRENT_DIR, OUTPUTPATH))
     output = os.path.join(CURRENT_DIR, OUTPUTPATH, app.split("/")[-1][:-4] + ".xml")
