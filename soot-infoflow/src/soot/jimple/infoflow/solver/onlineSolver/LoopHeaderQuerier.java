@@ -7,18 +7,23 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import soot.SootMethod;
+import soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.toolkits.graph.DirectedGraph;
+import soot.toolkits.graph.InverseGraph;
 import soot.toolkits.graph.MHGDominatorsFinder;
 
 public class LoopHeaderQuerier<N, I extends BiDiInterproceduralCFG<N, SootMethod>> {
 
 	protected I icfg;
 
+	protected boolean direction;
+
 	protected ConcurrentHashMap<SootMethod, Set<N>> loopHeaders;
 
 	public LoopHeaderQuerier(I icfg) {
 		this.icfg = icfg;
+		this.direction = icfg instanceof BackwardsInfoflowCFG ? false : true;
 		loopHeaders = new ConcurrentHashMap<>();
 	}
 
@@ -26,7 +31,10 @@ public class LoopHeaderQuerier<N, I extends BiDiInterproceduralCFG<N, SootMethod
 		SootMethod sm = icfg.getMethodOf(n);
 		Set<N> headers = loopHeaders.get(sm);
 		if (headers == null) {
-			headers = getLoopheaders(icfg.getOrCreateUnitGraph(sm));
+			DirectedGraph<N> g = icfg.getOrCreateUnitGraph(sm);
+			if (!direction)
+				g = new InverseGraph<N>(g);
+			headers = getLoopheaders(g);
 			loopHeaders.put(sm, headers);
 		}
 		return headers.contains(n);
@@ -51,4 +59,5 @@ public class LoopHeaderQuerier<N, I extends BiDiInterproceduralCFG<N, SootMethod
 
 		return loopHeaders;
 	}
+
 }

@@ -6,6 +6,9 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import heros.solver.Pair;
 import heros.solver.PathEdge;
 import soot.SootMethod;
@@ -20,6 +23,10 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 	protected final LoopHeaderQuerier<N, I> loopHeaderQuerier;
 
 	protected OnlineSolverPeerGroup solverPeerGroup;
+
+	protected AtomicLong maxPathEdgeNum = new AtomicLong();
+
+	protected static final Logger logger = LoggerFactory.getLogger(AbstractPartitionManager.class);
 
 	protected class Partitions {
 		public AtomicLong refCount = new AtomicLong();
@@ -54,6 +61,11 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 			otherEdges.clear();
 			headerEdges.clear();
 			callEdges.clear();
+		}
+
+		public long size() {
+			return selfLoops.size() + callEdges.size() + headerEdges.size() 
+				+ otherEdges.size() + endSummary.size();
 		}
 	}
 
@@ -115,7 +127,9 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 		// check ref counts for forward and backward solver
 		if (solverPeerGroup.checkRemovalCondition(alpha)) {
+			updateMaxPathEdgeNum();
 			p.clear();
+
 			Map<N, Map<D, D>> inc = getIncoming(m, d1);
 			if (inc != null && !inc.isEmpty()) {
 				for (Entry<N, Map<D, D>> entry : inc.entrySet()) {
@@ -158,8 +172,37 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		return p.refCount.get() != 0;
 	}
 
+	public long size() {
+		long result = 0;
+		for (Partitions p: pathEdges.values()) {
+			result += p.size();
+		}
+		return result;
+	}
+
+	protected void updateMaxPathEdgeNum() {
+		long cur = size();
+		if (maxPathEdgeNum.get() < cur) {
+			maxPathEdgeNum.set(cur);
+			if (loopHeaderQuerier.direction)
+				logger.info("f cur = " + cur + ", max = " + maxPathEdgeNum.get());
+			else
+				logger.info("b cur = " + cur + ", max = " + maxPathEdgeNum.get());
+		}
+	}
+
+	public long getMaxPathEdgeNum() {
+		return maxPathEdgeNum.get();
+	}
+
 	public void setPeerGroup(OnlineSolverPeerGroup solverPeerGroup) {
 		this.solverPeerGroup = solverPeerGroup;
+	}
+
+	public void printPartitions() {
+		for (Map.Entry<Pair<SootMethod, D>, Partitions> entry: pathEdges.entrySet()) {
+			logger.info(entry.getKey().getO1().toString() + " -> " + entry.getValue().size());
+		}
 	}
 
 }

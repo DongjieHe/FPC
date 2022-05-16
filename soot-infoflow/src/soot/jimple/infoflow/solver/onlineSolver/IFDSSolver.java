@@ -822,4 +822,15 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		return partitionManager;
 	}
 
+	public void printPartitions() {
+		partitionManager.printPartitions();
+	}
+
+	public void printPathEdgeNum() {
+		if (solverId)
+			logger.info(String.format("forward cur/max = %d/%d", partitionManager.getMaxPathEdgeNum(), partitionManager.size()));
+		else
+			logger.info(String.format("backward cur/max = %d/%d", partitionManager.getMaxPathEdgeNum(), partitionManager.size()));
+	}
+
 }

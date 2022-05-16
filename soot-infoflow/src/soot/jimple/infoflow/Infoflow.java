@@ -91,6 +91,7 @@ import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.memory.DefaultMemoryManagerFactory;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.infoflow.solver.memory.IMemoryManagerFactory;
+import soot.jimple.infoflow.solver.onlineSolver.InfoflowSolver;
 import soot.jimple.infoflow.solver.onlineSolver.OnlineSolverPeerGroup;
 import soot.jimple.infoflow.sourcesSinks.manager.IOneSourceAtATimeManager;
 import soot.jimple.infoflow.sourcesSinks.manager.ISourceSinkManager;
@@ -819,7 +820,12 @@ public class Infoflow extends AbstractInfoflow {
 	 * @param backwardSolver The backward data flow solver
 	 */
 	protected void onTaintPropagationCompleted(IInfoflowSolver forwardSolver, IInfoflowSolver backwardSolver) {
-		//
+		if (solverPeerGroup instanceof OnlineSolverPeerGroup) {
+			InfoflowSolver fs = (InfoflowSolver) forwardSolver;
+			InfoflowSolver bs = (InfoflowSolver) backwardSolver;
+			fs.printPathEdgeNum();
+			bs.printPathEdgeNum();
+		}
 	}
 
 	/**
