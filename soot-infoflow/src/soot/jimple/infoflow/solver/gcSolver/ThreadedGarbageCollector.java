@@ -2,6 +2,7 @@ package soot.jimple.infoflow.solver.gcSolver;
 
 import heros.solver.PathEdge;
 import soot.SootMethod;
+import soot.jimple.infoflow.solver.onlineSolver.AbstractPartitionManager;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
@@ -49,7 +50,10 @@ public class ThreadedGarbageCollector<N, D> extends AbstractReferenceCountingGar
 
 	}
 
-	private int sleepTimeSeconds = 10;
+	private int sleepTimeSeconds = 1;
+	private int maxPathEdgeCount = 0;
+	private int maxMemoryConsumption = 0;
+
 	private GCThread gcThread;
 
 	public ThreadedGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
@@ -79,6 +83,7 @@ public class ThreadedGarbageCollector<N, D> extends AbstractReferenceCountingGar
 
 	@Override
 	public void notifySolverTerminated() {
+		gcImmediate();
 		gcThread.finish();
 	}
 
@@ -91,4 +96,26 @@ public class ThreadedGarbageCollector<N, D> extends AbstractReferenceCountingGar
 		this.sleepTimeSeconds = sleepTimeSeconds;
 	}
 
+	private int getUsedMemory() {
+		Runtime runtime = Runtime.getRuntime();
+		return (int) Math.round((runtime.totalMemory() - runtime.freeMemory()) / 1E6);
+	}
+
+	public long getMaxPathEdgeCount() {
+		return this.maxPathEdgeCount;
+	}
+
+	public int getMaxMemoryConsumption() {
+		return this.maxMemoryConsumption;
+	}
+
+	@Override
+	protected void onAfterRemoveEdges(int gcedMethods) {
+		int pec = 0;
+		for(Integer i : jumpFnCounter.values()) {
+			pec += i;
+		}
+		this.maxPathEdgeCount = Math.max(this.maxPathEdgeCount, pec);
+		this.maxMemoryConsumption = Math.max(this.maxMemoryConsumption, getUsedMemory());
+	}
 }

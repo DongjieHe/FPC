@@ -65,6 +65,8 @@ class XmlConstants {
 		public static final String PERF_SOURCE_COUNT = "SourceCount";
 		public static final String PERF_SINK_COUNT = "SinkCount";
 
+		public static final String PERF_RESULT_COUNT = "ResultsCount";
+
 	}
 
 }
