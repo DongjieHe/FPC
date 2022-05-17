@@ -38,6 +38,7 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
+    args += ['-aa', 'LAZY']
     outDir = os.path.join(CURRENT_DIR, OUTPUTPATH)
     if SOLVER is not None:
         args += ['-ds', SOLVER]

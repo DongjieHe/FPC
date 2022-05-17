@@ -184,10 +184,10 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		long cur = size();
 		if (maxPathEdgeNum.get() < cur) {
 			maxPathEdgeNum.set(cur);
-			if (loopHeaderQuerier.direction)
-				logger.info("f cur = " + cur + ", max = " + maxPathEdgeNum.get());
-			else
-				logger.info("b cur = " + cur + ", max = " + maxPathEdgeNum.get());
+//			if (loopHeaderQuerier.direction)
+//				logger.info("f cur = " + cur + ", max = " + maxPathEdgeNum.get());
+//			else
+//				logger.info("b cur = " + cur + ", max = " + maxPathEdgeNum.get());
 		}
 	}
 

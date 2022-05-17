@@ -821,12 +821,12 @@ public class Infoflow extends AbstractInfoflow {
 	 * @param backwardSolver The backward data flow solver
 	 */
 	protected void onTaintPropagationCompleted(IInfoflowSolver forwardSolver, IInfoflowSolver backwardSolver) {
-		if (solverPeerGroup instanceof OnlineSolverPeerGroup) {
-			InfoflowSolver fs = (InfoflowSolver) forwardSolver;
-			InfoflowSolver bs = (InfoflowSolver) backwardSolver;
-			fs.printPathEdgeNum();
-			bs.printPathEdgeNum();
-		}
+//		if (solverPeerGroup instanceof OnlineSolverPeerGroup) {
+//			InfoflowSolver fs = (InfoflowSolver) forwardSolver;
+//			InfoflowSolver bs = (InfoflowSolver) backwardSolver;
+//			fs.printPathEdgeNum();
+//			bs.printPathEdgeNum();
+//		}
 	}
 
 	/**
