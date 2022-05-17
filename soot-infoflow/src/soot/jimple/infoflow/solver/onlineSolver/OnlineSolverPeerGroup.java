@@ -11,7 +11,7 @@ import soot.jimple.infoflow.solver.fastSolver.FastSolverLinkedNode;
 
 public class OnlineSolverPeerGroup extends SolverPeerGroup {
 
-	Collection<AbstractPartitionManager<?, ?, ?>> managers;
+	private final Collection<AbstractPartitionManager<?, ?, ?>> managers;
 
 	public OnlineSolverPeerGroup() {
 		this.managers = new HashSet<>();
@@ -31,5 +31,9 @@ public class OnlineSolverPeerGroup extends SolverPeerGroup {
 				return false;
 		}
 		return true;
+	}
+
+	public Collection<AbstractPartitionManager<?, ?, ?>> getManagers() {
+		return this.managers;
 	}
 }

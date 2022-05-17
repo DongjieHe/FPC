@@ -12,6 +12,8 @@ import soot.jimple.infoflow.util.ExtendedAtomicInteger;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
+import static soot.jimple.infoflow.solver.gcSolver.IFDSSolver.logger;
+
 /**
  * Abstract base class for garbage collectors based on reference counting
  * 
@@ -21,7 +23,7 @@ import soot.util.ConcurrentHashMultiMap;
 public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends AbstractGarbageCollector<N, D>
 		implements IGarbageCollectorPeer {
 
-	private ConcurrentCountingMap<SootMethod> jumpFnCounter = new ConcurrentCountingMap<>();
+	protected ConcurrentCountingMap<SootMethod> jumpFnCounter = new ConcurrentCountingMap<>();
 	private final Set<SootMethod> gcScheduleSet = new ConcurrentHashSet<>();
 	private final AtomicInteger gcedMethods = new AtomicInteger();
 	private final AtomicInteger gcedEdges = new AtomicInteger();
@@ -153,6 +155,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends Ab
 				onAfterRemoveEdges(tempMethods);
 			}
 		}
+
 	}
 
 	/**

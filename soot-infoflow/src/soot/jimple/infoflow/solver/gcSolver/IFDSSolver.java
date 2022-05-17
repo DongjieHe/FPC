@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -105,7 +106,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	protected final Map<N, Set<D>> initialSeeds;
 
 	@DontSynchronize("benign races")
-	public long propagationCount;
+//	public long propagationCount;
+	public AtomicLong propagationCount = new AtomicLong(0);
 
 	@DontSynchronize("stateless")
 	protected final D zeroValue;
@@ -217,6 +219,16 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			listener.notifySolverTerminated(this);
 
 		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
+		if (garbageCollector instanceof ThreadedGarbageCollector) {
+			ThreadedGarbageCollector threadedgc =(ThreadedGarbageCollector) garbageCollector;
+			int fwEndSumCnt = 0;
+			for(Map<Pair<N, D>, D> map: this.endSummary.values()) {
+				fwEndSumCnt += map.size();
+			}
+			int bwEndSumCnt = 0;
+			logger.info(String.format("forward end Summary size: %d", fwEndSumCnt));
+			logger.info(String.format("Recorded Maximum Path edges count is %d", threadedgc.getMaxPathEdgeCount()));
+		}
 		this.garbageCollector.notifySolverTerminated();
 	}
 
@@ -292,7 +304,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 		garbageCollector.notifyEdgeSchedule(edge);
 		executor.execute(new PathEdgeProcessingTask(edge, solverId));
-		propagationCount++;
+//		propagationCount++;
+		propagationCount.incrementAndGet();
 		garbageCollector.gc();
 	}
 
@@ -658,7 +671,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		if (maxAbstractionPathLength >= 0 && targetVal.getPathLength() > maxAbstractionPathLength)
 			return;
 
-		final PathEdge<N, D> edge = new PathEdge<N, D>(sourceVal, target, targetVal);
+		D activeVal = targetVal.getActiveCopy();
+		final PathEdge<N, D> edge = new PathEdge<N, D>(sourceVal, target, activeVal);
 		final D existingVal = addFunction(edge);
 		if (existingVal != null) {
 			if (existingVal != targetVal) {
@@ -674,8 +688,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 					existingVal.addNeighbor(targetVal);
 				}
 			}
-		} else
+		} else {
 			scheduleEdgeProcessing(edge);
+		}
 	}
 
 	/**

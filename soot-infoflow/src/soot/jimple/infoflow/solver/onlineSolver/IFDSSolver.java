@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -34,6 +35,9 @@ import soot.jimple.infoflow.solver.SolverPeerGroup;
 import soot.jimple.infoflow.solver.executors.InterruptableExecutor;
 import soot.jimple.infoflow.solver.executors.SetPoolExecutor;
 import soot.jimple.infoflow.solver.fastSolver.FastSolverLinkedNode;
+import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
+import soot.jimple.infoflow.solver.gcSolver.IGarbageCollector;
+import soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 
@@ -74,7 +78,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	protected final Map<N, Set<D>> initialSeeds;
 
 	@DontSynchronize("benign races")
-	public long propagationCount;
+//	public long propagationCount;
+	public AtomicLong propagationCount = new AtomicLong(0);
 
 	@DontSynchronize("stateless")
 	protected final D zeroValue;
@@ -93,6 +98,17 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 	@DontSynchronize("readOnly")
 	protected IMemoryManager<D, N> memoryManager = null;
+
+	@DontSynchronize("readOnly")
+	protected ThreadedMemAndPEMonitor memAndPEMonitor = null;
+
+	protected ThreadedMemAndPEMonitor createMemAndPEMonitor() {
+		if (memAndPEMonitor != null)
+			return memAndPEMonitor;
+
+		ThreadedMemAndPEMonitor monitor = new ThreadedMemAndPEMonitor(partitionManager.getSolverPeerGroup());
+		return memAndPEMonitor = monitor;
+	}
 
 	protected boolean solverId;
 
@@ -156,6 +172,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	 */
 	public void solve() {
 		reset();
+		if (this.memAndPEMonitor == null) {
+			this.memAndPEMonitor = createMemAndPEMonitor();
+		}
 
 		// Notify the listeners that the solver has been started
 		for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
@@ -167,6 +186,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		// Notify the listeners that the solver has been terminated
 		for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
 			listener.notifySolverTerminated(this);
+		logger.info(String.format("Recorded Maximum Path edges is %d", memAndPEMonitor.getMaxPathEdgeCount()));
+		this.memAndPEMonitor.notifySolverTerminated();
 	}
 
 	/**
@@ -240,7 +261,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			return;
 
 		executor.execute(new PathEdgeProcessingTask(edge, solverId));
-		propagationCount++;
+//		propagationCount++;
+		propagationCount.incrementAndGet();
 	}
 
 	/**
@@ -266,48 +288,43 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		Collection<SootMethod> callees = icfg.getCalleesOfCallAt(n);
 		if (callees != null && !callees.isEmpty()) {
 			if (maxCalleesPerCallSite < 0 || callees.size() <= maxCalleesPerCallSite) {
-				callees.stream().filter(m -> m.isConcrete()).forEach(new Consumer<SootMethod>() {
+				callees.stream().filter(SootMethod::isConcrete).forEach(sCalledProcN -> {
+					// Early termination check
+					if (killFlag != null)
+						return;
 
-					@Override
-					public void accept(SootMethod sCalledProcN) {
-						// Early termination check
-						if (killFlag != null)
-							return;
+					// compute the call-flow function
+					FlowFunction<D> function = flowFunctions.getCallFlowFunction(n, sCalledProcN);
+					Set<D> res = computeCallFlowFunction(function, d1, d2);
 
-						// compute the call-flow function
-						FlowFunction<D> function = flowFunctions.getCallFlowFunction(n, sCalledProcN);
-						Set<D> res = computeCallFlowFunction(function, d1, d2);
+					if (res != null && !res.isEmpty()) {
+						Collection<N> startPointsOf = icfg.getStartPointsOf(sCalledProcN);
+						// for each result node of the call-flow function
+						for (D d3 : res) {
+							if (memoryManager != null)
+								d3 = memoryManager.handleGeneratedMemoryObject(d2, d3);
+							if (d3 == null)
+								continue;
 
-						if (res != null && !res.isEmpty()) {
-							Collection<N> startPointsOf = icfg.getStartPointsOf(sCalledProcN);
-							// for each result node of the call-flow function
-							for (D d3 : res) {
-								if (memoryManager != null)
-									d3 = memoryManager.handleGeneratedMemoryObject(d2, d3);
-								if (d3 == null)
-									continue;
-
-								// line 11-13 of OnlineIFDS algo1
-								if (partitionManager.checkSourceAbstraction(sCalledProcN, d3)) {
-									// for each callee's start point(s)
-									for (N sP : startPointsOf) {
-										// create initial self-loop
-										propagate(d3, sP, d3, n, false); // line 15
-									}
-									partitionManager.increaseWaitCount(edge);
+							// line 11-13 of OnlineIFDS algo1
+							if (partitionManager.checkSourceAbstraction(sCalledProcN, d3)) {
+								// for each callee's start point(s)
+								for (N sP : startPointsOf) {
+									// create initial self-loop
+									propagate(d3, sP, d3, n, false); // line 15
 								}
-
-								// register the fact that <sp,d3> has an incoming edge from
-								// <n,d2>
-								// line 15.1 of Naeem/Lhotak/Rodriguez
-								if (!partitionManager.addIncoming(sCalledProcN, d3, n, d1, d2))
-									continue;
-
-								applyEndSummaryOnCall(d1, n, d2, returnSiteNs, sCalledProcN, d3);
+								partitionManager.increaseWaitCount(edge);
 							}
+
+							// register the fact that <sp,d3> has an incoming edge from
+							// <n,d2>
+							// line 15.1 of Naeem/Lhotak/Rodriguez
+							if (!partitionManager.addIncoming(sCalledProcN, d3, n, d1, d2))
+								continue;
+
+							applyEndSummaryOnCall(d1, n, d2, returnSiteNs, sCalledProcN, d3);
 						}
 					}
-
 				});
 			}
 		}
@@ -637,7 +654,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			}
 		} else {
 			partitionManager.increaseReferenceCount(sourceVal, target, targetVal);
-			scheduleEdgeProcessing(new PathEdge<N, D>(sourceVal, target, targetVal));
+			scheduleEdgeProcessing(new PathEdge<>(sourceVal, target, targetVal));
 		}
 	}
 
@@ -646,16 +663,12 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	 */
 	protected InterruptableExecutor getExecutor() {
 		SetPoolExecutor executor = new SetPoolExecutor(1, this.numThreads, 30, TimeUnit.SECONDS,
-				new LinkedBlockingQueue<Runnable>());
-		executor.setThreadFactory(new ThreadFactory() {
-
-			@Override
-			public Thread newThread(Runnable r) {
-				Thread thrIFDS = new Thread(r);
-				thrIFDS.setDaemon(true);
-				thrIFDS.setName("IFDS Solver");
-				return thrIFDS;
-			}
+				new LinkedBlockingQueue<>());
+		executor.setThreadFactory(r -> {
+			Thread thrIFDS = new Thread(r);
+			thrIFDS.setDaemon(true);
+			thrIFDS.setName("IFDS Solver");
+			return thrIFDS;
 		});
 		return executor;
 	}

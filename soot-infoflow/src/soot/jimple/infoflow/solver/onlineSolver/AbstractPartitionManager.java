@@ -55,6 +55,10 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 			headerEdges.clear();
 			callEdges.clear();
 		}
+
+		public long size() {
+			return refCount.get();
+		}
 	}
 
 	protected final MyConcurrentHashMap<Pair<SootMethod, D>, Partitions> pathEdges = new MyConcurrentHashMap<>();
@@ -70,7 +74,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 	public D addPathEdge(D d1, N n, D d2) {
 		SootMethod m = icfg.getMethodOf(n);
-		Partitions p = pathEdges.putIfAbsentElseGet(new Pair<>(m, d1), () -> new Partitions());
+		Partitions p = pathEdges.putIfAbsentElseGet(new Pair<>(m, d1), Partitions::new);
 		return p.insert(n, d2);
 	}
 
@@ -145,9 +149,9 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 	}
 
 	public boolean addIncoming(SootMethod m, D d3, N n, D d1, D d2) {
-		MyConcurrentHashMap<N, Map<D, D>> summaries = incoming.putIfAbsentElseGet(new Pair<SootMethod, D>(m, d3),
-				() -> new MyConcurrentHashMap<N, Map<D, D>>());
-		Map<D, D> set = summaries.putIfAbsentElseGet(n, () -> new ConcurrentHashMap<D, D>());
+		MyConcurrentHashMap<N, Map<D, D>> summaries = incoming.putIfAbsentElseGet(new Pair<>(m, d3),
+				MyConcurrentHashMap::new);
+		Map<D, D> set = summaries.putIfAbsentElseGet(n, ConcurrentHashMap::new);
 		return set.put(d1, d2) == null;
 	}
 
@@ -162,4 +166,15 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		this.solverPeerGroup = solverPeerGroup;
 	}
 
+	public OnlineSolverPeerGroup getSolverPeerGroup() {
+		return this.solverPeerGroup;
+	}
+
+	public long getPathEdgeCount() {
+		long ret = 0;
+		for(Partitions p: pathEdges.values()) {
+			ret += p.size();
+		}
+		return ret;
+	}
 }

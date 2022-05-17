@@ -24,10 +24,11 @@ OUTPUTPATH = 'output2'
 RESULT_TIMEOUT = 1800
 DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
-# isPrint = True
-isPrint = False
+isPrint = True
+# isPrint = False
+SOLVER = None
 # SOLVER = 'ONLINE'
-SOLVER = 'GC'
+# SOLVER = 'GC'
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
