@@ -7,10 +7,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-import java.util.function.Consumer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +33,6 @@ import soot.jimple.infoflow.solver.SolverPeerGroup;
 import soot.jimple.infoflow.solver.executors.InterruptableExecutor;
 import soot.jimple.infoflow.solver.executors.SetPoolExecutor;
 import soot.jimple.infoflow.solver.fastSolver.FastSolverLinkedNode;
-import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
-import soot.jimple.infoflow.solver.gcSolver.IGarbageCollector;
-import soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 
@@ -261,7 +256,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			return;
 
 		executor.execute(new PathEdgeProcessingTask(edge, solverId));
-//		propagationCount++;
 		propagationCount.incrementAndGet();
 	}
 
@@ -343,8 +337,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 				}
 			}
 		}
-
-		partitionManager.decreaseReferenceCount(d1, n, d2);
 	}
 
 	/**
@@ -541,8 +533,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 				retFunction.computeTargets(d2);
 			}
 		}
-
-		partitionManager.decreaseReferenceCount(d1, n, d2);
 	}
 
 	/**
@@ -589,8 +579,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 				}
 			}
 		}
-
-		partitionManager.decreaseReferenceCount(d1, n, d2);
 	}
 
 	/**
@@ -705,6 +693,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			final N target = edge.getTarget();
 			if (icfg.isCallStmt(target)) {
 				processCall(edge);
+				if (partitionManager.getCurrentWaitCount(edge) == 0)
+					partitionManager.decreaseReferenceCount(edge.factAtSource(), target, edge.factAtTarget());
 			} else {
 				// note that some statements, such as "throw" may be
 				// both an exit statement and a "normal" statement
@@ -712,6 +702,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 					processExit(edge);
 				if (!icfg.getSuccsOf(target).isEmpty())
 					processNormalFlow(edge);
+				partitionManager.decreaseReferenceCount(edge.factAtSource(), target, edge.factAtTarget());
 			}
 		}
 
@@ -841,9 +832,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 	public void printPathEdgeNum() {
 		if (solverId)
-			logger.info(String.format("forward cur/max = %d/%d", partitionManager.getMaxPathEdgeNum(), partitionManager.size()));
+			logger.info(String.format("forward cur = %d", partitionManager.getPathEdgeCount()));
 		else
-			logger.info(String.format("backward cur/max = %d/%d", partitionManager.getMaxPathEdgeNum(), partitionManager.size()));
+			logger.info(String.format("backward cur = %d", partitionManager.getPathEdgeCount()));
 	}
 
 }
