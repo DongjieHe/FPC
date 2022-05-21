@@ -2,7 +2,6 @@ package soot.jimple.infoflow.solver.onlineSolver;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -78,19 +77,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		this.loopHeaderQuerier = new LoopHeaderQuerier<>(icfg);
 	}
 
-	public D addPathEdge(D d1, N n, D d2) {
-		SootMethod m = icfg.getMethodOf(n);
-		Partitions p = pathEdges.putIfAbsentElseGet(new Pair<>(m, d1), Partitions::new);
-		return p.insert(n, d2);
-	}
-
-	public boolean containsPathEdge(D d1, N n, D d2) {
-		SootMethod m = icfg.getMethodOf(n);
-		Partitions p = pathEdges.get(new Pair<>(m, d1));
-		if (p == null)
-			return false;
-		return p.containts(n, d2);
-	}
+	abstract public D addPathEdge(D d1, N n, D d2);
 
 	public void initWaitCount(PathEdge<N, D> edge) {
 		waitingCount.putIfAbsent(edge, new AtomicLong());
@@ -112,33 +99,9 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 		}
 	}
 
-	public void increaseReferenceCount(D d1, N n, D d2) {
-		SootMethod m = icfg.getMethodOf(n);
-		Partitions p = pathEdges.get(new Pair<>(m, d1));
-		p.refCount.incrementAndGet();
-	}
+	abstract public void increaseReferenceCount(D d1, N n, D d2);
 
-	public void decreaseReferenceCount(D d1, N n, D d2) {
-		SootMethod m = icfg.getMethodOf(n);
-		Pair<SootMethod, D> alpha = new Pair<>(m, d1);
-		Partitions p = pathEdges.get(alpha);
-		p.refCount.decrementAndGet();
-
-		// check ref counts for forward and backward solver
-		if (solverPeerGroup.checkRemovalCondition(alpha)) {
-			p.clear();
-
-			Map<N, Map<D, D>> inc = getIncoming(m, d1);
-			if (inc != null && !inc.isEmpty()) {
-				for (Entry<N, Map<D, D>> entry : inc.entrySet()) {
-					for (Entry<D, D> facts: entry.getValue().entrySet()) {
-						PathEdge<N, D> callPathEdge = new PathEdge<>(facts.getKey(), entry.getKey(), facts.getValue());
-						decreaseWaitCount(callPathEdge);
-					}
-				}
-			}
-		}
-	}
+	abstract public void decreaseReferenceCount(D d1, N n, D d2);
 
 	public boolean checkSourceAbstraction(SootMethod m, D d1) {
 		Partitions p = pathEdges.get(new Pair<>(m, d1));
