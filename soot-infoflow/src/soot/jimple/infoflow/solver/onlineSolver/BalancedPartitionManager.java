@@ -49,6 +49,8 @@ public class BalancedPartitionManager<N, D extends FastSolverLinkedNode<D, N>, I
 						decreaseWaitCount(callPathEdge);
 					}
 				}
+				// !TODO remove incoming data that are associated with the source abstraction alpha.
+				removeIncoming(m, d1);
 			}
 		}
 	}

@@ -826,7 +826,9 @@ public class Infoflow extends AbstractInfoflow {
 			InfoflowSolver bs = (InfoflowSolver) backwardSolver;
 			// fs.printPartitions();
 			fs.printPathEdgeNum();
-			bs.printPathEdgeNum();
+			if (bs != null) {
+				bs.printPathEdgeNum();
+			}
 		}
 	}
 

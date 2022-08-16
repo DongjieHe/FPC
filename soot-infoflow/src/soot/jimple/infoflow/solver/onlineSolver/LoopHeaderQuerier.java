@@ -15,16 +15,16 @@ import soot.toolkits.graph.MHGDominatorsFinder;
 
 public class LoopHeaderQuerier<N, I extends BiDiInterproceduralCFG<N, SootMethod>> {
 
-	protected I icfg;
+	protected final I icfg;
 
 	protected boolean direction;
 
-	protected ConcurrentHashMap<SootMethod, Set<N>> loopHeaders;
+	protected final ConcurrentHashMap<SootMethod, Set<N>> loopHeaders;
 
 	public LoopHeaderQuerier(I icfg) {
 		this.icfg = icfg;
-		this.direction = icfg instanceof BackwardsInfoflowCFG ? false : true;
-		loopHeaders = new ConcurrentHashMap<>();
+		this.direction = !(icfg instanceof BackwardsInfoflowCFG);
+		this.loopHeaders = new ConcurrentHashMap<>();
 	}
 
 	public boolean isLoopEntry(N n) {

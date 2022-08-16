@@ -1,4 +1,4 @@
-#!/usr/bin/env python6
+#!/usr/bin/env python3
 import os,sys, shutil
 
 '''
@@ -26,8 +26,8 @@ DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
 isPrint = True
 # isPrint = False
-SOLVER = None
-# SOLVER = 'ONLINE'
+# SOLVER = None
+SOLVER = 'ONLINE'
 # SOLVER = 'GC'
 
 def genCmd(app):
@@ -38,7 +38,9 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
-    args += ['-aa', 'LAZY']
+    args += ['-aa', 'PTSBASED']
+    # args += ['-aa', 'LAZY']
+    # args += ['-aa', 'FLOWSENSITIVE']
     outDir = os.path.join(CURRENT_DIR, OUTPUTPATH)
     if SOLVER is not None:
         args += ['-ds', SOLVER]

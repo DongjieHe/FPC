@@ -27,11 +27,11 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 	protected class Partitions {
 		public AtomicLong refCount = new AtomicLong();
-		public Map<Pair<N, D>, D> selfLoops = new ConcurrentHashMap<>();
-		public Map<Pair<N, D>, D> callEdges = new ConcurrentHashMap<>();
-		public Map<Pair<N, D>, D> headerEdges = new ConcurrentHashMap<>();
-		public Map<Pair<N, D>, D> otherEdges = new ConcurrentHashMap<>();
-		public Map<Pair<N, D>, D> endSummary = new ConcurrentHashMap<>();
+		protected final Map<Pair<N, D>, D> selfLoops = new ConcurrentHashMap<>();
+		protected final Map<Pair<N, D>, D> callEdges = new ConcurrentHashMap<>();
+		protected final Map<Pair<N, D>, D> headerEdges = new ConcurrentHashMap<>();
+		protected final Map<Pair<N, D>, D> otherEdges = new ConcurrentHashMap<>();
+		protected final Map<Pair<N, D>, D> endSummary = new ConcurrentHashMap<>();
 
 		private Map<Pair<N, D>, D> select(N stmt) {
 			if (icfg.isStartPoint(stmt))
@@ -49,7 +49,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 			return select(n).putIfAbsent(new Pair<>(n, d2), d2);
 		}
 
-		public boolean containts(N n, D d2) {
+		public boolean contains(N n, D d2) {
 			return select(n).containsKey(new Pair<>(n, d2));
 		}
 
@@ -72,6 +72,12 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 	protected final MyConcurrentHashMap<PathEdge<N, D>, AtomicLong> waitingCount = new MyConcurrentHashMap<>();
 
+	public void cleanup() {
+		this.pathEdges.clear();
+		this.incoming.clear();
+		this.waitingCount.clear();
+	}
+
 	public AbstractPartitionManager(I icfg) {
 		this.icfg = icfg;
 		this.loopHeaderQuerier = new LoopHeaderQuerier<>(icfg);
@@ -80,7 +86,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 	abstract public D addPathEdge(D d1, N n, D d2);
 
 	public void initWaitCount(PathEdge<N, D> edge) {
-		waitingCount.putIfAbsent(edge, new AtomicLong());
+		waitingCount.putIfAbsent(edge, new AtomicLong(0));
 	}
 
 	public long getCurrentWaitCount(PathEdge<N, D> edge) {
@@ -93,7 +99,7 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 	public void decreaseWaitCount(PathEdge<N, D> edge) {
 		AtomicLong wc = waitingCount.get(edge);
-		// wc is not null means this call edge has an assciated wait counting
+		// wc is not null means this call edge has an associated wait counting
 		if (wc != null && wc.decrementAndGet() == 0) {
 			decreaseReferenceCount(edge.factAtSource(), edge.getTarget(), edge.factAtTarget());
 		}
@@ -117,6 +123,10 @@ public abstract class AbstractPartitionManager<N, D extends FastSolverLinkedNode
 
 	public Map<N, Map<D, D>> getIncoming(SootMethod m, D d1) {
 		return incoming.get(new Pair<>(m, d1));
+	}
+
+	public void removeIncoming(SootMethod m, D d1) {
+		incoming.remove(new Pair<>(m, d1));
 	}
 
 	public boolean addIncoming(SootMethod m, D d3, N n, D d1, D d2) {

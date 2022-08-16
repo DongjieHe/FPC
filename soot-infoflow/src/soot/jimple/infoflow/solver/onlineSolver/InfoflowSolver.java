@@ -99,6 +99,7 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 
 	@Override
 	public void cleanup() {
+		this.partitionManager.cleanup();
 		if (this.ffCache != null)
 			this.ffCache.invalidate();
 	}
