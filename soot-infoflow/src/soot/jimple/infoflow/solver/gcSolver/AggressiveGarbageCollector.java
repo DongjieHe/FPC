@@ -17,7 +17,7 @@ import soot.util.ConcurrentHashMultiMap;
  * @author Steven Arzt
  *
  */
-public class AggressiveGarbageCollector<N, D> extends AbstractGarbageCollector<N, D> {
+public class AggressiveGarbageCollector<N, D> extends AbstractGarbageCollector<N, D, SootMethod> {
 
 	private final AtomicInteger gcedMethods = new AtomicInteger();
 

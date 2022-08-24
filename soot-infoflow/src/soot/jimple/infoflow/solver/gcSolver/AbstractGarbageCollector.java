@@ -11,14 +11,14 @@ import soot.util.ConcurrentHashMultiMap;
  * @author Steven Arzt
  *
  */
-public abstract class AbstractGarbageCollector<N, D> implements IGarbageCollector<N, D> {
+public abstract class AbstractGarbageCollector<N, D, A> implements IGarbageCollector<N, D> {
 
 	protected final BiDiInterproceduralCFG<N, SootMethod> icfg;
 	protected final IGCReferenceProvider<D, N> referenceProvider;
-	protected final ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions;
+	protected final ConcurrentHashMultiMap<A, PathEdge<N, D>> jumpFunctions;
 
 	public AbstractGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
-			ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions,
+			ConcurrentHashMultiMap<A, PathEdge<N, D>> jumpFunctions,
 			IGCReferenceProvider<D, N> referenceProvider) {
 		this.icfg = icfg;
 		this.referenceProvider = referenceProvider;
@@ -27,7 +27,7 @@ public abstract class AbstractGarbageCollector<N, D> implements IGarbageCollecto
 	}
 
 	public AbstractGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
-			ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions) {
+			ConcurrentHashMultiMap<A, PathEdge<N, D>> jumpFunctions) {
 		this.icfg = icfg;
 		this.referenceProvider = createReferenceProvider();
 		this.jumpFunctions = jumpFunctions;

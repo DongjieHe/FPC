@@ -14,7 +14,7 @@ import soot.util.ConcurrentHashMultiMap;
  * @param <N>
  * @param <D>
  */
-public class ThreadedGarbageCollector<N, D> extends AbstractReferenceCountingGarbageCollector<N, D> {
+public class ThreadedGarbageCollector<N, D> extends MethodLevelReferenceCountingGarbageCollector<N, D> {
 
 	private class GCThread extends Thread {
 

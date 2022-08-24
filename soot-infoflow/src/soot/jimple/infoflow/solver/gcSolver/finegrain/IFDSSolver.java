@@ -188,9 +188,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
     protected IGarbageCollector<N, D> createGarbageCollector() {
         if (garbageCollector != null)
             return garbageCollector;
-        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
+//        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
 //		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
-//        ThreadedGarbageCollector<N, D> gc = new ThreadedGarbageCollector<>(icfg, jumpFunctions);
+        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
 //        GCSolverPeerGroup<SootMethod> gcSolverGroup = (GCSolverPeerGroup<SootMethod>) solverPeerGroup;
 //        gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
         return garbageCollector = gc;
@@ -223,8 +223,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
         logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
         logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
-        if (garbageCollector instanceof ThreadedGarbageCollector) {
-            ThreadedGarbageCollector threadedgc =(ThreadedGarbageCollector) garbageCollector;
+        if (garbageCollector instanceof AggressiveGarbageCollector) {
+            AggressiveGarbageCollector threadedgc =(AggressiveGarbageCollector) garbageCollector;
             int fwEndSumCnt = 0;
             for(Map<Pair<N, D>, D> map: this.endSummary.values()) {
                 fwEndSumCnt += map.size();
@@ -300,12 +300,22 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
      *
      * @param edge the edge to process
      */
-    protected void scheduleEdgeProcessing(PathEdge<N, D> edge) {
+    protected void scheduleEdgeProcessing(boolean newSelfLoop, PathEdge<N, D> edge) {
         // If the executor has been killed, there is little point
         // in submitting new tasks
         if (killFlag != null || executor.isTerminating() || executor.isTerminated())
             return;
 
+        // this condition is used to avoid the second limitation of CleanDroid.
+        if (newSelfLoop) {
+            SootMethod sm = icfg.getMethodOf(edge.getTarget());
+            Pair<SootMethod, D> abst = new Pair<>(sm, edge.factAtSource());
+            Map<Pair<N, D>, D> map = new MyConcurrentHashMap<>();
+            Map<Pair<N, D>, D> sumMap = endSummary.putIfAbsentElseGet(abst, map);
+            if (map != sumMap) { // already exists.
+                return;
+            }
+        }
         garbageCollector.notifyEdgeSchedule(edge);
         executor.execute(new PathEdgeProcessingTask(edge, solverId));
 //		propagationCount++;
@@ -692,7 +702,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                 }
             }
         } else {
-            scheduleEdgeProcessing(edge);
+            boolean isSelfLoopEdge = sourceVal == targetVal && icfg.isStartPoint(target);
+            scheduleEdgeProcessing(isSelfLoopEdge, edge);
         }
     }
 
