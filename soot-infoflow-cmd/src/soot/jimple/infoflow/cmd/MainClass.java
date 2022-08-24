@@ -644,6 +644,8 @@ public class MainClass {
 			return DataFlowSolver.FlowInsensitive;
 		else if (solver.equalsIgnoreCase("GC"))
 			return DataFlowSolver.GarbageCollecting;
+		else if (solver.equalsIgnoreCase("FINEGRAIN"))
+			return DataFlowSolver.FineGrainedGC;
 		else if (solver.equalsIgnoreCase("ONLINE"))
 			return DataFlowSolver.Online;
 		else {

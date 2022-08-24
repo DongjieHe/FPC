@@ -1,6 +1,7 @@
 package soot.jimple.infoflow.solver.gcSolver;
 
 import heros.solver.PathEdge;
+import soot.SootMethod;
 
 /**
  * Mock implementation for a garbage collector that does nothing
@@ -39,4 +40,7 @@ public class NullGarbageCollector<N, D> implements IGarbageCollector<N, D> {
 	public void notifySolverTerminated() {
 	}
 
+	public void setPeerGroup(GarbageCollectorPeerGroup<SootMethod> peerGroup) {
+		// do nothing.
+	}
 }

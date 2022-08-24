@@ -136,6 +136,11 @@ public class InfoflowConfiguration {
 		GarbageCollecting,
 
 		/**
+		 * Use the fine-grained GC solver
+		 * */
+		FineGrainedGC,
+
+		/**
 		 * Use the online memory-saving solver
 		 */
 		Online,
