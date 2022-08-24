@@ -9,7 +9,7 @@ import soot.util.ConcurrentHashMultiMap;
 import java.util.Set;
 
 public class MethodLevelReferenceCountingGarbageCollector<N, D> extends AbstractReferenceCountingGarbageCollector<N, D, SootMethod>{
-    public MethodLevelReferenceCountingGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions, IGCReferenceProvider<D, N> referenceProvider) {
+    public MethodLevelReferenceCountingGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions, IGCReferenceProvider referenceProvider) {
         super(icfg, jumpFunctions, referenceProvider);
     }
 
@@ -38,7 +38,7 @@ public class MethodLevelReferenceCountingGarbageCollector<N, D> extends Abstract
                 return true;
 
             // Check the transitive callees
-            Set<SootMethod> references = referenceProvider.getMethodReferences(method);
+            Set<SootMethod> references = referenceProvider.getAbstractionReferences(method);
             for (SootMethod ref : references) {
                 if (referenceCounter.get(ref) > 0)
                     return true;
@@ -67,4 +67,8 @@ public class MethodLevelReferenceCountingGarbageCollector<N, D> extends Abstract
 
     }
 
+    @Override
+    protected IGCReferenceProvider<SootMethod> createReferenceProvider() {
+        return new OnDemandReferenceProvider<>(icfg);
+    }
 }

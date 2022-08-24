@@ -18,7 +18,7 @@ import soot.util.MultiMap;
  * 
  * @author Steven Arzt
  */
-public class AheadOfTimeReferenceProvider<D, N> extends AbstractReferenceProvider<D, N> {
+public class AheadOfTimeReferenceProvider<N> extends AbstractReferenceProvider<SootMethod, N> {
 
 	private final MultiMap<SootMethod, SootMethod> methodToCallees = new HashMultiMap<>();
 
@@ -33,7 +33,7 @@ public class AheadOfTimeReferenceProvider<D, N> extends AbstractReferenceProvide
 	}
 
 	@Override
-	public Set<SootMethod> getMethodReferences(SootMethod method) {
+	public Set<SootMethod> getAbstractionReferences(SootMethod method) {
 		return methodToCallees.get(method);
 	}
 

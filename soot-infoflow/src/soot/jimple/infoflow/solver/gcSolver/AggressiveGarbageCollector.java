@@ -82,4 +82,9 @@ public class AggressiveGarbageCollector<N, D> extends AbstractGarbageCollector<N
 
 	}
 
+	@Override
+	protected IGCReferenceProvider<SootMethod> createReferenceProvider() {
+		return new OnDemandReferenceProvider<>(icfg);
+	}
+
 }

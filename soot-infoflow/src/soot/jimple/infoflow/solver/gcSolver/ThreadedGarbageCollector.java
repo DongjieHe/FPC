@@ -58,7 +58,7 @@ public class ThreadedGarbageCollector<N, D> extends MethodLevelReferenceCounting
 
 	public ThreadedGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
 			ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions,
-			IGCReferenceProvider<D, N> referenceProvider) {
+			IGCReferenceProvider referenceProvider) {
 		super(icfg, jumpFunctions, referenceProvider);
 	}
 

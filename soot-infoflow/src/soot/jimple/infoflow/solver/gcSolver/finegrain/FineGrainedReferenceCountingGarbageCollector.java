@@ -9,7 +9,7 @@ import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
 public abstract class FineGrainedReferenceCountingGarbageCollector<N, D> extends AbstractReferenceCountingGarbageCollector<N, D, Pair<SootMethod, D>> {
-    public FineGrainedReferenceCountingGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<Pair<SootMethod, D>, PathEdge<N, D>> jumpFunctions, IGCReferenceProvider<D, N> referenceProvider) {
+    public FineGrainedReferenceCountingGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<Pair<SootMethod, D>, PathEdge<N, D>> jumpFunctions, IGCReferenceProvider referenceProvider) {
         super(icfg, jumpFunctions, referenceProvider);
     }
 

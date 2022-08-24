@@ -45,7 +45,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 
 	public AbstractReferenceCountingGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
 			ConcurrentHashMultiMap<A, PathEdge<N, D>> jumpFunctions,
-			IGCReferenceProvider<D, N> referenceProvider) {
+			IGCReferenceProvider referenceProvider) {
 		super(icfg, jumpFunctions, referenceProvider);
 	}
 

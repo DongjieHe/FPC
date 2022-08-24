@@ -20,7 +20,7 @@ public class DefaultGarbageCollector<N, D> extends MethodLevelReferenceCountingG
 
 	public DefaultGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg,
 			ConcurrentHashMultiMap<SootMethod, PathEdge<N, D>> jumpFunctions,
-			IGCReferenceProvider<D, N> referenceProvider) {
+			IGCReferenceProvider referenceProvider) {
 		super(icfg, jumpFunctions, referenceProvider);
 	}
 
