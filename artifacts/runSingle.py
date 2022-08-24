@@ -27,8 +27,8 @@ MAX_THREAD_NUM = 10
 isPrint = True
 # isPrint = False
 # SOLVER = None
-SOLVER = 'ONLINE'
-# SOLVER = 'GC'
+# SOLVER = 'ONLINE'
+SOLVER = 'GC'
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
@@ -38,7 +38,7 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
-    args += ['-aa', 'PTSBASED']
+    # args += ['-aa', 'PTSBASED']
     # args += ['-aa', 'LAZY']
     # args += ['-aa', 'FLOWSENSITIVE']
     outDir = os.path.join(CURRENT_DIR, OUTPUTPATH)

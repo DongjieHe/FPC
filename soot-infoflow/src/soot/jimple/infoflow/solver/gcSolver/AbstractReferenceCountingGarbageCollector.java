@@ -12,8 +12,6 @@ import soot.jimple.infoflow.util.ExtendedAtomicInteger;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
-import static soot.jimple.infoflow.solver.gcSolver.IFDSSolver.logger;
-
 /**
  * Abstract base class for garbage collectors based on reference counting
  * 
@@ -21,7 +19,7 @@ import static soot.jimple.infoflow.solver.gcSolver.IFDSSolver.logger;
  *
  */
 public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends AbstractGarbageCollector<N, D>
-		implements IGarbageCollectorPeer {
+		implements IGarbageCollectorPeer<SootMethod> {
 
 	protected ConcurrentCountingMap<SootMethod> jumpFnCounter = new ConcurrentCountingMap<>();
 	private final Set<SootMethod> gcScheduleSet = new ConcurrentHashSet<>();
@@ -29,7 +27,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends Ab
 	private final AtomicInteger gcedEdges = new AtomicInteger();
 	private final ExtendedAtomicInteger edgeCounterForThreshold = new ExtendedAtomicInteger();
 	private GarbageCollectionTrigger trigger = GarbageCollectionTrigger.Immediate;
-	private GarbageCollectorPeerGroup peerGroup = null;
+	private GarbageCollectorPeerGroup<SootMethod> peerGroup = null;
 	private boolean checkChangeCounter = false;
 
 	protected boolean validateEdges = false;
@@ -96,7 +94,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends Ab
 				return true;
 
 			// Check the transitive callees
-			Set<SootMethod> references = referenceProvider.getMethodReferences(method, null);
+			Set<SootMethod> references = referenceProvider.getMethodReferences(method);
 			for (SootMethod ref : references) {
 				if (referenceCounter.get(ref) > 0)
 					return true;
@@ -222,7 +220,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D> extends Ab
 	 * 
 	 * @param peerGroup The peer group
 	 */
-	public void setPeerGroup(GarbageCollectorPeerGroup peerGroup) {
+	public void setPeerGroup(GarbageCollectorPeerGroup<SootMethod> peerGroup) {
 		this.peerGroup = peerGroup;
 		peerGroup.addGarbageCollector(this);
 	}

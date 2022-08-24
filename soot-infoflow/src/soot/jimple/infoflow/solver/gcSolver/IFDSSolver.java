@@ -219,6 +219,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			listener.notifySolverTerminated(this);
 
 		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
+		logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
 		if (garbageCollector instanceof ThreadedGarbageCollector) {
 			ThreadedGarbageCollector threadedgc =(ThreadedGarbageCollector) garbageCollector;
 			int fwEndSumCnt = 0;
@@ -671,8 +672,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		if (maxAbstractionPathLength >= 0 && targetVal.getPathLength() > maxAbstractionPathLength)
 			return;
 
-//		D activeVal = targetVal.getActiveCopy();
-//		final PathEdge<N, D> activeEdge = new PathEdge<>(sourceVal, target, activeVal);
 		final PathEdge<N, D> edge = new PathEdge<>(sourceVal, target, targetVal);
 		final D existingVal = addFunction(edge);
 		if (existingVal != null) {

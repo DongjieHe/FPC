@@ -391,7 +391,7 @@ public class Infoflow extends AbstractInfoflow {
 					solverPeerGroup = new OnlineSolverPeerGroup();
 					break;
 				default:
-					solverPeerGroup = new GCSolverPeerGroup();
+					solverPeerGroup = new GCSolverPeerGroup<SootMethod>();
 			}
 
 			// Initialize the alias analysis

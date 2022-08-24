@@ -33,7 +33,7 @@ public class AheadOfTimeReferenceProvider<D, N> extends AbstractReferenceProvide
 	}
 
 	@Override
-	public Set<SootMethod> getMethodReferences(SootMethod method, FastSolverLinkedNode<D, N> context) {
+	public Set<SootMethod> getMethodReferences(SootMethod method) {
 		return methodToCallees.get(method);
 	}
 

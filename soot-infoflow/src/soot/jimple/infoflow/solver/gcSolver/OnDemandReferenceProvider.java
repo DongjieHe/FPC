@@ -38,7 +38,7 @@ public class OnDemandReferenceProvider<D, N> extends AbstractReferenceProvider<D
 	}
 
 	@Override
-	public Set<SootMethod> getMethodReferences(SootMethod method, FastSolverLinkedNode<D, N> context) {
+	public Set<SootMethod> getMethodReferences(SootMethod method) {
 		return methodToReferences.getUnchecked(method);
 	}
 

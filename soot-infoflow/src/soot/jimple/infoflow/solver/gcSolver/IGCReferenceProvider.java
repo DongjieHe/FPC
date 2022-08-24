@@ -23,6 +23,6 @@ public interface IGCReferenceProvider<D, N> {
 	 * @param context
 	 * @return
 	 */
-	public Set<SootMethod> getMethodReferences(SootMethod method, FastSolverLinkedNode<D, N> context);
+	public Set<SootMethod> getMethodReferences(SootMethod method);
 
 }
