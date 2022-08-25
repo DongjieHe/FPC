@@ -193,9 +193,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
             return garbageCollector;
 //        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
 //		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
-//        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
-        abstDependencyGraph = new AbstrationDependencyGraph<>();
-        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
+        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
+//        abstDependencyGraph = new AbstrationDependencyGraph<>();
+//        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
         GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
         gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
         return garbageCollector = gc;
@@ -228,8 +228,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
         logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
         logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
-        if (garbageCollector instanceof AggressiveGarbageCollector) {
-            AggressiveGarbageCollector threadedgc =(AggressiveGarbageCollector) garbageCollector;
+        if (garbageCollector instanceof FineGrainedReferenceCountingGarbageCollector) {
+            FineGrainedReferenceCountingGarbageCollector threadedgc =(FineGrainedReferenceCountingGarbageCollector) garbageCollector;
             int fwEndSumCnt = 0;
             for(Map<Pair<N, D>, D> map: this.endSummary.values()) {
                 fwEndSumCnt += map.size();

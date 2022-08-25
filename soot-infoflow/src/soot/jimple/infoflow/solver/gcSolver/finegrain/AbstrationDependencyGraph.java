@@ -4,9 +4,7 @@ import heros.solver.Pair;
 import soot.SootMethod;
 import soot.jimple.infoflow.collect.ConcurrentHashSet;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -86,5 +84,17 @@ public class AbstrationDependencyGraph<D> implements IGraph<Pair<SootMethod, D>>
             ret += vs.size();
         }
         return ret;
+    }
+
+    public Set<Pair<SootMethod, D>> reachableClosure(Pair<SootMethod, D> source) {
+        final Set<Pair<SootMethod, D>> visited = new ConcurrentHashSet<>();
+        final Deque<Pair<SootMethod, D>> stack = new ArrayDeque<>();
+        stack.push(source);
+        while (!stack.isEmpty()) {
+            final Pair<SootMethod, D> node = stack.pop();
+            visited.add(node);
+            succsOf(node).stream().filter(n -> !visited.contains(n)).forEach(stack::push);
+        }
+        return visited;
     }
 }

@@ -28,7 +28,8 @@ isPrint = True
 # isPrint = False
 # SOLVER = None
 # SOLVER = 'ONLINE'
-SOLVER = 'GC'
+SOLVER = 'FINEGRAIN'
+# SOLVER = 'GC'
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
