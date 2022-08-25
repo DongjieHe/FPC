@@ -22,12 +22,12 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 		implements IGarbageCollectorPeer<A> {
 
 	protected ConcurrentCountingMap<A> jumpFnCounter = new ConcurrentCountingMap<>();
-	private final Set<A> gcScheduleSet = new ConcurrentHashSet<>();
-	private final AtomicInteger gcedMethods = new AtomicInteger();
-	private final AtomicInteger gcedEdges = new AtomicInteger();
-	private final ExtendedAtomicInteger edgeCounterForThreshold = new ExtendedAtomicInteger();
-	private GarbageCollectionTrigger trigger = GarbageCollectionTrigger.Immediate;
-	private GarbageCollectorPeerGroup<A> peerGroup = null;
+	protected final Set<A> gcScheduleSet = new ConcurrentHashSet<>();
+	protected final AtomicInteger gcedMethods = new AtomicInteger();
+	protected final AtomicInteger gcedEdges = new AtomicInteger();
+	protected final ExtendedAtomicInteger edgeCounterForThreshold = new ExtendedAtomicInteger();
+	protected GarbageCollectionTrigger trigger = GarbageCollectionTrigger.Immediate;
+	protected GarbageCollectorPeerGroup<A> peerGroup = null;
 	protected boolean checkChangeCounter = false;
 
 	protected boolean validateEdges = false;

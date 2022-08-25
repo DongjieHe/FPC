@@ -49,6 +49,7 @@ import soot.jimple.infoflow.solver.SolverPeerGroup;
 import soot.jimple.infoflow.solver.executors.InterruptableExecutor;
 import soot.jimple.infoflow.solver.executors.SetPoolExecutor;
 import soot.jimple.infoflow.solver.fastSolver.FastSolverLinkedNode;
+import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.gcSolver.IGarbageCollector;
 import soot.jimple.infoflow.solver.gcSolver.NullGarbageCollector;
 import soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector;
@@ -140,6 +141,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
     protected SolverPeerGroup solverPeerGroup;
 
+    protected AbstrationDependencyGraph<D> abstDependencyGraph;
+
     /**
      * Creates a solver for the given problem, which caches flow functions and edge
      * functions. The solver must then be started by calling {@link #solve()}.
@@ -190,9 +193,11 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
             return garbageCollector;
 //        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
 //		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
-        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
-//        GCSolverPeerGroup<SootMethod> gcSolverGroup = (GCSolverPeerGroup<SootMethod>) solverPeerGroup;
-//        gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
+//        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
+        abstDependencyGraph = new AbstrationDependencyGraph<>();
+        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
+        GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
+        gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
         return garbageCollector = gc;
     }
 
@@ -245,7 +250,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
         for (Entry<N, Set<D>> seed : initialSeeds.entrySet()) {
             N startPoint = seed.getKey();
             for (D val : seed.getValue())
-                propagate(zeroValue, startPoint, val, null, false);
+                propagate(zeroValue, startPoint, val, null, false, null);
             addFunction(new PathEdge<N, D>(zeroValue, startPoint, zeroValue));
         }
     }
@@ -298,9 +303,11 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
      * Dispatch the processing of a given edge. It may be executed in a different
      * thread.
      *
+     * @param newSelfLoop indicate that this path edge is a self-loop edge like <s, d>--><s, d>.
      * @param edge the edge to process
+     * @param orgSrc used for building abstraction dependency graph.
      */
-    protected void scheduleEdgeProcessing(boolean newSelfLoop, PathEdge<N, D> edge) {
+    protected void scheduleEdgeProcessing(boolean newSelfLoop, PathEdge<N, D> edge, Pair<SootMethod, D> orgSrc) {
         // If the executor has been killed, there is little point
         // in submitting new tasks
         if (killFlag != null || executor.isTerminating() || executor.isTerminated())
@@ -314,6 +321,14 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
             Map<Pair<N, D>, D> sumMap = endSummary.putIfAbsentElseGet(abst, map);
             if (map != sumMap) { // already exists.
                 return;
+            }
+            if (garbageCollector instanceof NormalGarbageCollector && orgSrc != null) {
+                try {
+                    abstDependencyGraph.lock();
+                    abstDependencyGraph.addEdge(orgSrc, abst);
+                } finally {
+                    abstDependencyGraph.unlock();
+                }
             }
         }
         garbageCollector.notifyEdgeSchedule(edge);
@@ -376,7 +391,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                             // for each callee's start point(s)
                             for (N sP : startPointsOf) {
                                 // create initial self-loop
-                                propagate(d3, sP, d3, n, false); // line 15
+                                propagate(d3, sP, d3, n, false, new Pair<>(icfg.getMethodOf(n), d1)); // line 15
                             }
                         }
                     }
@@ -395,7 +410,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                     if (memoryManager != null)
                         d3 = memoryManager.handleGeneratedMemoryObject(d2, d3);
                     if (d3 != null)
-                        propagate(d1, returnSiteN, d3, n, false);
+                        propagate(d1, returnSiteN, d3, n, false, null);
                 }
             }
         }
@@ -448,7 +463,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                             D oldD1 = endSumm.get(entry);
                             if (oldD1 != d1)
                                 oldD1.addNeighbor(d3);
-                            propagate(d1, retSiteN, d5p, n, false);
+                            propagate(d1, retSiteN, d5p, n, false, null);
                         }
                     }
                 }
@@ -550,7 +565,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                                         d5p = predVal;
                                     break;
                             }
-                            propagate(d4, retSiteC, d5p, c, false);
+                            propagate(d4, retSiteC, d5p, c, false, null);
 
                             // Make sure all of the incoming edges are registered with the edge from the new
                             // summary
@@ -579,7 +594,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                             if (memoryManager != null)
                                 d5 = memoryManager.handleGeneratedMemoryObject(d2, d5);
                             if (d5 != null)
-                                propagate(zeroValue, retSiteC, d5, c, true);
+                                propagate(zeroValue, retSiteC, d5, c, true, null);
                         }
                     }
                 }
@@ -636,7 +651,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
                     if (memoryManager != null && d2 != d3)
                         d3 = memoryManager.handleGeneratedMemoryObject(d2, d3);
                     if (d3 != null)
-                        propagate(d1, m, d3, null, false);
+                        propagate(d1, m, d3, null, false, null);
                 }
             }
         }
@@ -669,10 +684,12 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
      *                           unbalanced return (this value is not used within
      *                           this implementation but may be useful for
      *                           subclasses of {@link soot.jimple.infoflow.solver.gcSolver.IFDSSolver})
+     * @param orgSrc             extended for building abstraction dependency graph.
      */
     protected void propagate(D sourceVal, N target, D targetVal,
             /* deliberately exposed to clients */ N relatedCallSite,
-            /* deliberately exposed to clients */ boolean isUnbalancedReturn) {
+            /* deliberately exposed to clients */ boolean isUnbalancedReturn,
+                             Pair<SootMethod, D> orgSrc) {
         // Let the memory manager run
         if (memoryManager != null) {
             sourceVal = memoryManager.handleMemoryObject(sourceVal);
@@ -703,7 +720,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
             }
         } else {
             boolean isSelfLoopEdge = sourceVal == targetVal && icfg.isStartPoint(target);
-            scheduleEdgeProcessing(isSelfLoopEdge, edge);
+            scheduleEdgeProcessing(isSelfLoopEdge, edge, orgSrc);
         }
     }
 

@@ -65,7 +65,7 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
             }
         }
 
-        propagate(edge.factAtSource(), edge.getTarget(), edge.factAtTarget(), null, false);
+        propagate(edge.factAtSource(), edge.getTarget(), edge.factAtTarget(), null, false, null);
         return true;
     }
 

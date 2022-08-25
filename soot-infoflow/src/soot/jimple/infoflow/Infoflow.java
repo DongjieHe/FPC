@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+import heros.solver.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -389,6 +390,9 @@ public class Infoflow extends AbstractInfoflow {
 			switch (manager.getConfig().getSolverConfiguration().getDataFlowSolver()) {
 				case Online:
 					solverPeerGroup = new OnlineSolverPeerGroup();
+					break;
+				case FineGrainedGC:
+					solverPeerGroup = new GCSolverPeerGroup<Pair<SootMethod, Abstraction>>();
 					break;
 				default:
 					solverPeerGroup = new GCSolverPeerGroup<SootMethod>();
