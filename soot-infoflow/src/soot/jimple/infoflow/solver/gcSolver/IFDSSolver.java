@@ -218,7 +218,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
 			listener.notifySolverTerminated(this);
 
-		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
+		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedAbstractions()));
 		logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
 		if (garbageCollector instanceof ThreadedGarbageCollector) {
 			ThreadedGarbageCollector threadedgc =(ThreadedGarbageCollector) garbageCollector;

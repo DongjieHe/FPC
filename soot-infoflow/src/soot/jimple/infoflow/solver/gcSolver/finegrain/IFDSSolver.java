@@ -51,8 +51,6 @@ import soot.jimple.infoflow.solver.executors.SetPoolExecutor;
 import soot.jimple.infoflow.solver.fastSolver.FastSolverLinkedNode;
 import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.gcSolver.IGarbageCollector;
-import soot.jimple.infoflow.solver.gcSolver.NullGarbageCollector;
-import soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
@@ -226,8 +224,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
         for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
             listener.notifySolverTerminated(this);
 
-        logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
-        logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
+        logger.info(String.format("GC removes %d abstractions", garbageCollector.getGcedAbstractions()));
+        logger.info(String.format("GC removes %d path edges", garbageCollector.getGcedEdges()));
         if (garbageCollector instanceof FineGrainedReferenceCountingGarbageCollector) {
             FineGrainedReferenceCountingGarbageCollector threadedgc =(FineGrainedReferenceCountingGarbageCollector) garbageCollector;
             int fwEndSumCnt = 0;

@@ -27,7 +27,7 @@ public class NullGarbageCollector<N, D> implements IGarbageCollector<N, D> {
 	}
 
 	@Override
-	public int getGcedMethods() {
+	public int getGcedAbstractions() {
 		return 0;
 	}
 

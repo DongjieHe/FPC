@@ -110,7 +110,7 @@ public class ThreadedGarbageCollector<N, D> extends MethodLevelReferenceCounting
 	}
 
 	@Override
-	protected void onAfterRemoveEdges(int gcedMethods) {
+	protected void onAfterRemoveEdges() {
 		int pec = 0;
 		for(Integer i : jumpFnCounter.values()) {
 			pec += i;

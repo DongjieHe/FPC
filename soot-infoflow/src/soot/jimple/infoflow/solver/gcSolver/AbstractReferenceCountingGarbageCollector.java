@@ -23,7 +23,7 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 
 	protected ConcurrentCountingMap<A> jumpFnCounter = new ConcurrentCountingMap<>();
 	protected final Set<A> gcScheduleSet = new ConcurrentHashSet<>();
-	protected final AtomicInteger gcedMethods = new AtomicInteger();
+	protected final AtomicInteger gcedAbstractions = new AtomicInteger();
 	protected final AtomicInteger gcedEdges = new AtomicInteger();
 	protected final ExtendedAtomicInteger edgeCounterForThreshold = new ExtendedAtomicInteger();
 	protected GarbageCollectionTrigger trigger = GarbageCollectionTrigger.Immediate;
@@ -89,7 +89,6 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 
 			// Perform the garbage collection if required
 			if (gc) {
-				int tempMethods = 0;
 				onBeforeRemoveEdges();
 				for (A abst : gcScheduleSet) {
 					// Is it safe to remove this method?
@@ -113,13 +112,12 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 					// this way.
 					gcScheduleSet.remove(abst);
 					if (jumpFunctions.remove(abst)) {
-						gcedMethods.incrementAndGet();
-						tempMethods++;
+						gcedAbstractions.incrementAndGet();
 						if (validateEdges)
 							oldEdges.addAll(oldFunctions);
 					}
 				}
-				onAfterRemoveEdges(tempMethods);
+				onAfterRemoveEdges();
 			}
 		}
 
@@ -135,15 +133,13 @@ public abstract class AbstractReferenceCountingGarbageCollector<N, D, A> extends
 	/**
 	 * Method that is called after the last edge has been removed from the jump
 	 * functions
-	 * 
-	 * @param gcedMethods The number of methods for which edges have been removed
 	 */
-	protected void onAfterRemoveEdges(int gcedMethods) {
+	protected void onAfterRemoveEdges() {
 	}
 
 	@Override
-	public int getGcedMethods() {
-		return gcedMethods.get();
+	public int getGcedAbstractions() {
+		return gcedAbstractions.get();
 	}
 
 	@Override

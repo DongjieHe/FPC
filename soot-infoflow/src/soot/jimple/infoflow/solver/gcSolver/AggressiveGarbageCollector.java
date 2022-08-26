@@ -55,7 +55,7 @@ public class AggressiveGarbageCollector<N, D> extends AbstractGarbageCollector<N
 	}
 
 	@Override
-	public int getGcedMethods() {
+	public int getGcedAbstractions() {
 		return gcedMethods.get();
 	}
 
