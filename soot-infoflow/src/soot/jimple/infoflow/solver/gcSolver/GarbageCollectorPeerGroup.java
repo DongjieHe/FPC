@@ -30,6 +30,13 @@ public class GarbageCollectorPeerGroup<A> implements IGarbageCollectorPeer<A> {
 		return false;
 	}
 
+	@Override
+	public void notifySolverTerminated() {
+		for(IGarbageCollectorPeer<A> peer : peers) {
+			peer.notifySolverTerminated();
+		}
+	}
+
 	/**
 	 * Adds a garbage collector to this peer group
 	 * 

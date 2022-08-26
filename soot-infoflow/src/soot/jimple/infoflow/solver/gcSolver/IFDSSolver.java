@@ -230,7 +230,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 			logger.info(String.format("forward end Summary size: %d", fwEndSumCnt));
 			logger.info(String.format("Recorded Maximum Path edges count is %d", threadedgc.getMaxPathEdgeCount()));
 		}
-		this.garbageCollector.notifySolverTerminated();
+		GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
+		gcSolverGroup.getGCPeerGroup().notifySolverTerminated();
+//		this.garbageCollector.notifySolverTerminated();
 	}
 
 	/**

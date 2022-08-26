@@ -19,4 +19,5 @@ public interface IGarbageCollectorPeer<A> {
 	 */
 	public boolean hasActiveDependencies(A abstraction);
 
+	public void notifySolverTerminated();
 }
