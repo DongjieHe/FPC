@@ -48,4 +48,8 @@ public abstract class AbstractGarbageCollector<N, D, A> implements IGarbageColle
 	 */
 	protected abstract IGCReferenceProvider<A> createReferenceProvider();
 
+	protected long getRemainingPathEdgeCount() {
+		return jumpFunctions.values().size();
+	}
+
 }

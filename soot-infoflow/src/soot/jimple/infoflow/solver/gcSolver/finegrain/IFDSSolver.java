@@ -224,17 +224,12 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
         for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
             listener.notifySolverTerminated(this);
 
-        logger.info(String.format("GC removes %d abstractions", garbageCollector.getGcedAbstractions()));
-        logger.info(String.format("GC removes %d path edges", garbageCollector.getGcedEdges()));
         if (garbageCollector instanceof FineGrainedReferenceCountingGarbageCollector) {
-            FineGrainedReferenceCountingGarbageCollector threadedgc =(FineGrainedReferenceCountingGarbageCollector) garbageCollector;
             int fwEndSumCnt = 0;
             for(Map<Pair<N, D>, D> map: this.endSummary.values()) {
                 fwEndSumCnt += map.size();
             }
-            int bwEndSumCnt = 0;
             logger.info(String.format("forward end Summary size: %d", fwEndSumCnt));
-            logger.info(String.format("Recorded Maximum Path edges count is %d", threadedgc.getMaxPathEdgeCount()));
         }
         GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
         gcSolverGroup.getGCPeerGroup().notifySolverTerminated();

@@ -16,12 +16,12 @@ RED = '\033[31m'
 
 # global variables
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-JVMARG = '-Xmx220G'
+JVMARG = '-Xmx120G'
 FLOWDROID = 'soot-infoflow-cmd-jar-with-dependencies.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
 OUTPUTPATH = 'output2'
-RESULT_TIMEOUT = 1800
+RESULT_TIMEOUT = 18000
 DATAFLOW_TIMEOUT = 18000
 MAX_THREAD_NUM = 10
 isPrint = True

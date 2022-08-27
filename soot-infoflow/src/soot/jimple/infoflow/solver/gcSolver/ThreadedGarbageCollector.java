@@ -1,8 +1,9 @@
 package soot.jimple.infoflow.solver.gcSolver;
 
 import heros.solver.PathEdge;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import soot.SootMethod;
-import soot.jimple.infoflow.solver.onlineSolver.AbstractPartitionManager;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
@@ -15,7 +16,7 @@ import soot.util.ConcurrentHashMultiMap;
  * @param <D>
  */
 public class ThreadedGarbageCollector<N, D> extends MethodLevelReferenceCountingGarbageCollector<N, D> {
-
+	protected static final Logger logger = LoggerFactory.getLogger(ThreadedGarbageCollector.class);
 	private class GCThread extends Thread {
 
 		private boolean finished = false;
@@ -84,6 +85,11 @@ public class ThreadedGarbageCollector<N, D> extends MethodLevelReferenceCounting
 	@Override
 	public void notifySolverTerminated() {
 		gcImmediate();
+		logger.info(String.format("GC removes %d abstractions", getGcedAbstractions()));
+		logger.info(String.format("GC removes %d path edges", getGcedEdges()));
+		logger.info(String.format("Remaining Path edges count is %d", getRemainingPathEdgeCount()));
+		logger.info(String.format("Recorded Maximum Path edges count is %d", getMaxPathEdgeCount()));
+		logger.info(String.format("Recorded Maximum memory consumption is %d", getMaxMemoryConsumption()));
 		gcThread.finish();
 	}
 

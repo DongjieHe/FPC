@@ -78,7 +78,11 @@ public abstract class FineGrainedReferenceCountingGarbageCollector<N, D> extends
     @Override
     public void notifySolverTerminated() {
         gcImmediate();
+        logger.info(String.format("GC removes %d abstractions", getGcedAbstractions()));
+        logger.info(String.format("GC removes %d path edges", getGcedEdges()));
+        logger.info(String.format("Remaining Path edges count is %d", getRemainingPathEdgeCount()));
         logger.info(String.format("Recorded Maximum Path edges count is %d", getMaxPathEdgeCount()));
+        logger.info(String.format("Recorded Maximum memory consumption is %d", getMaxMemoryConsumption()));
         gcThread.finish();
     }
 
