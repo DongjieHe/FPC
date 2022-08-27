@@ -618,28 +618,22 @@ public class Infoflow extends AbstractInfoflow {
 				forwardSolver.cleanup();
 				forwardSolver = null;
 				forwardProblem = null;
-
 				solverPeerGroup = null;
-
 				// Remove the alias analysis from memory
 				aliasing = null;
 				if (aliasingStrategy.getSolver() != null) {
-					aliasingStrategy.getSolver().terminate();
 					memoryWatcher.removeSolver((IMemoryBoundedSolver) aliasingStrategy.getSolver());
 				}
 				aliasingStrategy.cleanup();
 				aliasingStrategy = null;
-
 				if (config.getIncrementalResultReporting())
 					res = null;
 				iCfg.purge();
-
 				// Clean up the manager. Make sure to free objects, even if
 				// the manager is still held by other objects
 				if (manager != null)
 					manager.cleanup();
 				manager = null;
-
 				// Report the remaining memory consumption
 				Runtime.getRuntime().gc();
 				performanceData.updateMaxMemoryConsumption(getUsedMemory());
@@ -717,12 +711,6 @@ public class Infoflow extends AbstractInfoflow {
 					timeoutWatcher.stop();
 				if (pathTimeoutWatcher != null)
 					pathTimeoutWatcher.stop();
-
-				if (aliasingStrategy != null) {
-					IInfoflowSolver solver = aliasingStrategy.getSolver();
-					if (solver != null)
-						solver.terminate();
-				}
 
 				// Do we have any more sources?
 				hasMoreSources = oneSourceAtATime != null && oneSourceAtATime.hasNextSource();

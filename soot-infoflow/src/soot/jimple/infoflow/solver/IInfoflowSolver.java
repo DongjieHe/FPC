@@ -130,9 +130,4 @@ public interface IInfoflowSolver {
 	 */
 	public void setPeerGroup(SolverPeerGroup solverPeerGroup);
 
-	/**
-	 * Notifies the solver that no further edges will be scheduled
-	 */
-	public void terminate();
-
 }

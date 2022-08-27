@@ -232,7 +232,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		}
 		GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
 		gcSolverGroup.getGCPeerGroup().notifySolverTerminated();
-//		this.garbageCollector.notifySolverTerminated();
 	}
 
 	/**
@@ -975,14 +974,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	 */
 	public void setPeerGroup(SolverPeerGroup solverPeerGroup) {
 		this.solverPeerGroup = solverPeerGroup;
-	}
-
-	/**
-	 * Notifies the solver that no further edges will be scheduled
-	 */
-	public void terminate() {
-		if (garbageCollector != null)
-			garbageCollector.notifySolverTerminated();
 	}
 
 }

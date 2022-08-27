@@ -142,9 +142,4 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 		return problem;
 	}
 
-	@Override
-	public void terminate() {
-		// not required
-	}
-
 }

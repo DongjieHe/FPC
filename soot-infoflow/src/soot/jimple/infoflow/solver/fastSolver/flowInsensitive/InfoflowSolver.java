@@ -159,9 +159,4 @@ public class InfoflowSolver extends FlowInsensitiveSolver<Unit, Abstraction, BiD
 		// We don't have support for peer groups and don't really need them either
 	}
 
-	@Override
-	public void terminate() {
-		// not required
-	}
-
 }

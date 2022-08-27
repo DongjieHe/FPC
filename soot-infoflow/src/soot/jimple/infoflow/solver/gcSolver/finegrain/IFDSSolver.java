@@ -190,7 +190,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
         if (garbageCollector != null)
             return garbageCollector;
 //        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
-//		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
         AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
 //        abstDependencyGraph = new AbstrationDependencyGraph<>();
 //        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
@@ -999,14 +998,6 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
      */
     public void setPeerGroup(SolverPeerGroup solverPeerGroup) {
         this.solverPeerGroup = solverPeerGroup;
-    }
-
-    /**
-     * Notifies the solver that no further edges will be scheduled
-     */
-    public void terminate() {
-        if (garbageCollector != null)
-            garbageCollector.notifySolverTerminated();
     }
 
 }

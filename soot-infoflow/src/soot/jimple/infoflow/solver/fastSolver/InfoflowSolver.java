@@ -162,9 +162,4 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 		// we don't need peers
 	}
 
-	@Override
-	public void terminate() {
-		// not required
-	}
-
 }
