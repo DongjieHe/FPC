@@ -1,5 +1,6 @@
 package soot.jimple.infoflow.solver.gcSolver;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -14,7 +15,7 @@ public class GarbageCollectorPeerGroup<A> implements IGarbageCollectorPeer<A> {
 	private final Collection<IGarbageCollectorPeer<A>> peers;
 
 	public GarbageCollectorPeerGroup() {
-		this.peers = new HashSet<>();
+		this.peers = new ArrayList<>();
 	}
 
 	public GarbageCollectorPeerGroup(Collection<IGarbageCollectorPeer<A>> peers) {
