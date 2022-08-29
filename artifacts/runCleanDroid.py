@@ -16,7 +16,7 @@ RED = '\033[31m'
 
 # global variables
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
-JVMARG = '-Xmx120G'
+JVMARG = '-Xmx220G'
 FLOWDROID = 'fgAggreGC.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
