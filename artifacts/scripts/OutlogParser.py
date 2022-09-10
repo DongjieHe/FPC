@@ -46,10 +46,13 @@ class LogParser():
                     self.recordedBWPECnt = tmp[0]
             if 'Running out of memory, solvers terminated' in ln:
                 self.oom = True
+            if 'Timeout reached, stopping the solvers' in ln:
+                self.to = True
 
 # logDir should be an absolute path.
 def loadParserList(logDir, solver):
-    filter = ['F-Droid', 'de.k3b.android.androFotoFinder_44', 'com.nianticlabs.pokemongo_0.139.3', 'com.microsoft.office.outlook_3.0.46', 'com.ichi2.anki_2.8.4']
+    filter = ['F-Droid', 'de.k3b.android.androFotoFinder_44', 'com.nianticlabs.pokemongo_0.139.3', 'com.microsoft.office.outlook_3.0.46', 
+            'com.ichi2.anki_2.8.4', 'acr.browser.lightning_4.5.1', 'com.zeapo.pwdstore_10303']
     ret = []
     for r, _, fs in os.walk(logDir):
         for file in fs:
@@ -66,6 +69,13 @@ def classifyByApkName(parsersList):
         ret[elem.apkName] = elem
     return ret
 
+def stats(parser):
+    if parser.oom:
+        return 'OoM'
+    if parser.to:
+        return 'TO'
+    return 'SUCC'
+
 def buildTable(fd, gc, agc, ngc):
     fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
@@ -73,15 +83,15 @@ def buildTable(fd, gc, agc, ngc):
     ngcMap = classifyByApkName(ngc)
 
     flowdroidTable = PrettyTable()
-    flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results"]
+    flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results", "Status"]
     for k, v in sorted(fdMap.items()):
-        flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount])
+        flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount, stats(v)])
     print(flowdroidTable)
 
     # cleandroidTable = PrettyTable()
-    # cleandroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
+    # cleandroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results", "Status"]
     # for k, v in sorted(gcMap.items()):
-    #     cleandroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
+    #     cleandroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount, stats(v)])
     # print(cleandroidTable)
 
     # aggressiveFGTable = PrettyTable()
@@ -97,7 +107,7 @@ def buildTable(fd, gc, agc, ngc):
     # print(normalFGTable)
 
     # integratedTable = PrettyTable()
-    # integratedTable.field_names = ["APK", "FDTime(s)", "MaxMem(MB)", "#PE", "#Leaks", "#Results", "CDTime(s)", "CDMaxMem(MB)", "#CDRDPEs", "AGCTime(s)", "AGCMaxMem(MB)", "#AGCRDPEs", "NGCTime(s)", "NGCMaxMem(MB)", "#NGCRDPEs"]
+    # integratedTable.field_names = ["APK", "FDT(s)", "MaxM(MB)", "#PE", "#Leaks", "#Results", "CDT(s)", "CDMaxM(MB)", "#CDRDPEs", "AGCT(s)", "AGCMaxM(MB)", "#AGCRDPEs", "NGCT(s)", "NGCMaxM(MB)", "#NGCRDPEs"]
     # for k, v in sorted(fdMap.items()):
     #     gcElem = gcMap[k]
     #     agcElem = agcMap[k]
