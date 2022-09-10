@@ -14,6 +14,8 @@ class LogParser():
         self.barwardPECount = -1
         self.recordedFWPECnt = -1
         self.recordedBWPECnt = -1
+        self.oom = False
+        self.to = False
 
     def parseAppName(self, file):
         self.apkName = file[file.rfind('/') + 1: -4]
@@ -42,16 +44,20 @@ class LogParser():
                     self.recordedFWPECnt = tmp[0]
                 else:
                     self.recordedBWPECnt = tmp[0]
+            if 'Running out of memory, solvers terminated' in ln:
+                self.oom = True
 
 # logDir should be an absolute path.
 def loadParserList(logDir, solver):
+    filter = ['F-Droid', 'de.k3b.android.androFotoFinder_44', 'com.nianticlabs.pokemongo_0.139.3', 'com.microsoft.office.outlook_3.0.46', 'com.ichi2.anki_2.8.4']
     ret = []
     for r, _, fs in os.walk(logDir):
         for file in fs:
             path = os.path.join(r, file)
             parser = LogParser()
             parser.parseLogFile(path, solver)
-            ret.append(parser)
+            if parser.apkName not in filter:
+                ret.append(parser)
     return ret
 
 def classifyByApkName(parsersList):
@@ -66,11 +72,11 @@ def buildTable(fd, gc, agc, ngc):
     agcMap = classifyByApkName(agc)
     ngcMap = classifyByApkName(ngc)
 
-    # flowdroidTable = PrettyTable()
-    # flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results"]
-    # for k, v in sorted(fdMap.items()):
-    #     flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount])
-    # print(flowdroidTable)
+    flowdroidTable = PrettyTable()
+    flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results"]
+    for k, v in sorted(fdMap.items()):
+        flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount])
+    print(flowdroidTable)
 
     # cleandroidTable = PrettyTable()
     # cleandroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
@@ -90,20 +96,19 @@ def buildTable(fd, gc, agc, ngc):
     #     normalFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
     # print(normalFGTable)
 
-    integratedTable = PrettyTable()
-    integratedTable.field_names = ["APK", "FDTime(s)", "MaxMem(MB)", "#PE", "#Leaks", "#Results", "CDTime(s)", "CDMaxMem(MB)", "#CDRDPEs", "AGCTime(s)", "AGCMaxMem(MB)", "#AGCRDPEs", "NGCTime(s)", "NGCMaxMem(MB)", "#NGCRDPEs"]
-    for k, v in sorted(fdMap.items()):
-        gcElem = gcMap[k]
-        agcElem = agcMap[k]
-        ngcElem = ngcMap[k]
-        integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount,
-                                 gcElem.dataSolverTime, gcElem.maxmemory, gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
-                                 agcElem.dataSolverTime, agcElem.maxmemory, agcElem.recordedFWPECnt + agcElem.recordedBWPECnt,
-                                 ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
-    print(integratedTable)
+    # integratedTable = PrettyTable()
+    # integratedTable.field_names = ["APK", "FDTime(s)", "MaxMem(MB)", "#PE", "#Leaks", "#Results", "CDTime(s)", "CDMaxMem(MB)", "#CDRDPEs", "AGCTime(s)", "AGCMaxMem(MB)", "#AGCRDPEs", "NGCTime(s)", "NGCMaxMem(MB)", "#NGCRDPEs"]
+    # for k, v in sorted(fdMap.items()):
+    #     gcElem = gcMap[k]
+    #     agcElem = agcMap[k]
+    #     ngcElem = ngcMap[k]
+    #     integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount,
+    #                              gcElem.dataSolverTime, gcElem.maxmemory, gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
+    #                              agcElem.dataSolverTime, agcElem.maxmemory, agcElem.recordedFWPECnt + agcElem.recordedBWPECnt,
+    #                              ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
+    # print(integratedTable)
 
 if __name__ == '__main__':
-    file = '/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/com.emn8.mobilem8.nativeapp.bk_5.0.10.log'
     fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FlowDroid", "FlowDroid")
     gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/GC", "CleanDroid")
     agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")

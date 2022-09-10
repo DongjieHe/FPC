@@ -21,8 +21,8 @@ FLOWDROID = 'fgAggreGC.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
 OUTPUTPATH = 'myout'
-RESULT_TIMEOUT = 10800
-DATAFLOW_TIMEOUT = 10800
+RESULT_TIMEOUT = 7200
+DATAFLOW_TIMEOUT = 7200
 MAX_THREAD_NUM = 8
 isPrint = True
 # isPrint = False
@@ -54,6 +54,9 @@ def genCmd(app):
         print('old result found. skip this.')
         return None
     elif not isPrint:
+        if os.path.exists(outlog):
+            print('old result found. skip this.')
+            return None
         args += ['-o', output]
     if isPrint is True:
         args += ['>', outlog, '2>&1']

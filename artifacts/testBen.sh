@@ -29,7 +29,10 @@ cmd="./runFineGrainedNGC.py"
 #${cmd} benchmarks/sparsedroidBenchmark/nightlock-peppercarrot.apk
 #${cmd} benchmarks/sparsedroidBenchmark/org.secuso.privacyfriendlyactivitytracker_1.0.5.apk
 #${cmd} benchmarks/sparsedroidBenchmark/rodrigodavy.com.github.pixelartist.apk
-
+# ${cmd} benchmarks/sparsedroidBenchmark/acr.browser.lightning_4.5.1.apk
+# ${cmd} benchmarks/diskDroidBenchmarks/group3/com.zeapo.pwdstore_10303.apk
+# ${cmd} benchmarks/sparsedroidBenchmark/net.ddns.mlsoftlaberge.trycorder.apk
+# ${cmd} benchmarks/sparsedroidBenchmark/opencontacts.open.com.opencontacts_12.apk
 ###########################################################################################################################################
 # Section 2: apps that could successfully analyzed by fine-grained aggressive analysis by us.
 
@@ -38,15 +41,11 @@ ${cmd} benchmarks/diskDroidBenchmarks/group1/com.alfray.timeriffic_10905.apk
 ${cmd} benchmarks/diskDroidBenchmarks/group1/org.gateshipone.odyssey_30.apk
 ${cmd} benchmarks/diskDroidBenchmarks/group2/org.secuso.privacyfriendlyweather_6.apk
 ${cmd} benchmarks/diskDroidBenchmarks/group3/com.github.axet.callrecorder_219.apk
-${cmd} benchmarks/diskDroidBenchmarks/group3/com.zeapo.pwdstore_10303.apk
-${cmd} benchmarks/sparsedroidBenchmark/acr.browser.lightning_4.5.1.apk
 ${cmd} benchmarks/sparsedroidBenchmark/com.app.Zensuren_1.21.apk
 ${cmd} benchmarks/sparsedroidBenchmark/com.github.yeriomin.dumbphoneassistant_5.apk
 ${cmd} benchmarks/sparsedroidBenchmark/com.ilm.sandwich_2.2.4f.apk
 ${cmd} benchmarks/sparsedroidBenchmark/com.kunzisoft.keepass.libre_2.5.0.0beta18.apk
 ${cmd} benchmarks/sparsedroidBenchmark/dk.jens.backup_0.3.4.apk
-${cmd} benchmarks/sparsedroidBenchmark/net.ddns.mlsoftlaberge.trycorder.apk
-${cmd} benchmarks/sparsedroidBenchmark/opencontacts.open.com.opencontacts_12.apk
 ${cmd} benchmarks/sparsedroidBenchmark/org.csploit.android.apk
 ${cmd} benchmarks/sparsedroidBenchmark/org.decsync.sparss.floss_1.13.4.apk
 ${cmd} benchmarks/sparsedroidBenchmark/org.gateshipone.odyssey_1.1.17.apk
@@ -85,12 +84,12 @@ ${cmd} benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk 
 ${cmd} benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk # AGC, NGC, FLOWDROID, GC
 
 # more than 3 hours
-${cmd} benchmarks/sparsedroidBenchmark/com.ichi2.anki_2.8.4.apk # AGC, NGC, FLOWDROID, GC
+# ${cmd} benchmarks/sparsedroidBenchmark/com.ichi2.anki_2.8.4.apk # AGC, NGC, FLOWDROID, GC
 # more than 5 hours
-${cmd} benchmarks/sparsedroidBenchmark/com.microsoft.office.outlook_3.0.46.apk # AGC, NGC, FlowDroid, GC
-${cmd} benchmarks/sparsedroidBenchmark/com.nianticlabs.pokemongo_0.139.3.apk # AGC, NGC, FlowDroid, GC
-${cmd} benchmarks/diskDroidBenchmarks/group3/de.k3b.android.androFotoFinder_44.apk # AGC, NGC, FlowDroid, GC
+# ${cmd} benchmarks/sparsedroidBenchmark/com.microsoft.office.outlook_3.0.46.apk # AGC, NGC, FlowDroid, GC
+# ${cmd} benchmarks/sparsedroidBenchmark/com.nianticlabs.pokemongo_0.139.3.apk # AGC, NGC, FlowDroid, GC
+# ${cmd} benchmarks/diskDroidBenchmarks/group3/de.k3b.android.androFotoFinder_44.apk # AGC, NGC, FlowDroid, GC
 
 # run out of 256 GB
-${cmd} benchmarks/diskDroidBenchmarks/group1/F-Droid.apk # AGC, NGC, FLOWDROID, GC
+# ${cmd} benchmarks/diskDroidBenchmarks/group1/F-Droid.apk # AGC, NGC, FLOWDROID, GC
 ##########################
