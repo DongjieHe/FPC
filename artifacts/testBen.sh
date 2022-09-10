@@ -29,10 +29,10 @@ cmd="./runFineGrainedNGC.py"
 #${cmd} benchmarks/sparsedroidBenchmark/nightlock-peppercarrot.apk
 #${cmd} benchmarks/sparsedroidBenchmark/org.secuso.privacyfriendlyactivitytracker_1.0.5.apk
 #${cmd} benchmarks/sparsedroidBenchmark/rodrigodavy.com.github.pixelartist.apk
-# ${cmd} benchmarks/sparsedroidBenchmark/acr.browser.lightning_4.5.1.apk
-# ${cmd} benchmarks/diskDroidBenchmarks/group3/com.zeapo.pwdstore_10303.apk
-# ${cmd} benchmarks/sparsedroidBenchmark/net.ddns.mlsoftlaberge.trycorder.apk
-# ${cmd} benchmarks/sparsedroidBenchmark/opencontacts.open.com.opencontacts_12.apk
+#${cmd} benchmarks/sparsedroidBenchmark/acr.browser.lightning_4.5.1.apk
+#${cmd} benchmarks/diskDroidBenchmarks/group3/com.zeapo.pwdstore_10303.apk
+#${cmd} benchmarks/sparsedroidBenchmark/net.ddns.mlsoftlaberge.trycorder.apk
+#${cmd} benchmarks/sparsedroidBenchmark/opencontacts.open.com.opencontacts_12.apk
 ###########################################################################################################################################
 # Section 2: apps that could successfully analyzed by fine-grained aggressive analysis by us.
 
@@ -69,19 +69,18 @@ ${cmd} benchmarks/sparsedroidBenchmark/com.emn8.mobilem8.nativeapp.bk_5.0.10.apk
 
 ## more than 30 mins-1 hour.
 ${cmd} benchmarks/diskDroidBenchmarks/group1/org.lumicall.android_190.apk
-${cmd} benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk # FlowDroid, GC(OOM)
+${cmd} benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk
 ## more than 1 hour
-${cmd} benchmarks/sparsedroidBenchmark/nya.miku.wishmaster.apk # FlowDroid
-${cmd} benchmarks/diskDroidBenchmarks/group1/bus.chio.wishmaster_1002.apk # FLOWDROID, GC
+${cmd} benchmarks/sparsedroidBenchmark/nya.miku.wishmaster.apk
+${cmd} benchmarks/diskDroidBenchmarks/group1/bus.chio.wishmaster_1002.apk
 #######################
 
+# about 2 hours
+${cmd} benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk
+${cmd} benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk
 
 ########################################################################################################################################
 # Section 3: apps which either run out of memory or could not be analyzed within the given budget. Should be consided in the future.
-
-# more than 2 hours
-${cmd} benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk # AGC, NGC, FlowDroid(OOM), GC(OOM)
-${cmd} benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk # AGC, NGC, FLOWDROID, GC
 
 # more than 3 hours
 # ${cmd} benchmarks/sparsedroidBenchmark/com.ichi2.anki_2.8.4.apk # AGC, NGC, FLOWDROID, GC

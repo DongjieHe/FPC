@@ -20,16 +20,13 @@ JVMARG = '-Xmx200G'
 FLOWDROID = 'fgAggreGC.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
-OUTPUTPATH = 'myout'
+OUTPUTPATH = 'myout1'
 RESULT_TIMEOUT = 7200
 DATAFLOW_TIMEOUT = 7200
 MAX_THREAD_NUM = 8
 isPrint = True
 # isPrint = False
-# SOLVER = None
-# SOLVER = 'ONLINE'
 SOLVER = 'FINEGRAIN'
-# SOLVER = 'GC'
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
@@ -39,9 +36,6 @@ def genCmd(app):
     args += ['-rt', str(RESULT_TIMEOUT)]
     args += ['-dt', str(DATAFLOW_TIMEOUT)]
     args += ['-mt', str(MAX_THREAD_NUM)]
-    # args += ['-aa', 'PTSBASED']
-    # args += ['-aa', 'LAZY']
-    # args += ['-aa', 'FLOWSENSITIVE']
     outDir = os.path.join(CURRENT_DIR, OUTPUTPATH)
     if SOLVER is not None:
         args += ['-ds', SOLVER]
