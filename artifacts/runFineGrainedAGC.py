@@ -48,11 +48,11 @@ def genCmd(app):
         print('old result found. skip this.')
         return None
     elif not isPrint:
+        args += ['-o', output]
+    if isPrint is True:
         if os.path.exists(outlog):
             print('old result found. skip this.')
             return None
-        args += ['-o', output]
-    if isPrint is True:
         args += ['>', outlog, '2>&1']
     cmd = ' '.join(args)
     return cmd
