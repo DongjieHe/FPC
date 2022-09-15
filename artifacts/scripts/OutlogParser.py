@@ -76,17 +76,17 @@ def stats(parser):
         return 'TO'
     return 'SUCC'
 
-def buildTable(fd, gc, agc, ngc):
+def buildTable(fd, gc, ngc):
     fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
-    agcMap = classifyByApkName(agc)
+    # agcMap = classifyByApkName(agc)
     ngcMap = classifyByApkName(ngc)
 
-    flowdroidTable = PrettyTable()
-    flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results", "Status"]
-    for k, v in sorted(fdMap.items()):
-        flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount, stats(v)])
-    print(flowdroidTable)
+    # flowdroidTable = PrettyTable()
+    # flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results", "Status"]
+    # for k, v in sorted(fdMap.items()):
+    #     flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount, stats(v)])
+    # print(flowdroidTable)
 
     # cleandroidTable = PrettyTable()
     # cleandroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results", "Status"]
@@ -100,11 +100,11 @@ def buildTable(fd, gc, agc, ngc):
     #     aggressiveFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
     # print(aggressiveFGTable)
 
-    # normalFGTable = PrettyTable()
-    # normalFGTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
-    # for k, v in sorted(ngcMap.items()):
-    #     normalFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
-    # print(normalFGTable)
+    normalFGTable = PrettyTable()
+    normalFGTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
+    for k, v in sorted(ngcMap.items()):
+        normalFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
+    print(normalFGTable)
 
     # integratedTable = PrettyTable()
     # integratedTable.field_names = ["APK", "FDT(s)", "MaxM(MB)", "#PE", "#Leaks", "#Results", "CDT(s)", "CDMaxM(MB)", "#CDRDPEs", "AGCT(s)", "AGCMaxM(MB)", "#AGCRDPEs", "NGCT(s)", "NGCMaxM(MB)", "#NGCRDPEs"]
@@ -117,10 +117,52 @@ def buildTable(fd, gc, agc, ngc):
     #                              agcElem.dataSolverTime, agcElem.maxmemory, agcElem.recordedFWPECnt + agcElem.recordedBWPECnt,
     #                              ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
     # print(integratedTable)
+    
+    integratedTable = PrettyTable()
+    integratedTable.field_names = ["APK", "FDT(s)", "MaxM(MB)", "#PE",  "CDT(s)", "CDMaxM(MB)", "#CDRDPEs", "NGCT(s)", "NGCMaxM(MB)", "#NGCRDPEs"]
+    for k, v in sorted(fdMap.items()):
+        gcElem = gcMap[k]
+        ngcElem = ngcMap[k]
+        integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount,
+                                 gcElem.dataSolverTime, gcElem.maxmemory, gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
+                                 ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
+    print(integratedTable)
+
+def buildTexTable(fd, gc, ngc): 
+    fdMap = classifyByApkName(fd)
+    gcMap = classifyByApkName(gc)
+    ngcMap = classifyByApkName(ngc)
+    head = [
+            r"\begin{table}",
+            r"\centering",
+            r"\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|} \hline",
+            r"\multirow{2}{*}{APP} & \multicolumn{3}{c}{Analysis Time (s)} & \multicolumn{3}{c}{Memory Usage (MB)} & \multicolumn{3}{c}{\#Path Edges} \\ \hline",
+            r" & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC \\ \hline",
+            ]
+    tail = [r"\end{tabular}"
+            r"\end{table}"]
+    tableRows = []
+    benchmarks = ['dk.jens.backup_0.3.4', 'org.csploit.android', 'bus.chio.wishmaster_1002']
+    for k in benchmarks:
+        fd = fdMap[k]
+        gc = gcMap[k]
+        ngc = ngcMap[k]
+        tableRows.append([k, str(fd.dataSolverTime), str(gc.dataSolverTime), str(ngc.dataSolverTime), str(fd.maxmemory), str(gc.maxmemory), str(ngc.maxmemory), 
+            str(fd.forwardPECount + fd.barwardPECount), str(gc.recordedFWPECnt + gc.recordedBWPECnt), str(ngc.recordedFWPECnt + ngc.recordedBWPECnt)])
+    content = "\n".join(head)
+    for l in tableRows:
+        content += "&".join(l)
+        content += r"\\ \hline"
+    content += "\n".join(tail)
+    print(content)
+
+
 
 if __name__ == '__main__':
     fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FlowDroid", "FlowDroid")
     gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/GC", "CleanDroid")
-    agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
+    # agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
     ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/NGC/", "NGC")
-    buildTable(fd, gc, agc, ngc)
+    # buildTable(fd, gc, ngc)
+    buildTexTable(fd, gc, ngc)
+
