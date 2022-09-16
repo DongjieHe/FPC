@@ -15,6 +15,7 @@ class LogParser():
         self.barwardPECount = -1
         self.recordedFWPECnt = -1
         self.recordedBWPECnt = -1
+        self.adgEdgeCnt = -1
         self.oom = False
         self.to = False
 
@@ -49,6 +50,13 @@ class LogParser():
                 self.oom = True
             if 'Timeout reached, stopping the solvers' in ln:
                 self.to = True
+            if '#edges of Abstraction Dependency Graph:' in ln:
+                tmp = [int(s) for s in ln.split() if s.isdigit()]
+                if self.adgEdgeCnt == -1:
+                    self.adgEdgeCnt = tmp[0]
+                else:
+                    self.adgEdgeCnt += tmp[0]
+
 
 # logDir should be an absolute path.
 def loadParserList(logDir, solver):
@@ -129,6 +137,17 @@ def buildTable(fd, gc, ngc):
                                  ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
     print(integratedTable)
 
+benchmarks = [ 'com.ilm.sandwich_2.2.4f', 'com.github.yeriomin.dumbphoneassistant_5', 'dk.jens.backup_0.3.4',
+               'org.csploit.android', 'com.kunzisoft.keepass.libre_2.5.0.0beta18', 'org.gateshipone.odyssey_30',
+               'org.decsync.sparss.floss_1.13.4', 'com.alfray.timeriffic_10905', 'org.materialos.icons_2.1',
+               'com.app.Zensuren_1.21', 'name.myigel.fahrplan.eh17_1.33.16', 'com.github.axet.callrecorder_219',
+               'com.emn8.mobilem8.nativeapp.bk_5.0.10', 'com.microsoft.office.word_16.0.11425.20132', 'com.igisw.openmoneybox.3.4.1.8',
+               'org.secuso.privacyfriendlytodolist_2.1', 'com.genonbeta.TrebleShot_98', 'com.kanedias.vanilla.metadata_5',
+               'com.adobe.reader_19.2.1.9183', 'com.vonglasow.michael.satstat', 'org.secuso.privacyfriendlyweather_6',
+               'org.totschnig.myexpenses', 'nya.miku.wishmaster_54',  'org.fdroid.fdroid_1008000', 'org.lumicall.android_190',
+               'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
+               ]
+
 def buildTexTable(fd, gc, ngc): 
     fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
@@ -143,16 +162,6 @@ def buildTexTable(fd, gc, ngc):
     tail = [r"\end{tabular}",
             r"\end{table*}"]
     tableRows = []
-    benchmarks = [ 'com.ilm.sandwich_2.2.4f', 'com.github.yeriomin.dumbphoneassistant_5', 'dk.jens.backup_0.3.4',
-                   'org.csploit.android', 'com.kunzisoft.keepass.libre_2.5.0.0beta18', 'org.gateshipone.odyssey_30',
-                   'org.decsync.sparss.floss_1.13.4', 'com.alfray.timeriffic_10905', 'org.materialos.icons_2.1',
-                  'com.app.Zensuren_1.21', 'name.myigel.fahrplan.eh17_1.33.16', 'com.github.axet.callrecorder_219',
-                   'com.emn8.mobilem8.nativeapp.bk_5.0.10', 'com.microsoft.office.word_16.0.11425.20132', 'com.igisw.openmoneybox.3.4.1.8',
-                  'org.secuso.privacyfriendlytodolist_2.1', 'com.genonbeta.TrebleShot_98', 'com.kanedias.vanilla.metadata_5',
-                   'com.adobe.reader_19.2.1.9183', 'com.vonglasow.michael.satstat', 'org.secuso.privacyfriendlyweather_6',
-                   'org.totschnig.myexpenses', 'nya.miku.wishmaster_54',  'org.fdroid.fdroid_1008000', 'org.lumicall.android_190',
-                   'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
-            ]
     ben2name = {
         'bus.chio.wishmaster_1002': 'bus.chio.wishmaster',
         'com.adobe.reader_19.2.1.9183': 'com.adobe.reader',
@@ -299,6 +308,18 @@ def buildTexTable(fd, gc, ngc):
     content += "\n".join(tail)
     print(content)
 
+def adgEdgeOverPERatio(fd, ngc):
+    fdMap = classifyByApkName(fd)
+    ngcMap = classifyByApkName(ngc)
+    ansList = []
+    for k in benchmarks:
+        fd = fdMap[k]
+        ngc = ngcMap[k]
+        if not fd.to and not fd.oom:
+            tmp = ngc.adgEdgeCnt * 100.0 / (fd.forwardPECount + fd.barwardPECount)
+            ansList.append(tmp)
+    print(ansList)
+    print(np.prod(ansList) ** (1.0 / len(ansList)))
 
 
 if __name__ == '__main__':
@@ -307,5 +328,6 @@ if __name__ == '__main__':
     # agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
     ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FINEGRAIN/NGC/", "NGC")
     # buildTable(fd, gc, ngc)
-    buildTexTable(fd, gc, ngc)
+    # buildTexTable(fd, gc, ngc)
+    adgEdgeOverPERatio(fd, ngc)
 
