@@ -190,9 +190,9 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
         if (garbageCollector != null)
             return garbageCollector;
 //        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
-        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
-//        abstDependencyGraph = new AbstrationDependencyGraph<>();
-//        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
+//        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
+        abstDependencyGraph = new AbstrationDependencyGraph<>();
+        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
         GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
         gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
         return garbageCollector = gc;
