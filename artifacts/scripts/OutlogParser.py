@@ -133,26 +133,68 @@ def buildTexTable(fd, gc, ngc):
     gcMap = classifyByApkName(gc)
     ngcMap = classifyByApkName(ngc)
     head = [
-            r"\begin{table}",
+            r"\begin{table*}",
             r"\centering",
-            r"\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|} \hline",
-            r"\multirow{2}{*}{APP} & \multicolumn{3}{c}{Analysis Time (s)} & \multicolumn{3}{c}{Memory Usage (MB)} & \multicolumn{3}{c}{\#Path Edges} \\ \hline",
-            r" & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC \\ \hline",
+            r"\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|} \hline",
+            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multirow{2}{*}{Version} & \multicolumn{3}{c|}{Analysis Time (s)} & \multicolumn{3}{c|}{Memory Usage (MB)} & \multicolumn{3}{c|}{\#Path Edges} \\ \cline{3-11}",
+            r" & & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC & FlowDroid & CleanDroid & FPC \\ \hline",
             ]
-    tail = [r"\end{tabular}"
-            r"\end{table}"]
+    tail = [r"\end{tabular}",
+            r"\end{table*}"]
     tableRows = []
     benchmarks = ['dk.jens.backup_0.3.4', 'org.csploit.android', 'bus.chio.wishmaster_1002']
+    ben2name = {
+        'dk.jens.backup_0.3.4':'dk.jens.backup',
+        'org.csploit.android':'org.csploit.android',
+        'bus.chio.wishmaster_1002':'bus.chio.wishmaster'
+    }
+    ben2version = {
+        'dk.jens.backup_0.3.4':'1.0',
+        'org.csploit.android':'1.0',
+        'bus.chio.wishmaster_1002':'1.0'
+    }
     for k in benchmarks:
         fd = fdMap[k]
         gc = gcMap[k]
         ngc = ngcMap[k]
-        tableRows.append([k, str(fd.dataSolverTime), str(gc.dataSolverTime), str(ngc.dataSolverTime), str(fd.maxmemory), str(gc.maxmemory), str(ngc.maxmemory), 
-            str(fd.forwardPECount + fd.barwardPECount), str(gc.recordedFWPECnt + gc.recordedBWPECnt), str(ngc.recordedFWPECnt + ngc.recordedBWPECnt)])
+        fdt = "\\textcolor{blue}{OoT}" if fd.to else str(fd.dataSolverTime)
+        gct = "\\textcolor{blue}{OoT}" if gc.to else str(gc.dataSolverTime)
+        if fd.to:
+            time = 7200
+        else:
+            time = fd.dataSolverTime
+        if gc.to == False:
+            sd = time * 1.0 / gc.dataSolverTime
+            gct = gct + " (" + "{:.1f}".format(sd) + "$\\times$)"
+        ngct = "\\textcolor{blue}{OoT}" if ngc.to else str(ngc.dataSolverTime)
+        if ngc.to == False:
+            sd = time * 1.0 / ngc.dataSolverTime
+            ngct = ngct + " (" + "{:.1f}".format(sd) + "$\\times$)"
+        fde = fd.forwardPECount + fd.barwardPECount
+        gce = gc.recordedFWPECnt + gc.recordedBWPECnt
+        gcep = ''
+        if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
+            tmp = gce * 100.0 / fde
+            gcep = " ("+ "{:.1f}".format(tmp) + "\%)"
+        ngce = ngc.recordedFWPECnt + ngc.recordedBWPECnt
+        ngcep = ''
+        if ngc.to == False and ngc.oom == False and fd.to == False and fd.oom == False:
+            tmp = ngce * 100.0 / fde
+            ngcep = " ("+ "{:.1f}".format(tmp) + "\%)"
+        tableRows.append([ben2name[k], ben2version[k], fdt, gct, ngct,
+                          "\\textcolor{red}{OoM}" if fd.oom else str(fd.maxmemory),
+                          "\\textcolor{red}{OoM}" if gc.oom else str(gc.maxmemory),
+                          "\\textcolor{red}{OoM}" if ngc.oom else str(ngc.maxmemory),
+                          "-" if fd.to or fd.oom else str(fde),
+                          "-" if gc.to or gc.oom else str(gce) + gcep,
+                          "-" if ngc.to or ngc.oom else str(ngce) + ngcep
+                        ])
     content = "\n".join(head)
+    content += "\n"
     for l in tableRows:
         content += "&".join(l)
         content += r"\\ \hline"
+        content += "\n"
     content += "\n".join(tail)
     print(content)
 
