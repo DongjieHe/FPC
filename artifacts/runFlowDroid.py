@@ -17,10 +17,10 @@ RED = '\033[31m'
 # global variables
 CURRENT_DIR = os.path.dirname(os.path.realpath(__file__))
 JVMARG = '-Xmx200G'
-FLOWDROID = 'fgAggreGC.jar'
+FLOWDROID = 'fgNormalGC.jar'
 PLATFORMS_DIR = 'android-platforms'
 SOURCE_SINK_SPEC = 'SourcesAndSinks.txt'
-OUTPUTPATH = 'myout1'
+OUTPUTPATH = 'myout2'
 RESULT_TIMEOUT = 7200
 DATAFLOW_TIMEOUT = 7200
 MAX_THREAD_NUM = 8
