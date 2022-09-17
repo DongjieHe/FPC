@@ -40,6 +40,11 @@ public class NormalGarbageCollector<N, D> extends FineGrainedReferenceCountingGa
                         return true;
                 }
             } while (checkChangeCounter && changeCounter != jumpFnCounter.getChangeCounter());
+            // we actually can remove these nodes.
+//            Set<Pair<SootMethod, D>> references = abstDependencyGraph.reachableClosure(abstraction);
+//            for (Pair<SootMethod, D> ref : references) {
+//                abstDependencyGraph.remove(ref);
+//            }
         } finally {
             abstDependencyGraph.unlock();
         }
