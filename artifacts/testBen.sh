@@ -3,7 +3,15 @@
 # cmd="./runCleanDroid.py"
 # cmd="./runFineGrainedAGC.py"
 # cmd="./runFineGrainedNGC.py"
-cmd="./runFlowDroid.py"
+cmd="./runFineGrainedNGC0.py"
+cmd="./runFineGrainedNGC2.py"
+cmd="./runFineGrainedNGC3.py"
+cmd="./runFineGrainedNGC4.py"
+cmd="./runFineGrainedNGC5.py"
+cmd="./runFineGrainedNGC6.py"
+cmd="./runFineGrainedNGC7.py"
+cmd="./runFineGrainedNGC8.py"
+# cmd="./runFlowDroid.py"
 
 #############################################################################################################
 # Section 1: apps could either be analyzed within 1 or 2 seconds or run into crash by FlowDroid.

@@ -193,6 +193,14 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 //        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
         abstDependencyGraph = new AbstrationDependencyGraph<>();
         NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
+//        gc.setSleepTimeSeconds(0);
+//        gc.setSleepTimeSeconds(2);
+//        gc.setSleepTimeSeconds(3);
+//        gc.setSleepTimeSeconds(4);
+//        gc.setSleepTimeSeconds(5);
+//        gc.setSleepTimeSeconds(6);
+//        gc.setSleepTimeSeconds(7);
+//        gc.setSleepTimeSeconds(8);
         GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
         gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
         return garbageCollector = gc;
