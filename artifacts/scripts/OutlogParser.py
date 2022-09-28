@@ -414,7 +414,6 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     memoryReductions6 = []
     memoryReductions7 = []
     memoryReductions8 = []
-
     for k in benchmarks:
         appfd = fdMap[k]
         appngc0 = ngc0Map[k]
@@ -467,7 +466,23 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     gmMemReducList.append(np.prod(memoryReductions8) ** (1.0 / len(memoryReductions8)))
     print(gmSpeedUpList)
     print(gmMemReducList)
+    # x = range(0, len(gmSpeedUpList))
+    # plt.figure(figsize=(7,4.5))
+    # plt.yticks(np.arange(0, 10, 0.5), weight='bold')
+    # plt.scatter(x, gmSpeedUpList, c="k", alpha=0.5, marker='.')
+    # plt.ylim((0,4))
+    # plt.xlabel("Collecting intervals (s)")
+    # plt.ylabel("Average Speedups")
+    # plt.show()
 
+    x = range(0, len(gmMemReducList))
+    plt.figure(figsize=(7,4.5))
+    plt.yticks(np.arange(0, 1, 0.1), weight='bold')
+    plt.scatter(x, gmMemReducList, c="k", alpha=0.5, marker='*')
+    plt.ylim((0.3, 0.8))
+    plt.xlabel("Collecting intervals (s)")
+    plt.ylabel("Average Memory Reduction (%)")
+    plt.show()
 
 
 if __name__ == '__main__':
@@ -484,8 +499,8 @@ if __name__ == '__main__':
     ngc7 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT7/FINEGRAIN/NGC/", "NGC")
     ngc8 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT8/FINEGRAIN/NGC/", "NGC")
     # buildTable(fd, gc, ngc)
-    # buildTexTable(fd, gc, ngc)
+    buildTexTable(fd, gc, ngc0)
     # adgEdgeOverPERatio(fd, ngc)
-    ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
+    # ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     # scatterPlotSpeedUpAndPE(fd, gc, ngc)
 
