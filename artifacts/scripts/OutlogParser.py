@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import os
 import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
 from prettytable import PrettyTable
 
 class LogParser():
@@ -316,10 +318,72 @@ def adgEdgeOverPERatio(fd, ngc):
         fd = fdMap[k]
         ngc = ngcMap[k]
         if not fd.to and not fd.oom:
-            tmp = ngc.adgEdgeCnt * 100.0 / (fd.forwardPECount + fd.barwardPECount)
+            tmp = ngc.adgEdgeCnt * 1.0 / (fd.forwardPECount + fd.barwardPECount)
             ansList.append(tmp)
     print(ansList)
     print(np.prod(ansList) ** (1.0 / len(ansList)))
+    ind = range(1, len(ansList) + 1)
+    width = 0.5  # the width of the bars: can also be len(x) sequence
+    plt.figure(figsize=(11, 4.2))
+    # plt.subplots_adjust(left=0.1, right=0.9, top=0.85, bottom=0.2)
+    plt.hlines(0.01, 0, len(ansList) + 1, color='red', linestyle='dotted')
+    p1 = plt.bar(ind, ansList, width, color='gray')
+    plt.yticks(np.arange(0, 0.11, 0.01), weight='bold')
+    plt.xlim([0, len(ansList) + 1] )
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    plt.xticks(ind, ind, weight='bold')
+    plt.ylabel("ADG's #Edges / FlowDroid's #Path Edges")
+    # plt.show()
+    plt.savefig('adgSize.pdf')
+
+# benchmarks2 = [
+#     # 'org.materialos.icons_2.1',
+#     #            'com.app.Zensuren_1.21', 'name.myigel.fahrplan.eh17_1.33.16', 'com.github.axet.callrecorder_219',
+#
+#                'com.emn8.mobilem8.nativeapp.bk_5.0.10', 'com.microsoft.office.word_16.0.11425.20132', 'com.igisw.openmoneybox.3.4.1.8',
+#                'org.secuso.privacyfriendlytodolist_2.1', 'com.genonbeta.TrebleShot_98', 'com.kanedias.vanilla.metadata_5',
+#                'com.adobe.reader_19.2.1.9183', 'com.vonglasow.michael.satstat', 'org.secuso.privacyfriendlyweather_6',
+#                'org.totschnig.myexpenses', 'nya.miku.wishmaster_54',  'org.fdroid.fdroid_1008000', 'org.lumicall.android_190',
+#                'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
+#                ]
+def scatterPlotSpeedUpAndPE(fd, gc, ngc):
+    fdMap = classifyByApkName(fd)
+    gcMap = classifyByApkName(gc)
+    ngcMap = classifyByApkName(ngc)
+    spList = []
+    peList = []
+    memList = []
+    for k in benchmarks:
+        fd = fdMap[k]
+        gc = gcMap[k]
+        ngc = ngcMap[k]
+        if not fd.to and not fd.oom and not gc.to and not gc.oom:
+            speedUp = gc.dataSolverTime * 1.0 / ngc.dataSolverTime
+            rcdPE = (gc.recordedFWPECnt + gc.recordedBWPECnt) * 1.0 / (ngc.recordedFWPECnt + ngc.recordedBWPECnt)
+            memRatio = gc.maxmemory * 1.0/ ngc.maxmemory
+            spList.append(speedUp)
+            peList.append(rcdPE)
+            memList.append(memRatio)
+    # print(spList)
+    # print(peList)
+    # print(memList)
+    x = range(1, len(spList) + 1)
+    plt.figure(figsize=(8,2.5))
+    plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
+    plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
+    plt.xticks(x, x)
+    plt.legend(loc='upper left')
+    plt.savefig('tp.pdf')
+    # plt.show()
+
+    # plt.figure(figsize=(8,2.5))
+    # plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
+    # plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
+    # plt.xticks(x, x)
+    # plt.legend(loc='upper left')
+    # plt.savefig('mp.pdf')
+    # plt.show()
+
 
 def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
     fdMap = classifyByApkName(fd)
@@ -423,3 +487,5 @@ if __name__ == '__main__':
     # buildTexTable(fd, gc, ngc)
     # adgEdgeOverPERatio(fd, ngc)
     ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
+    # scatterPlotSpeedUpAndPE(fd, gc, ngc)
+
