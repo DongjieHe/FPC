@@ -1,0 +1,37 @@
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+
+|                    APK                     | IFDS Time (s) | Max Memory (MB) | #PathEdges | #RecordedPEs | #Leaks | #Results |
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+
+|          bus.chio.wishmaster_1002          |      5595     |      147470     | 616401603  |   1571320    |   9    |   108    |
+|        com.adobe.reader_19.2.1.9183        |      212      |       4707      |  4537647   |     897      |   22   |    29    |
+|        com.alfray.timeriffic_10905         |       17      |       4508      |  6151299   |    24787     |   15   |    16    |
+|           com.app.Zensuren_1.21            |       52      |       4902      |  26242286  |    27794     |   9    |    36    |
+|   com.emn8.mobilem8.nativeapp.bk_5.0.10    |      143      |       2568      |  4183531   |     3167     |   22   |    45    |
+|        com.genonbeta.TrebleShot_98         |      188      |       6294      |  19400607  |    23043     |   2    |   114    |
+|       com.github.axet.bookreader_375       |      5823     |      140509     | 1645185266 |   3360339    |   2    |    4     |
+|    com.github.axet.callrecorder_1.6.44     |      121      |       9452      |  39965878  |    27492     |   17   |    45    |
+|      com.github.axet.callrecorder_219      |       44      |       6823      |  17631268  |     6678     |   10   |    53    |
+|  com.github.yeriomin.dumbphoneassistant_5  |       4       |       874       |   826288   |     1913     |   2    |    5     |
+|       com.igisw.openmoneybox.3.4.1.8       |      204      |      16074      |  68741792  |    111240    |   11   |    42    |
+|          com.ilm.sandwich_2.2.4f           |       5       |       2188      |   839820   |     1197     |   9    |    13    |
+|      com.kanedias.vanilla.metadata_5       |      243      |      14152      |  55258442  |    28155     |   2    |    4     |
+| com.kunzisoft.keepass.libre_2.5.0.0beta18  |       6       |       2319      |  2015696   |     1342     |   5    |    29    |
+| com.microsoft.office.word_16.0.11425.20132 |      207      |       3694      |  12151867  |     6736     |   17   |    59    |
+|       com.vonglasow.michael.satstat        |      227      |      19607      | 108658913  |    144863    |   8    |    17    |
+|            dk.jens.backup_0.3.4            |       7       |       545       |   867103   |     2290     |   3    |    5     |
+|     name.myigel.fahrplan.eh17_1.33.16      |       86      |       6845      |  9254157   |    15636     |   2    |    15    |
+|      net.ddns.mlsoftlaberge.trycorder      |       2       |       1215      |   575465   |     358      |   1    |    1     |
+|            nya.miku.wishmaster             |      1770     |      83691      | 323093381  |    675976    |   5    |    16    |
+|           nya.miku.wishmaster_54           |      1925     |      82187      | 342274478  |    688460    |   5    |    16    |
+|   opencontacts.open.com.opencontacts_12    |       2       |       588       |   95457    |     218      |   1    |    1     |
+|            org.csploit.android             |       5       |       959       |   190288   |      80      |   1    |    2     |
+|      org.decsync.sparss.floss_1.13.4       |       34      |       3343      |  6897957   |     9980     |   25   |    52    |
+|         org.fdroid.fdroid_1008000          |      322      |       3302      |  10244059  |     5906     |   28   |   130    |
+|       org.gateshipone.odyssey_1.1.17       |       12      |       1284      |  3770159   |     3678     |   8    |    50    |
+|         org.gateshipone.odyssey_30         |       12      |       1639      |  3608478   |     3590     |   10   |    40    |
+|          org.lumicall.android_190          |      2254     |      25007      | 166367781  |    46885     |   9    |    21    |
+|          org.materialos.icons_2.1          |       34      |       4581      |  13728882  |    56446     |   2    |    14    |
+|     org.openpetfoodfacts.scanner_2.9.8     |      2180     |      87918      | 531539285  |    992750    |   4    |    11    |
+|   org.secuso.privacyfriendlytodolist_2.1   |      145      |      11181      |  65120294  |    97245     |   5    |    16    |
+|    org.secuso.privacyfriendlyweather_6     |       20      |       2881      |  7543702   |     5786     |   3    |    38    |
+|          org.totschnig.myexpenses          |      134      |      12225      |  43482589  |    26327     |   17   |   478    |
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+

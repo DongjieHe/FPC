@@ -62,8 +62,9 @@ class LogParser():
 
 # logDir should be an absolute path.
 def loadParserList(logDir, solver):
-    filter = ['F-Droid', 'de.k3b.android.androFotoFinder_44', 'com.nianticlabs.pokemongo_0.139.3', 'com.microsoft.office.outlook_3.0.46', 
-            'com.ichi2.anki_2.8.4', 'acr.browser.lightning_4.5.1', 'com.zeapo.pwdstore_10303']
+    filter = []
+    # filter = ['F-Droid', 'de.k3b.android.androFotoFinder_44', 'com.nianticlabs.pokemongo_0.139.3', 'com.microsoft.office.outlook_3.0.46', 
+    #         'com.ichi2.anki_2.8.4', 'acr.browser.lightning_4.5.1', 'com.zeapo.pwdstore_10303']
     ret = []
     for r, _, fs in os.walk(logDir):
         for file in fs:
@@ -150,16 +151,16 @@ benchmarks = [ 'com.ilm.sandwich_2.2.4f', 'com.github.yeriomin.dumbphoneassistan
                'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
                ]
 
-def buildTexTable(fd, gc, ngc): 
-    fdMap = classifyByApkName(fd)
+def buildTexTable(gc, ngc):
+    # fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
     ngcMap = classifyByApkName(ngc)
     head = [
             r"\begin{table*}",
             r"\centering",
-            r"\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|} \hline",
-            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multirow{2}{*}{Version} & \multicolumn{3}{c|}{Analysis Time (s)} & \multicolumn{3}{c|}{Memory Usage (GB)} & \multicolumn{3}{c|}{\#Path Edges (K)} \\ \cline{3-11}",
-            r" & & \textsc{FlowDroid} & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{FlowDroid} & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{FlowDroid} & \textsc{CleanDroid} & \textsc{Fpc} \\ \hline",
+            r"\begin{tabular}{|l|r|r|r|r|r|r|r|} \hline",
+            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multirow{2}{*}{Version} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c|}{\#Path Edges (K)} \\ \cline{3-8}",
+            r" & & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{CleanDroid} & \textsc{Fpc} \\ \hline",
             ]
     tail = [r"\end{tabular}",
             r"\end{table*}"]
@@ -232,72 +233,69 @@ def buildTexTable(fd, gc, ngc):
     ngcPEPercs = []
 
     for k in benchmarks:
-        fd = fdMap[k]
+        # fd = fdMap[k]
         gc = gcMap[k]
         ngc = ngcMap[k]
-        fdt = "\\textcolor{blue}{OoT}" if fd.to else str(fd.dataSolverTime)
-        if fd.oom and not fd.to:
-            fdt = '-'
+        # fdt = "\\textcolor{blue}{OoT}" if fd.to else str(fd.dataSolverTime)
+        # if fd.oom and not fd.to:
+        #     fdt = '-'
         gct = "\\textcolor{blue}{OoT}" if gc.to else str(gc.dataSolverTime)
-        time = fd.dataSolverTime
-        if fd.to == False and fd.oom == False and gc.to == False:
-            if gc.oom:
-                gct = '-'
-            else:
-                sd = time * 1.0 / gc.dataSolverTime
-                gcSpeedUps.append(sd)
-                gct = gct + " (" + "{:.1f}".format(sd) + "$\\times$)"
+        time = gc.dataSolverTime
+        # if fd.to == False and fd.oom == False and gc.to == False:
+        #     if gc.oom:
+        #         gct = '-'
+        #     else:
+        #         sd = time * 1.0 / gc.dataSolverTime
+        #         gcSpeedUps.append(sd)
+        #         gct = gct + " (" + "{:.1f}".format(sd) + "$\\times$)"
         ngct = "\\textcolor{blue}{OoT}" if ngc.to else str(ngc.dataSolverTime)
-        if fd.to == False and fd.oom == False and ngc.to == False:
+        if gc.to == False and gc.oom == False and ngc.to == False:
             sd = time * 1.0 / ngc.dataSolverTime
             ngcSpeedUps.append(sd)
             ngct = ngct + " (" + "{:.1f}".format(sd) + "$\\times$)"
-        fde = fd.forwardPECount + fd.barwardPECount
+        # fde = fd.forwardPECount + fd.barwardPECount
         gce = gc.recordedFWPECnt + gc.recordedBWPECnt
-        gcep = ''
-        if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
-            tmp = gce * 1000.0 / fde
-            gcPEPercs.append(tmp)
-            gcep = " ("+ "{:.1f}".format(tmp) + "\\textperthousand)"
+        # gcep = ''
+        # if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
+        #     tmp = gce * 1000.0 / fde
+        #     gcPEPercs.append(tmp)
+        #     gcep = " ("+ "{:.1f}".format(tmp) + "\\textperthousand)"
         ngce = ngc.recordedFWPECnt + ngc.recordedBWPECnt
         ngcep = ''
-        if ngc.to == False and ngc.oom == False and fd.to == False and fd.oom == False:
-            tmp = ngce * 1000.0 / fde
+        if ngc.to == False and ngc.oom == False and gc.to == False and gc.oom == False:
+            tmp = ngce * 100.0 / gce
             ngcPEPercs.append(tmp)
-            ngcep = " ("+ "{:.1f}".format(tmp) + "\\textperthousand)"
+            ngcep = " ("+ "{:.1f}".format(tmp) + "\%)"
 
-        fdm = "\\textcolor{red}{OoM}" if fd.oom else "{:.1f}".format(fd.maxmemory / 1024.0)
-        if fd.to and not fd.oom:
-            fdm = '-'
+        # fdm = "\\textcolor{red}{OoM}" if fd.oom else "{:.1f}".format(fd.maxmemory / 1024.0)
+        # if fd.to and not fd.oom:
+        #     fdm = '-'
         gcm = "\\textcolor{red}{OoM}" if gc.oom else "{:.1f}".format(gc.maxmemory / 1024.0)
         if gc.to and not gc.oom:
             gcm = '-'
         ngcm = "\\textcolor{red}{OoM}" if ngc.oom else "{:.1f}".format(ngc.maxmemory / 1024.0)
         if ngc.to and not ngc.oom:
             ngcm = '-'
-        gcmp = ''
-        if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
-            tmp = gc.maxmemory * 100.0 / fd.maxmemory
-            gcMemPercs.append(tmp)
-            gcmp = " ("+ "{:.1f}".format(tmp) + "\%)"
+        # gcmp = ''
+        # if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
+        #     tmp = gc.maxmemory * 100.0 / fd.maxmemory
+        #     gcMemPercs.append(tmp)
+        #     gcmp = " ("+ "{:.1f}".format(tmp) + "\%)"
         ngcmp = ''
-        if ngc.to == False and ngc.oom == False and fd.to == False and fd.oom == False:
-            tmp = ngc.maxmemory * 100.0 / fd.maxmemory
+        if ngc.to == False and ngc.oom == False and gc.to == False and gc.oom == False:
+            tmp = ngc.maxmemory * 100.0 / gc.maxmemory
             ngcMemPercs.append(tmp)
             ngcmp = " ("+ "{:.1f}".format(tmp) + "\%)"
-        tableRows.append([ben2name[k], ben2version[k], fdt, gct, ngct,
-                          fdm, gcm + gcmp, ngcm + ngcmp,
-                          "-" if fd.to or fd.oom else str("{:.1f}".format(fde / 1000.0)),
-                          "-" if gc.to or gc.oom else str("{:.1f}".format(gce / 1000.0)) + gcep,
+        tableRows.append([ben2name[k], ben2version[k], gct, ngct,
+                          gcm, ngcm + ngcmp,
+                          "-" if gc.to or gc.oom else str("{:.1f}".format(gce / 1000.0)),
                           "-" if ngc.to or ngc.oom else str("{:.1f}".format(ngce / 1000.0)) + ngcep
                         ])
 
-    gmAvgRow = ['Geometric Mean', '-', '-', "{:.1f}".format(np.prod(gcSpeedUps) ** (1.0 / len(gcSpeedUps))) + "$\\times$",
+    gmAvgRow = ['Geometric Mean', '-', '-',
                     "{:.1f}".format(np.prod(ngcSpeedUps) ** (1.0 / len(ngcSpeedUps))) + "$\\times$", '-',
-                    "{:.1f}".format(np.prod(gcMemPercs) ** (1.0 / len(gcMemPercs))) + "\%",
                     "{:.1f}".format(np.prod(ngcMemPercs) ** (1.0 / len(ngcMemPercs))) + "\%", '-',
-                "{:.1f}".format(np.prod(gcPEPercs) ** (1.0 / len(gcPEPercs))) + "\\textperthousand",
-                "{:.1f}".format(np.prod(ngcPEPercs) ** (1.0 / len(ngcPEPercs))) + "\\textperthousand"
+                "{:.1f}".format(np.prod(ngcPEPercs) ** (1.0 / len(ngcPEPercs))) + "\%"
                 ]
     tableRows.append(gmAvgRow)
 
@@ -468,27 +466,30 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     gmMemReducList.append(np.prod(memoryReductions8) ** (1.0 / len(memoryReductions8)))
     print(gmSpeedUpList)
     print(gmMemReducList)
-    x = range(0, len(gmSpeedUpList))
-    plt.figure(figsize=(7,4.5))
-    plt.yticks(np.arange(0, 5, 0.2), weight='bold')
-    plt.scatter(x, gmSpeedUpList, c="k", alpha=0.5, marker='.')
-    plt.ylim((1.5,3.5))
-    plt.xlabel("Collecting intervals (s)")
-    plt.ylabel("Average Speedups")
-    plt.show()
-
-    # x = range(0, len(gmMemReducList))
-    # plt.figure(figsize=(7,4.5))
-    # plt.yticks(np.arange(0, 1, 0.1), weight='bold')
-    # plt.scatter(x, gmMemReducList, c="k", alpha=0.5, marker='*')
-    # plt.ylim((0.3, 0.8))
-    # plt.xlabel("Collecting intervals (s)")
-    # plt.ylabel("Average Memory Reduction (%)")
+    # x = range(0, len(gmSpeedUpList))
+    # plt.figure(figsize=(8, 4.0))
+    # plt.yticks(np.arange(0, 5, 0.2), weight='bold')
+    # plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
+    # plt.ylim((1.6,3.4))
+    # plt.xlabel("Collecting intervals (s)", weight='bold')
+    # plt.ylabel("Average Speedups", weight='bold')
+    # plt.savefig('SpeedupInterval.pdf')
     # plt.show()
+
+    x = range(0, len(gmMemReducList))
+    plt.figure(figsize=(8, 4.0))
+    plt.yticks(np.arange(0, 1, 0.05), weight='bold')
+    plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.45, 0.7))
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    plt.xlabel("Collecting intervals (s)")
+    plt.ylabel("Average Memory Consumption")
+    plt.savefig('MemInterval.pdf')
+    plt.show()
 
 
 if __name__ == '__main__':
-    fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FlowDroid", "FlowDroid")
+    # fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FlowDroid", "FlowDroid")
     gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/GC", "CleanDroid")
     # agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
     ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FINEGRAIN/NGC/", "NGC")
@@ -500,9 +501,9 @@ if __name__ == '__main__':
     ngc6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT6/FINEGRAIN/NGC/", "NGC")
     ngc7 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT7/FINEGRAIN/NGC/", "NGC")
     ngc8 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT8/FINEGRAIN/NGC/", "NGC")
-    # buildTable(fd, gc, ngc)
-    # buildTexTable(fd, gc, ngc0)
+    # buildTable(fd, gc, ngc7)
+    buildTexTable(gc, ngc)
     # adgEdgeOverPERatio(fd, ngc)
-    ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
+    # ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     # scatterPlotSpeedUpAndPE(fd, gc, ngc)
 

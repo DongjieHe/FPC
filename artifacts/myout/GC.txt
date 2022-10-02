@@ -1,0 +1,37 @@
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+--------+
+|                    APK                     | IFDS Time (s) | Max Memory (MB) | #PathEdges | #RecordedPEs | #Leaks | #Results | Status |
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+--------+
+|          bus.chio.wishmaster_1002          |      5079     |      124938     | 615725367  |   2800291    |   12   |   119    |  SUCC  |
+|        com.adobe.reader_19.2.1.9183        |      382      |       4701      |  8785475   |     7604     |   24   |    31    |  SUCC  |
+|        com.alfray.timeriffic_10905         |       22      |       2912      |  6977992   |    33500     |   16   |    16    |  SUCC  |
+|           com.app.Zensuren_1.21            |       40      |       6384      |  20641387  |    66696     |   9    |    36    |  SUCC  |
+|   com.emn8.mobilem8.nativeapp.bk_5.0.10    |      152      |       2261      |  4701258   |    11988     |   24   |    45    |  SUCC  |
+|        com.genonbeta.TrebleShot_98         |      194      |       7822      |  23584809  |    55586     |   1    |   142    |  SUCC  |
+|       com.github.axet.bookreader_375       |       -1      |        -1       |     -2     |   3761606    |   -1   |    -1    |  OoM   |
+|    com.github.axet.callrecorder_1.6.44     |      116      |      10198      |  35296747  |    104506    |   11   |    45    |  SUCC  |
+|      com.github.axet.callrecorder_219      |       49      |       8962      |  18448062  |    53192     |   11   |    71    |  SUCC  |
+|  com.github.yeriomin.dumbphoneassistant_5  |       3       |       420       |   817544   |     2374     |   2    |    5     |  SUCC  |
+|       com.igisw.openmoneybox.3.4.1.8       |      238      |      21772      |  89039468  |    325497    |   11   |    42    |  SUCC  |
+|          com.ilm.sandwich_2.2.4f           |       4       |       404       |   946190   |     2290     |   10   |    13    |  SUCC  |
+|      com.kanedias.vanilla.metadata_5       |      273      |      20717      |  64771281  |    299316    |   2    |    4     |  SUCC  |
+| com.kunzisoft.keepass.libre_2.5.0.0beta18  |       5       |       1483      |  2194921   |     4514     |   4    |    29    |  SUCC  |
+| com.microsoft.office.word_16.0.11425.20132 |      231      |       5450      |  13356992  |    36765     |   15   |    80    |  SUCC  |
+|       com.vonglasow.michael.satstat        |      224      |      23831      | 115818969  |    238882    |   7    |    17    |  SUCC  |
+|            dk.jens.backup_0.3.4            |       5       |       1810      |   895091   |     3032     |   3    |    5     |  SUCC  |
+|     name.myigel.fahrplan.eh17_1.33.16      |       75      |       3470      |  8912304   |    55748     |   4    |    10    |  SUCC  |
+|      net.ddns.mlsoftlaberge.trycorder      |       2       |       621       |   557238   |     564      |   1    |    1     |  SUCC  |
+|            nya.miku.wishmaster             |      5880     |      143177     | 644908071  |   2337552    |   7    |    22    |  SUCC  |
+|           nya.miku.wishmaster_54           |      7459     |      207148     | 794424596  |   2511936    |   6    |    23    |  OoM   |
+|   opencontacts.open.com.opencontacts_12    |       1       |       416       |   98447    |     414      |   1    |    1     |  SUCC  |
+|            org.csploit.android             |       5       |       513       |   215211   |     271      |   1    |    2     |  SUCC  |
+|      org.decsync.sparss.floss_1.13.4       |       27      |       3363      |  6538481   |    22430     |   24   |    52    |  SUCC  |
+|         org.fdroid.fdroid_1008000          |      1895     |      12459      |  35385996  |    77324     |   26   |   133    |  SUCC  |
+|       org.gateshipone.odyssey_1.1.17       |       10      |       1489      |  3801281   |    19200     |   5    |    35    |  SUCC  |
+|         org.gateshipone.odyssey_30         |       9       |       1156      |  3311076   |    15910     |   9    |    44    |  SUCC  |
+|          org.lumicall.android_190          |      2134     |      41151      | 205342933  |    335344    |   6    |    21    |  SUCC  |
+|          org.materialos.icons_2.1          |       40      |       6877      |  18293552  |    97814     |   3    |    14    |  SUCC  |
+|     org.openpetfoodfacts.scanner_2.9.8     |      7416     |      198827     | 623118848  |   7055028    |   4    |    13    |   TO   |
+|   org.secuso.privacyfriendlytodolist_2.1   |      150      |      17700      |  81282917  |    194216    |   5    |    16    |  SUCC  |
+|    org.secuso.privacyfriendlyweather_6     |      275      |      29504      | 114985258  |    557834    |   3    |    36    |  SUCC  |
+|          org.totschnig.myexpenses          |      1092     |      89816      | 418453110  |    934104    |   16   |   537    |  SUCC  |
++--------------------------------------------+---------------+-----------------+------------+--------------+--------+----------+--------+

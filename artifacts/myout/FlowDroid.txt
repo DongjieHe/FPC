@@ -1,0 +1,37 @@
++--------------------------------------------+---------------+-----------------+------------+--------+----------+
+|                    APK                     | IFDS Time (s) | Max Memory (MB) | #PathEdges | #Leaks | #Results |
++--------------------------------------------+---------------+-----------------+------------+--------+----------+
+|          bus.chio.wishmaster_1002          |      7200     |      145808     | 707023949  |   9    |   125    |
+|        com.adobe.reader_19.2.1.9183        |      601      |       4720      |  14183957  |   24   |    30    |
+|        com.alfray.timeriffic_10905         |       44      |       4592      |  13645340  |   16   |    16    |
+|           com.app.Zensuren_1.21            |       45      |       6618      |  25934964  |   9    |    36    |
+|   com.emn8.mobilem8.nativeapp.bk_5.0.10    |      226      |       3119      |  6654121   |   29   |    45    |
+|        com.genonbeta.TrebleShot_98         |      400      |      16114      |  63757289  |   1    |   156    |
+|       com.github.axet.bookreader_375       |      6298     |      198082     | 1520810625 |   2    |    4     |
+|    com.github.axet.callrecorder_1.6.44     |      115      |      14079      |  47354410  |   13   |    63    |
+|      com.github.axet.callrecorder_219      |       88      |      12877      |  34421086  |   8    |    60    |
+|  com.github.yeriomin.dumbphoneassistant_5  |       5       |       554       |  1956381   |   2    |    5     |
+|       com.igisw.openmoneybox.3.4.1.8       |      281      |      25698      | 109194591  |   17   |    42    |
+|          com.ilm.sandwich_2.2.4f           |       4       |       456       |  1281638   |   10   |    13    |
+|      com.kanedias.vanilla.metadata_5       |      1094     |      65534      | 247525909  |   2    |    4     |
+| com.kunzisoft.keepass.libre_2.5.0.0beta18  |       8       |       1106      |  2920067   |   5    |    29    |
+| com.microsoft.office.word_16.0.11425.20132 |      238      |       6136      |  16088739  |   14   |    75    |
+|       com.vonglasow.michael.satstat        |      413      |      41689      | 217455073  |   8    |    17    |
+|            dk.jens.backup_0.3.4            |       6       |       499       |   999395   |   4    |    5     |
+|     name.myigel.fahrplan.eh17_1.33.16      |       81      |       4274      |  12640109  |   3    |    16    |
+|      net.ddns.mlsoftlaberge.trycorder      |       2       |       1524      |   876180   |   1    |    1     |
+|            nya.miku.wishmaster             |      3946     |      93600      | 514039128  |   5    |    22    |
+|           nya.miku.wishmaster_54           |      1969     |      60442      | 300606937  |   5    |    22    |
+|   opencontacts.open.com.opencontacts_12    |       2       |       603       |   108464   |   1    |    1     |
+|            org.csploit.android             |       8       |       1594      |   356431   |   1    |    2     |
+|      org.decsync.sparss.floss_1.13.4       |       27      |       3243      |  7539477   |   25   |    52    |
+|         org.fdroid.fdroid_1008000          |      3640     |      28043      |  67743980  |   25   |   130    |
+|       org.gateshipone.odyssey_1.1.17       |       30      |       4854      |  12048605  |   5    |    45    |
+|         org.gateshipone.odyssey_30         |       19      |       2782      |  7801577   |   8    |    44    |
+|          org.lumicall.android_190          |      4895     |      92045      | 456651833  |   8    |    28    |
+|          org.materialos.icons_2.1          |       40      |       6080      |  22146730  |   2    |    18    |
+|     org.openpetfoodfacts.scanner_2.9.8     |      7211     |      165139     | 733387777  |   4    |    11    |
+|   org.secuso.privacyfriendlytodolist_2.1   |      292      |      28751      | 161712770  |   3    |    16    |
+|    org.secuso.privacyfriendlyweather_6     |      685      |      57685      | 268893729  |   3    |    28    |
+|          org.totschnig.myexpenses          |      1554     |      102448     | 522088226  |   16   |   570    |
++--------------------------------------------+---------------+-----------------+------------+--------+----------+
