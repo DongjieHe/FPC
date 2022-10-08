@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # cmd="./runCleanDroid.py"
-# cmd="./runFineGrainedAGC.py"
-cmd="./runFineGrainedNGC.py"
+# cmd="./runFineGrainedNGC.py"
 # cmd="./runFineGrainedNGC0.py"
 # cmd="./runFineGrainedNGC2.py"
 # cmd="./runFineGrainedNGC3.py"
@@ -12,7 +11,11 @@ cmd="./runFineGrainedNGC.py"
 # cmd="./runFineGrainedNGC7.py"
 # cmd="./runFineGrainedNGC8.py"
 # cmd="./runFlowDroid.py"
+# cmd="./runFineGrainedAGC.py"
 
+for cmd in "./runCleanDroid.py" "./runFineGrainedNGC.py"
+# for cmd in "./runFineGrainedNGC.py"
+do
 #############################################################################################################
 # Section 1: apps could either be analyzed within 1 or 2 seconds or run into crash by FlowDroid.
 
@@ -100,3 +103,4 @@ ${cmd} benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk
 # run out of 256 GB
 # ${cmd} benchmarks/diskDroidBenchmarks/group1/F-Droid.apk # AGC, NGC, FLOWDROID, GC
 ##########################
+done

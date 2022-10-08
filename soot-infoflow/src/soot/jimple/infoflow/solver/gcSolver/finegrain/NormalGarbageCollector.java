@@ -5,19 +5,24 @@ import heros.solver.PathEdge;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import soot.SootMethod;
+import soot.jimple.infoflow.collect.MyConcurrentHashMap;
 import soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG;
 import soot.jimple.infoflow.solver.gcSolver.IGCReferenceProvider;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
 import soot.util.ConcurrentHashMultiMap;
 
+import java.util.Map;
 import java.util.Set;
 
 public class NormalGarbageCollector<N, D> extends FineGrainedReferenceCountingGarbageCollector<N, D>{
     protected final AbstrationDependencyGraph<D> abstDependencyGraph;
+    protected final MyConcurrentHashMap<Pair<SootMethod, D>, Map<Pair<N, D>, D>> endSummary;
 
-    public NormalGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<Pair<SootMethod, D>, PathEdge<N, D>> jumpFunctions, AbstrationDependencyGraph<D> adg) {
+    public NormalGarbageCollector(BiDiInterproceduralCFG<N, SootMethod> icfg, ConcurrentHashMultiMap<Pair<SootMethod, D>, PathEdge<N, D>> jumpFunctions,
+                                  MyConcurrentHashMap<Pair<SootMethod, D>, Map<Pair<N, D>, D>> endSummary, AbstrationDependencyGraph<D> adg) {
         super(icfg, jumpFunctions, null);
         this.abstDependencyGraph = adg;
+        this.endSummary = endSummary;
     }
 
     @Override
@@ -68,5 +73,11 @@ public class NormalGarbageCollector<N, D> extends FineGrainedReferenceCountingGa
         logger.info(icfg.getClass().toString());
         logger.info(String.format("#nodes of %s Abstraction Dependency Graph: %d", s, abstDependencyGraph.nodeSize()));
         logger.info(String.format("#edges of %s Abstraction Dependency Graph: %d", s, abstDependencyGraph.edgeSize()));
+        logger.info(String.format("#dummy end summary edges of %s: %d", s, this.endSummary.keySet().size()));
+        long v = 0;
+        for(Map<Pair<N, D>, D> m : this.endSummary.values()) {
+            v += m.size();
+        }
+        logger.info(String.format("#end summary edges of %s: %d", s, v));
     }
 }

@@ -192,7 +192,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 //        NullGarbageCollector<N, D> gc = new NullGarbageCollector<>();
 //        AggressiveGarbageCollector<N, D> gc = new AggressiveGarbageCollector<>(icfg, jumpFunctions);
         abstDependencyGraph = new AbstrationDependencyGraph<>();
-        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, abstDependencyGraph);
+        NormalGarbageCollector<N, D> gc = new NormalGarbageCollector<>(icfg, jumpFunctions, endSummary, abstDependencyGraph);
 //        gc.setSleepTimeSeconds(0);
 //        gc.setSleepTimeSeconds(2);
 //        gc.setSleepTimeSeconds(3);
