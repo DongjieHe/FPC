@@ -490,9 +490,9 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
 
 if __name__ == '__main__':
     # fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FlowDroid", "FlowDroid")
-    gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run3/GC", "CleanDroid")
+    gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/GC", "CleanDroid")
     # agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
-    ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run3/FINEGRAIN/NGC/", "NGC")
+    ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FINEGRAIN/NGC/", "NGC")
     ngc0 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT0/FINEGRAIN/NGC/", "NGC")
     ngc2 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT2/FINEGRAIN/NGC/", "NGC")
     ngc3 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT3/FINEGRAIN/NGC/", "NGC")

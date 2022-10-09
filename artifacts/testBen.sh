@@ -13,7 +13,7 @@
 # cmd="./runFlowDroid.py"
 # cmd="./runFineGrainedAGC.py"
 
-for cmd in "./runCleanDroid.py" "./runFineGrainedNGC.py"
+for cmd in "./runFineGrainedNGC.py" "./runCleanDroid.py" 
 # for cmd in "./runFineGrainedNGC.py"
 do
 #############################################################################################################
