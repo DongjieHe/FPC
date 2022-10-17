@@ -1085,7 +1085,7 @@ public class Infoflow extends AbstractInfoflow {
 			return solver;
 		case FineGrainedGC:
 			logger.info("Using fine-grained garbage-collecting solver");
-			IInfoflowSolver fgSolver = new soot.jimple.infoflow.solver.gcSolver.finegrain.InfoflowSolver(problem, executor);
+			IInfoflowSolver fgSolver = new soot.jimple.infoflow.solver.gcSolver.finegrain.InfoflowSolver(problem, executor, solverConfig.getSleepTime());
 			solverPeerGroup.addSolver(fgSolver);
 			fgSolver.setPeerGroup(solverPeerGroup);
 			return fgSolver;

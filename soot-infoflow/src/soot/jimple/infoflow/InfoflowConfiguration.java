@@ -964,6 +964,15 @@ public class InfoflowConfiguration {
 	 *
 	 */
 	public static class SolverConfiguration {
+		private int sleepTime = 1; // seconds
+
+		public void setSleepTime(int sleeptime) {
+			this.sleepTime = sleeptime;
+		}
+
+		public int getSleepTime() {
+			return this.sleepTime;
+		}
 
 		private DataFlowSolver dataFlowSolver = DataFlowSolver.ContextFlowSensitive;
 		private int maxJoinPointAbstractions = 10;

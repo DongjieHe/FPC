@@ -247,6 +247,8 @@ public class MainClass {
 		options.addOption(OPTION_CALLGRAPH_FILE, "callgraphdir", true,
 				"The file in which to store and from which to read serialized callgraphs");
 		options.addOption(OPTION_CALLGRAPH_ONLY, "callgraphonly", false, "Only compute the callgraph and terminate");
+
+		options.addOption("st", "sleeptime", true, "set the path edge collector sleep time (in seconds)");
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -929,6 +931,20 @@ public class MainClass {
 			if (callgraphFile != null && !callgraphFile.isEmpty()) {
 				config.getCallbackConfig().setSerializeCallbacks(true);
 				config.getCallbackConfig().setCallbacksFile(callgraphFile);
+			}
+		}
+
+		{
+			Integer maxthreadnum = getIntOption(cmd, "mt");
+			if (maxthreadnum != null) {
+				config.setMaxThreadNum(maxthreadnum);
+			}
+		}
+
+		{
+			Integer sleeptime = getIntOption(cmd, "st");
+			if (sleeptime != null) {
+				config.getSolverConfiguration().setSleepTime(sleeptime);
 			}
 		}
 	}
