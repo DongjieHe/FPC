@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from prettytable import PrettyTable
+from statistics import mean
 
 class LogParser():
     def __init__(self):
@@ -14,12 +15,33 @@ class LogParser():
         self.dataSolverTime = -1 # in seconds
         self.maxmemory = -1 # in MB
         self.forwardPECount = -1
-        self.barwardPECount = -1
+        self.backwardPECount = -1
         self.recordedFWPECnt = -1
         self.recordedBWPECnt = -1
         self.adgEdgeCnt = -1
+        self.sumEdgeCnt = -1
+        self.dummySumCnt = -1
         self.oom = False
         self.to = False
+
+    def clone(self):
+        logParser = LogParser()
+        logParser.solver = self.solver
+        logParser.apkName = self.apkName
+        logParser.leakCount = self.leakCount
+        logParser.resultsCount = self.resultsCount
+        logParser.dataSolverTime = self.dataSolverTime
+        logParser.maxmemory = self.maxmemory
+        logParser.forwardPECount = self.forwardPECount
+        logParser.backwardPECount = self.backwardPECount
+        logParser.recordedFWPECnt = self.recordedFWPECnt
+        logParser.recordedBWPECnt = self.recordedBWPECnt
+        logParser.adgEdgeCnt = self.adgEdgeCnt
+        logParser.sumEdgeCnt = self.sumEdgeCnt
+        logParser.dummySumCnt = self.dummySumCnt
+        logParser.oom = self.oom
+        logParser.to = self.to
+        return logParser
 
     def parseAppName(self, file):
         self.apkName = file[file.rfind('/') + 1: -4]
@@ -33,7 +55,7 @@ class LogParser():
             if 'IFDS problem with' in ln:
                 tmp = [int(s) for s in ln.split() if s.isdigit()]
                 self.forwardPECount = tmp[0]
-                self.barwardPECount = tmp[1]
+                self.backwardPECount = tmp[1]
                 self.dataSolverTime = tmp[2]
                 self.resultsCount = tmp[3]
             if 'Maximum memory consumption:' in ln:
@@ -52,12 +74,27 @@ class LogParser():
                 self.oom = True
             if 'Timeout reached, stopping the solvers' in ln:
                 self.to = True
-            if '#edges of Abstraction Dependency Graph:' in ln:
+            if '#edges of forward Abstraction Dependency Graph:' in ln or '#edges of backward Abstraction Dependency Graph:' in ln:
                 tmp = [int(s) for s in ln.split() if s.isdigit()]
                 if self.adgEdgeCnt == -1:
                     self.adgEdgeCnt = tmp[0]
                 else:
                     self.adgEdgeCnt += tmp[0]
+            if '#dummy end summary edges of backward:' in ln or '#dummy end summary edges of forward:' in ln:
+                tmp = [int(s) for s in ln.split() if s.isdigit()]
+                if self.dummySumCnt == -1:
+                    self.dummySumCnt = tmp[0]
+                else:
+                    self.dummySumCnt += tmp[0]
+            if '#end summary edges of forward:' in ln or '#end summary edges of backward:' in ln:
+                tmp = [int(s) for s in ln.split() if s.isdigit()]
+                if self.sumEdgeCnt == -1:
+                    self.sumEdgeCnt = tmp[0]
+                else:
+                    self.sumEdgeCnt += tmp[0]
+
+        if self.maxmemory == -1:
+            self.oom = True
 
 
 # logDir should be an absolute path.
@@ -88,8 +125,7 @@ def stats(parser):
         return 'TO'
     return 'SUCC'
 
-def buildTable(fd, gc, ngc):
-    fdMap = classifyByApkName(fd)
+def buildTable(gc, ngc):
     gcMap = classifyByApkName(gc)
     # agcMap = classifyByApkName(agc)
     ngcMap = classifyByApkName(ngc)
@@ -97,26 +133,26 @@ def buildTable(fd, gc, ngc):
     # flowdroidTable = PrettyTable()
     # flowdroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#Leaks", "#Results", "Status"]
     # for k, v in sorted(fdMap.items()):
-    #     flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount, stats(v)])
+    #     flowdroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.backwardPECount, v.leakCount, v.resultsCount, stats(v)])
     # print(flowdroidTable)
 
     # cleandroidTable = PrettyTable()
     # cleandroidTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results", "Status"]
     # for k, v in sorted(gcMap.items()):
-    #     cleandroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount, stats(v)])
+    #     cleandroidTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.backwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount, stats(v)])
     # print(cleandroidTable)
 
     # aggressiveFGTable = PrettyTable()
     # aggressiveFGTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
     # for k, v in sorted(agcMap.items()):
-    #     aggressiveFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
+    #     aggressiveFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.backwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
     # print(aggressiveFGTable)
 
-    normalFGTable = PrettyTable()
-    normalFGTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
-    for k, v in sorted(ngcMap.items()):
-        normalFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
-    print(normalFGTable)
+    # normalFGTable = PrettyTable()
+    # normalFGTable.field_names = ["APK", "IFDS Time (s)", "Max Memory (MB)", "#PathEdges", "#RecordedPEs", "#Leaks", "#Results"]
+    # for k, v in sorted(ngcMap.items()):
+    #     normalFGTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.backwardPECount, v.recordedFWPECnt + v.recordedBWPECnt, v.leakCount, v.resultsCount])
+    # print(normalFGTable)
 
     # integratedTable = PrettyTable()
     # integratedTable.field_names = ["APK", "FDT(s)", "MaxM(MB)", "#PE", "#Leaks", "#Results", "CDT(s)", "CDMaxM(MB)", "#CDRDPEs", "AGCT(s)", "AGCMaxM(MB)", "#AGCRDPEs", "NGCT(s)", "NGCMaxM(MB)", "#NGCRDPEs"]
@@ -124,31 +160,32 @@ def buildTable(fd, gc, ngc):
     #     gcElem = gcMap[k]
     #     agcElem = agcMap[k]
     #     ngcElem = ngcMap[k]
-    #     integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount, v.leakCount, v.resultsCount,
+    #     integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.backwardPECount, v.leakCount, v.resultsCount,
     #                              gcElem.dataSolverTime, gcElem.maxmemory, gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
     #                              agcElem.dataSolverTime, agcElem.maxmemory, agcElem.recordedFWPECnt + agcElem.recordedBWPECnt,
     #                              ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
     # print(integratedTable)
     
     integratedTable = PrettyTable()
-    integratedTable.field_names = ["APK", "FDT(s)", "MaxM(MB)", "#PE",  "CDT(s)", "CDMaxM(MB)", "#CDRDPEs", "NGCT(s)", "NGCMaxM(MB)", "#NGCRDPEs"]
-    for k, v in sorted(fdMap.items()):
+    integratedTable.field_names = ["APK", "CDT(s)", "NGCT(s)", "CDMaxM(MB)", "NGCMaxM(MB)", "#CDRDPEs", "#NGCRDPEs"]
+    for k, v in sorted(gcMap.items(), key = lambda x : x[1].dataSolverTime):
         gcElem = gcMap[k]
         ngcElem = ngcMap[k]
-        integratedTable.add_row([v.apkName, v.dataSolverTime, v.maxmemory, v.forwardPECount + v.barwardPECount,
-                                 gcElem.dataSolverTime, gcElem.maxmemory, gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
-                                 ngcElem.dataSolverTime, ngcElem.maxmemory, ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
+        integratedTable.add_row([v.apkName, gcElem.dataSolverTime, ngcElem.dataSolverTime, 
+                                 gcElem.maxmemory, ngcElem.maxmemory, 
+                                 gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
+                                 ngcElem.recordedFWPECnt + ngcElem.recordedBWPECnt])
     print(integratedTable)
 
-benchmarks = [ 'com.ilm.sandwich_2.2.4f', 'com.github.yeriomin.dumbphoneassistant_5', 'dk.jens.backup_0.3.4',
-               'org.csploit.android', 'com.kunzisoft.keepass.libre_2.5.0.0beta18', 'org.gateshipone.odyssey_30',
-               'org.decsync.sparss.floss_1.13.4', 'com.alfray.timeriffic_10905', 'org.materialos.icons_2.1',
-               'com.app.Zensuren_1.21', 'name.myigel.fahrplan.eh17_1.33.16', 'com.github.axet.callrecorder_219',
-               'com.emn8.mobilem8.nativeapp.bk_5.0.10', 'com.microsoft.office.word_16.0.11425.20132', 'com.igisw.openmoneybox.3.4.1.8',
-               'org.secuso.privacyfriendlytodolist_2.1', 'com.genonbeta.TrebleShot_98', 'com.kanedias.vanilla.metadata_5',
-               'com.adobe.reader_19.2.1.9183', 'com.vonglasow.michael.satstat', 'org.secuso.privacyfriendlyweather_6',
-               'org.totschnig.myexpenses', 'nya.miku.wishmaster_54',  'org.fdroid.fdroid_1008000', 'org.lumicall.android_190',
-               'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
+benchmarks = [ 'com.github.yeriomin.dumbphoneassistant_5', 'org.csploit.android', 'com.ilm.sandwich_2.2.4f', 
+                'com.kunzisoft.keepass.libre_2.5.0.0beta18', 'dk.jens.backup_0.3.4', 'org.gateshipone.odyssey_30',
+               'com.alfray.timeriffic_10905', 'org.decsync.sparss.floss_1.13.4',  'com.github.axet.callrecorder_219', 
+               'org.materialos.icons_2.1', 'com.app.Zensuren_1.21', 'name.myigel.fahrplan.eh17_1.33.16', 
+               'com.emn8.mobilem8.nativeapp.bk_5.0.10', 'com.genonbeta.TrebleShot_98', 'com.microsoft.office.word_16.0.11425.20132', 
+               'org.secuso.privacyfriendlytodolist_2.1',  'com.vonglasow.michael.satstat', 'com.igisw.openmoneybox.3.4.1.8',
+               'com.kanedias.vanilla.metadata_5', 'org.secuso.privacyfriendlyweather_6', 'com.adobe.reader_19.2.1.9183', 
+               'org.totschnig.myexpenses', 'org.fdroid.fdroid_1008000', 'org.lumicall.android_190', 'nya.miku.wishmaster_54',   
+               'org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 
                ]
 
 def buildTexTable(gc, ngc):
@@ -159,8 +196,8 @@ def buildTexTable(gc, ngc):
             r"\begin{table*}",
             r"\centering",
             r"\begin{tabular}{|l|r|r|r|r|r|r|r|} \hline",
-            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multirow{2}{*}{Version} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c|}{\#Path Edges (K)} \\ \cline{3-8}",
-            r" & & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{CleanDroid} & \textsc{Fpc} & \textsc{CleanDroid} & \textsc{Fpc} \\ \hline",
+            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multicolumn{1}{|c|}{\multirow{2}{*}{Version}} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c|}{\#Path Edges (K)} \\ \cline{3-8}",
+            r" & & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} \\ \hline",
             ]
     tail = [r"\end{tabular}",
             r"\end{table*}"]
@@ -240,6 +277,7 @@ def buildTexTable(gc, ngc):
         # if fd.oom and not fd.to:
         #     fdt = '-'
         gct = "\\textcolor{blue}{OoT}" if gc.to else str(gc.dataSolverTime)
+        gct = "-" if gc.oom else gct
         time = gc.dataSolverTime
         # if fd.to == False and fd.oom == False and gc.to == False:
         #     if gc.oom:
@@ -253,7 +291,7 @@ def buildTexTable(gc, ngc):
             sd = time * 1.0 / ngc.dataSolverTime
             ngcSpeedUps.append(sd)
             ngct = ngct + " (" + "{:.1f}".format(sd) + "$\\times$)"
-        # fde = fd.forwardPECount + fd.barwardPECount
+        # fde = fd.forwardPECount + fd.backwardPECount
         gce = gc.recordedFWPECnt + gc.recordedBWPECnt
         # gcep = ''
         # if gc.to == False and gc.oom == False and fd.to == False and fd.oom == False:
@@ -263,9 +301,9 @@ def buildTexTable(gc, ngc):
         ngce = ngc.recordedFWPECnt + ngc.recordedBWPECnt
         ngcep = ''
         if ngc.to == False and ngc.oom == False and gc.to == False and gc.oom == False:
-            tmp = ngce * 100.0 / gce
+            tmp = gce * 1.0 / ngce
             ngcPEPercs.append(tmp)
-            ngcep = " ("+ "{:.1f}".format(tmp) + "\%)"
+            ngcep = " ("+ "{:.1f}".format(tmp) + "$\\times$)"
 
         # fdm = "\\textcolor{red}{OoM}" if fd.oom else "{:.1f}".format(fd.maxmemory / 1024.0)
         # if fd.to and not fd.oom:
@@ -283,9 +321,9 @@ def buildTexTable(gc, ngc):
         #     gcmp = " ("+ "{:.1f}".format(tmp) + "\%)"
         ngcmp = ''
         if ngc.to == False and ngc.oom == False and gc.to == False and gc.oom == False:
-            tmp = ngc.maxmemory * 100.0 / gc.maxmemory
+            tmp = gc.maxmemory * 1.0 / ngc.maxmemory
             ngcMemPercs.append(tmp)
-            ngcmp = " ("+ "{:.1f}".format(tmp) + "\%)"
+            ngcmp = " ("+ "{:.1f}".format(tmp) + "$\\times$)"
         tableRows.append([ben2name[k], ben2version[k], gct, ngct,
                           gcm, ngcm + ngcmp,
                           "-" if gc.to or gc.oom else str("{:.1f}".format(gce / 1000.0)),
@@ -294,8 +332,8 @@ def buildTexTable(gc, ngc):
 
     gmAvgRow = ['Geometric Mean', '-', '-',
                     "{:.1f}".format(np.prod(ngcSpeedUps) ** (1.0 / len(ngcSpeedUps))) + "$\\times$", '-',
-                    "{:.1f}".format(np.prod(ngcMemPercs) ** (1.0 / len(ngcMemPercs))) + "\%", '-',
-                "{:.1f}".format(np.prod(ngcPEPercs) ** (1.0 / len(ngcPEPercs))) + "\%"
+                    "{:.1f}".format(np.prod(ngcMemPercs) ** (1.0 / len(ngcMemPercs))) + "$\\times$", '-',
+                "{:.1f}".format(np.prod(ngcPEPercs) ** (1.0 / len(ngcPEPercs))) + "$\\times$"
                 ]
     tableRows.append(gmAvgRow)
 
@@ -308,15 +346,14 @@ def buildTexTable(gc, ngc):
     content += "\n".join(tail)
     print(content)
 
-def adgEdgeOverPERatio(fd, ngc):
-    fdMap = classifyByApkName(fd)
+def adgEdgeOverPERatio(ngc):
     ngcMap = classifyByApkName(ngc)
     ansList = []
     for k in benchmarks:
-        fd = fdMap[k]
         ngc = ngcMap[k]
-        if not fd.to and not fd.oom:
-            tmp = ngc.adgEdgeCnt * 1.0 / (fd.forwardPECount + fd.barwardPECount)
+        if not ngc.to and not ngc.oom:
+            # print(ngc.adgEdgeCnt, ngc.forwardPECount + ngc.backwardPECount)
+            tmp = ngc.adgEdgeCnt * 1.0 / (ngc.forwardPECount + ngc.backwardPECount)
             ansList.append(tmp)
     print(ansList)
     print(np.prod(ansList) ** (1.0 / len(ansList)))
@@ -324,13 +361,13 @@ def adgEdgeOverPERatio(fd, ngc):
     width = 0.5  # the width of the bars: can also be len(x) sequence
     plt.figure(figsize=(11, 4.2))
     # plt.subplots_adjust(left=0.1, right=0.9, top=0.85, bottom=0.2)
-    plt.hlines(0.01, 0, len(ansList) + 1, color='red', linestyle='dotted')
+    # plt.hlines(0.01, 0, len(ansList) + 1, color='red', linestyle='dotted')
     p1 = plt.bar(ind, ansList, width, color='gray')
-    plt.yticks(np.arange(0, 0.11, 0.01), weight='bold')
+    plt.yticks(np.arange(0, 0.05, 0.01), weight='bold')
     plt.xlim([0, len(ansList) + 1] )
     plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
     plt.xticks(ind, ind, weight='bold')
-    plt.ylabel("ADG's #Edges / FlowDroid's #Path Edges")
+    plt.ylabel("ADG's #Edges / Processed #Path Edges")
     # plt.show()
     plt.savefig('adgSize.pdf')
 
@@ -344,18 +381,16 @@ def adgEdgeOverPERatio(fd, ngc):
 #                'org.totschnig.myexpenses', 'nya.miku.wishmaster_54',  'org.fdroid.fdroid_1008000', 'org.lumicall.android_190',
 #                'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8',
 #                ]
-def scatterPlotSpeedUpAndPE(fd, gc, ngc):
-    fdMap = classifyByApkName(fd)
+def scatterPlotSpeedUpAndPE(gc, ngc):
     gcMap = classifyByApkName(gc)
     ngcMap = classifyByApkName(ngc)
     spList = []
     peList = []
     memList = []
     for k in benchmarks:
-        fd = fdMap[k]
         gc = gcMap[k]
         ngc = ngcMap[k]
-        if not fd.to and not fd.oom and not gc.to and not gc.oom:
+        if not gc.to and not gc.oom:
             speedUp = gc.dataSolverTime * 1.0 / ngc.dataSolverTime
             rcdPE = (gc.recordedFWPECnt + gc.recordedBWPECnt) * 1.0 / (ngc.recordedFWPECnt + ngc.recordedBWPECnt)
             memRatio = gc.maxmemory * 1.0/ ngc.maxmemory
@@ -366,25 +401,25 @@ def scatterPlotSpeedUpAndPE(fd, gc, ngc):
     # print(peList)
     # print(memList)
     x = range(1, len(spList) + 1)
-    plt.figure(figsize=(8,2.5))
-    plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
-    plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
-    plt.xticks(x, x)
-    plt.legend(loc='upper left')
-    plt.savefig('tp.pdf')
-    # plt.show()
-
     # plt.figure(figsize=(8,2.5))
-    # plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
+    # plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
     # plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
     # plt.xticks(x, x)
     # plt.legend(loc='upper left')
-    # plt.savefig('mp.pdf')
+    # plt.savefig('tp.pdf')
     # plt.show()
 
+    plt.figure(figsize=(8,2.5))
+    plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
+    plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
+    plt.xticks(x, x)
+    plt.legend(loc='upper left')
+    plt.savefig('mp.pdf')
+    plt.show()
 
-def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
-    fdMap = classifyByApkName(fd)
+
+def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
+    gcMap = classifyByApkName(gc)
     ngc0Map = classifyByApkName(ngc0)
     ngcMap = classifyByApkName(ngc)
     ngc2Map = classifyByApkName(ngc2)
@@ -413,7 +448,7 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     memoryReductions7 = []
     memoryReductions8 = []
     for k in benchmarks:
-        appfd = fdMap[k]
+        appgc = gcMap[k]
         appngc0 = ngc0Map[k]
         appngc = ngcMap[k]
         appngc2 = ngc2Map[k]
@@ -423,27 +458,27 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
         appngc6 = ngc6Map[k]
         appngc7 = ngc7Map[k]
         appngc8 = ngc8Map[k]
-        if not appfd.to and not appfd.oom:
+        if not appgc.to and not appgc.oom:
             if k != "com.emn8.mobilem8.nativeapp.bk_5.0.10":
                 print(k)
-                speedUps0.append(appfd.dataSolverTime * 1.0 / appngc0.dataSolverTime)
-                memoryReductions0.append(appngc0.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps.append(appfd.dataSolverTime * 1.0 / appngc.dataSolverTime)
-            memoryReductions.append(appngc.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps2.append(appfd.dataSolverTime * 1.0 / appngc2.dataSolverTime)
-            memoryReductions2.append(appngc2.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps3.append(appfd.dataSolverTime * 1.0 / appngc3.dataSolverTime)
-            memoryReductions3.append(appngc3.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps4.append(appfd.dataSolverTime * 1.0 / appngc4.dataSolverTime)
-            memoryReductions4.append(appngc4.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps5.append(appfd.dataSolverTime * 1.0 / appngc5.dataSolverTime)
-            memoryReductions5.append(appngc5.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps6.append(appfd.dataSolverTime * 1.0 / appngc6.dataSolverTime)
-            memoryReductions6.append(appngc6.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps7.append(appfd.dataSolverTime * 1.0 / appngc7.dataSolverTime)
-            memoryReductions7.append(appngc7.maxmemory * 1.0 / appfd.maxmemory)
-            speedUps8.append(appfd.dataSolverTime * 1.0 / appngc8.dataSolverTime)
-            memoryReductions8.append(appngc8.maxmemory * 1.0 / appfd.maxmemory)
+                speedUps0.append(appgc.dataSolverTime * 1.0 / appngc0.dataSolverTime)
+                memoryReductions0.append(appngc0.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps.append(appgc.dataSolverTime * 1.0 / appngc.dataSolverTime)
+            memoryReductions.append(appngc.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps2.append(appgc.dataSolverTime * 1.0 / appngc2.dataSolverTime)
+            memoryReductions2.append(appngc2.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps3.append(appgc.dataSolverTime * 1.0 / appngc3.dataSolverTime)
+            memoryReductions3.append(appngc3.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps4.append(appgc.dataSolverTime * 1.0 / appngc4.dataSolverTime)
+            memoryReductions4.append(appngc4.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps5.append(appgc.dataSolverTime * 1.0 / appngc5.dataSolverTime)
+            memoryReductions5.append(appngc5.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps6.append(appgc.dataSolverTime * 1.0 / appngc6.dataSolverTime)
+            memoryReductions6.append(appngc6.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps7.append(appgc.dataSolverTime * 1.0 / appngc7.dataSolverTime)
+            memoryReductions7.append(appngc7.maxmemory * 1.0 / appgc.maxmemory)
+            speedUps8.append(appgc.dataSolverTime * 1.0 / appngc8.dataSolverTime)
+            memoryReductions8.append(appngc8.maxmemory * 1.0 / appgc.maxmemory)
     gmSpeedUpList = []
     gmMemReducList = []
     gmSpeedUpList.append(np.prod(speedUps0) ** (1.0 / len(speedUps0)))
@@ -464,6 +499,8 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     gmMemReducList.append(np.prod(memoryReductions7) ** (1.0 / len(memoryReductions7)))
     gmSpeedUpList.append(np.prod(speedUps8) ** (1.0 / len(speedUps8)))
     gmMemReducList.append(np.prod(memoryReductions8) ** (1.0 / len(memoryReductions8)))
+    print(speedUps0)
+    print(memoryReductions0)
     print(gmSpeedUpList)
     print(gmMemReducList)
     # x = range(0, len(gmSpeedUpList))
@@ -488,22 +525,66 @@ def ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     plt.show()
 
 
+# merge three runs into one
+def mergeRuns(run1, run2, run3):
+    run1Map = classifyByApkName(run1)
+    run2Map = classifyByApkName(run2)
+    run3Map = classifyByApkName(run3)
+    ret = []
+    for k, v1 in run1Map.items():
+        v2 = run2Map[k]
+        v3 = run3Map[k]
+        if v1.oom or v1.to:
+            ret.append(v1)
+        else:
+            vx = v1.clone()
+            vx.leakCount = int(mean([v1.leakCount, v2.leakCount, v3.leakCount]))
+            vx.resultsCount = int(mean([v1.resultsCount, v2.resultsCount, v3.resultsCount]))
+            vx.dataSolverTime = int(mean([v1.dataSolverTime, v2.dataSolverTime, v3.dataSolverTime]))
+            vx.maxmemory = int(mean([v1.maxmemory, v2.maxmemory, v3.maxmemory]))
+            vx.forwardPECount = int(mean([v1.forwardPECount, v2.forwardPECount, v3.forwardPECount]))
+            vx.backwardPECount = int(mean([v1.backwardPECount, v2.backwardPECount, v3.backwardPECount]))
+            vx.recordedFWPECnt = int(mean([v1.recordedFWPECnt, v2.recordedFWPECnt, v3.recordedFWPECnt]))
+            vx.recordedBWPECnt = int(mean([v1.recordedBWPECnt, v2.recordedBWPECnt, v3.recordedBWPECnt]))
+            vx.adgEdgeCnt = int(mean([v1.adgEdgeCnt, v2.adgEdgeCnt, v3.adgEdgeCnt]))
+            ret.append(vx)
+    return ret
+
+# compute dummyCnt/summayCnt and dummyCnt/#pathedge
+def computeDummyRatio(ngc):
+    ngcMap = classifyByApkName(ngc)
+    dumSumRatio = []
+    dumPERatio = []
+    for k in benchmarks:
+        parser = ngcMap[k]
+        dumSumRatio.append(parser.dummySumCnt * 1.0 / parser.sumEdgeCnt)
+        dumPERatio.append(parser.dummySumCnt * 1.0 / (parser.forwardPECount + parser.backwardPECount))
+        print(parser.forwardPECount + parser.backwardPECount)
+    print(np.prod(dumSumRatio) ** (1.0 / len(dumSumRatio)))
+    print(np.prod(dumPERatio) ** (1.0 / len(dumPERatio)))
+
 if __name__ == '__main__':
-    # fd = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout2/FlowDroid", "FlowDroid")
-    gc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/GC", "CleanDroid")
-    # agc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/myout/FINEGRAIN/AGC/", "AGC")
-    ngc = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FINEGRAIN/NGC/", "NGC")
-    ngc0 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT0/FINEGRAIN/NGC/", "NGC")
-    ngc2 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT2/FINEGRAIN/NGC/", "NGC")
-    ngc3 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT3/FINEGRAIN/NGC/", "NGC")
-    ngc4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT4/FINEGRAIN/NGC/", "NGC")
-    ngc5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT5/FINEGRAIN/NGC/", "NGC")
-    ngc6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT6/FINEGRAIN/NGC/", "NGC")
-    ngc7 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT7/FINEGRAIN/NGC/", "NGC")
-    ngc8 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/FPCOUT8/FINEGRAIN/NGC/", "NGC")
-    # buildTable(fd, gc, ngc7)
-    buildTexTable(gc, ngc)
-    # adgEdgeOverPERatio(fd, ngc)
-    # ngcIntervalAnalysis(fd, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
-    # scatterPlotSpeedUpAndPE(fd, gc, ngc)
+    gcRun4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/GC", "CleanDroid")
+    gcRun5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC", "CleanDroid")
+    gcRun6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run6/GC", "CleanDroid")
+    gcMerge = mergeRuns(gcRun4, gcRun5, gcRun6)
+    ngcRun4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FINEGRAIN/", "FPC")
+    ngcRun5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FINEGRAIN/", "FPC")
+    ngcRun6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run6/FINEGRAIN/", "FPC")
+    ngcMerge = mergeRuns(ngcRun4, ngcRun5, ngcRun6)
+    ngc0 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC0/FINEGRAIN/", "NGC")
+    ngc2 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC2/FINEGRAIN/", "NGC")
+    ngc3 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC3/FINEGRAIN/", "NGC")
+    ngc4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC4/FINEGRAIN/", "NGC")
+    ngc5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC5/FINEGRAIN/", "NGC")
+    ngc6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC6/FINEGRAIN/", "NGC")
+    ngc7 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC7/FINEGRAIN/", "NGC")
+    ngc8 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC8/FINEGRAIN/", "NGC")
+    # buildTable(gcMerge, ngcMerge)
+    # buildTable(ngc8, ngcMerge)
+    # buildTexTable(gcMerge, ngcMerge)
+    # adgEdgeOverPERatio(ngcMerge)
+    # computeDummyRatio(ngcMerge)
+    ngcIntervalAnalysis(gcMerge, ngc0, ngcMerge, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
+    # scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
 
