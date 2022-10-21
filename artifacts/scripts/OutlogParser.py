@@ -195,9 +195,9 @@ def buildTexTable(gc, ngc):
     head = [
             r"\begin{table*}",
             r"\centering",
-            r"\begin{tabular}{|l|r|r|r|r|r|r|r|} \hline",
-            r"\multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multicolumn{1}{|c|}{\multirow{2}{*}{Version}} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c|}{\#Path Edges (K)} \\ \cline{3-8}",
-            r" & & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} \\ \hline",
+            r"\begin{tabular}{c|l|r|r|r|r|r|r|r} \hline",
+            r"\multicolumn{1}{c|}{\multirow{2}{*}{Group}} & \multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multicolumn{1}{|c|}{\multirow{2}{*}{Version}} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c}{$|PathEdge_{max}|$ (K)} \\ \cline{4-9}",
+            r" & & & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c}{\textsc{Fpc}} \\ \hline   \hline",
             ]
     tail = [r"\end{tabular}",
             r"\end{table*}"]
@@ -330,7 +330,7 @@ def buildTexTable(gc, ngc):
                           "-" if ngc.to or ngc.oom else str("{:.1f}".format(ngce / 1000.0)) + ngcep
                         ])
 
-    gmAvgRow = ['Geometric Mean', '-', '-',
+    gmAvgRow = ['Geometric Mean', '-', '-', '-',
                     "{:.1f}".format(np.prod(ngcSpeedUps) ** (1.0 / len(ngcSpeedUps))) + "$\\times$", '-',
                     "{:.1f}".format(np.prod(ngcMemPercs) ** (1.0 / len(ngcMemPercs))) + "$\\times$", '-',
                 "{:.1f}".format(np.prod(ngcPEPercs) ** (1.0 / len(ngcPEPercs))) + "$\\times$"
@@ -340,8 +340,26 @@ def buildTexTable(gc, ngc):
     content = "\n".join(head)
     content += "\n"
     for l in tableRows:
-        content += "&".join(l)
-        content += r"\\ \hline"
+        if 'com.emn8.mobilem8.nativeapp.bk' in l:
+            content += "\\multirow{-13}{*}{$\leq 3$ mins} &"
+            content += "&".join(l)
+            content += r"\\ \hline \hline"
+        elif 'nya.miku.wishmaster' in l:
+            content += "\\multirow{-12}{*}{$> 3$ mins} &"
+            content += "&".join(l)
+            content += r"\\ \hline \hline"
+        elif 'com.github.axet.bookreader' in l:
+            content += "\\multirow{-3}{*}{Unscalable} &"
+            content += "&".join(l)
+            content += r"\\ \hline \hline"
+        elif 'Geometric Mean' in l:
+            # do nothing
+            content += "&".join(l)
+            content += r"\\ \hline"
+        else:
+            content += "& "
+            content += "&".join(l)
+            content += r"\\ \cline{2-9}"
         content += "\n"
     content += "\n".join(tail)
     print(content)
@@ -359,7 +377,7 @@ def adgEdgeOverPERatio(ngc):
     print(np.prod(ansList) ** (1.0 / len(ansList)))
     ind = range(1, len(ansList) + 1)
     width = 0.5  # the width of the bars: can also be len(x) sequence
-    plt.figure(figsize=(11, 4.2))
+    plt.figure(figsize=(8, 2.5))
     # plt.subplots_adjust(left=0.1, right=0.9, top=0.85, bottom=0.2)
     # plt.hlines(0.01, 0, len(ansList) + 1, color='red', linestyle='dotted')
     p1 = plt.bar(ind, ansList, width, color='gray')
@@ -367,9 +385,9 @@ def adgEdgeOverPERatio(ngc):
     plt.xlim([0, len(ansList) + 1] )
     plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
     plt.xticks(ind, ind, weight='bold')
-    plt.ylabel("ADG's #Edges / Processed #Path Edges")
-    # plt.show()
+    plt.ylabel("ADG's #Edges /\n Processed #Path Edges", weight='bold')
     plt.savefig('adgSize.pdf')
+    plt.show()
 
 # benchmarks2 = [
 #     # 'org.materialos.icons_2.1',
@@ -401,21 +419,24 @@ def scatterPlotSpeedUpAndPE(gc, ngc):
     # print(peList)
     # print(memList)
     x = range(1, len(spList) + 1)
-    # plt.figure(figsize=(8,2.5))
-    # plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
-    # plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
-    # plt.xticks(x, x)
-    # plt.legend(loc='upper left')
-    # plt.savefig('tp.pdf')
-    # plt.show()
-
     plt.figure(figsize=(8,2.5))
-    plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
-    plt.scatter(x, peList, c="r", alpha=0.5, marker='.', label="CleanDroid's #Path Edges / Fpc's #Path Edges")
-    plt.xticks(x, x)
-    plt.legend(loc='upper left')
-    plt.savefig('mp.pdf')
+    plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
+    plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
+    plt.xticks(x, x, weight = 'bold')
+    plt.yticks(weight = 'bold')
+    plt.legend(loc='upper left', prop={ 'weight' : 'bold'})
+    plt.savefig('tp.pdf')
     plt.show()
+
+    # plt.figure(figsize=(8,2.5))
+    # plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
+    # plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
+    # plt.xticks(x, x, weight = 'bold')
+    # ax = plt.gca()
+    # plt.yticks(weight = 'bold')
+    # plt.legend(loc='upper left', prop={ 'weight' : 'bold'})
+    # plt.savefig('mp.pdf')
+    # plt.show()
 
 
 def ngcIntervalAnalysis(gc, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
@@ -603,7 +624,7 @@ if __name__ == '__main__':
     # buildTable(gcMerge, ngcMerge)
     # buildTable(ngc8, ngcMerge)
     # buildTexTable(gcMerge, ngcMerge)
-    # adgEdgeOverPERatio(ngcMerge)
+    adgEdgeOverPERatio(ngcMerge)
     # computeDummyRatio(ngcMerge)
     # ngcIntervalAnalysis(gcMerge, ngcMerge, ngc2Run4, ngc3Run4, ngc4Run4, ngc5Run4, ngc6Run4, ngc7Run4, ngc8Run4)
     # ngcIntervalAnalysis(gcMerge, ngcMerge, ngc2Run5, ngc3Run5, ngc4Run5, ngc5Run5, ngc6Run5, ngc7Run5, ngc8Run5)
