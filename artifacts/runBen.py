@@ -1,17 +1,18 @@
 #!/usr/bin/env python3
 import os
 
-FPC = "./run.py -solver=FINEGRAIN -out=run5"
-CLEANDROID = "./run.py -solver=GC -out=run5"
-FPC0 = "./run.py -solver=FINEGRAIN -out=run5/FPC0 -st=0"
-FPC2 = "./run.py -solver=FINEGRAIN -out=run5/FPC2 -st=2"
-FPC3 = "./run.py -solver=FINEGRAIN -out=run5/FPC3 -st=3"
-FPC4 = "./run.py -solver=FINEGRAIN -out=run5/FPC4 -st=4"
-FPC5 = "./run.py -solver=FINEGRAIN -out=run5/FPC5 -st=5"
-FPC6 = "./run.py -solver=FINEGRAIN -out=run5/FPC6 -st=6"
-FPC7 = "./run.py -solver=FINEGRAIN -out=run5/FPC7 -st=7"
-FPC8 = "./run.py -solver=FINEGRAIN -out=run5/FPC8 -st=8"
-TOOLS = [FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, FPC0]
+FPC = "./run.py -solver=FINEGRAIN -out=run6"
+CLEANDROID = "./run.py -solver=GC -out=run6"
+CLEANDROID4 = "./run.py -solver=GC -out=run6 -st=4"
+# FPC0 = "./run.py -solver=FINEGRAIN -out=run6/FPC0 -st=0"
+FPC2 = "./run.py -solver=FINEGRAIN -out=run6/FPC2 -st=2"
+FPC3 = "./run.py -solver=FINEGRAIN -out=run6/FPC3 -st=3"
+FPC4 = "./run.py -solver=FINEGRAIN -out=run6/FPC4 -st=4"
+FPC5 = "./run.py -solver=FINEGRAIN -out=run6/FPC5 -st=5"
+FPC6 = "./run.py -solver=FINEGRAIN -out=run6/FPC6 -st=6"
+FPC7 = "./run.py -solver=FINEGRAIN -out=run6/FPC7 -st=7"
+FPC8 = "./run.py -solver=FINEGRAIN -out=run6/FPC8 -st=8"
+TOOLS = [FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, CLEANDROID4]
 
 # for cmd in "./runFineGrainedNGC.py" "./runCleanDroid.py" 
 # for cmd in "./runFineGrainedNGC.py"

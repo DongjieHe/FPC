@@ -1079,7 +1079,7 @@ public class Infoflow extends AbstractInfoflow {
 			return new soot.jimple.infoflow.solver.fastSolver.flowInsensitive.InfoflowSolver(problem, executor);
 		case GarbageCollecting:
 			logger.info("Using garbage-collecting solver");
-			IInfoflowSolver solver = new soot.jimple.infoflow.solver.gcSolver.InfoflowSolver(problem, executor);
+			IInfoflowSolver solver = new soot.jimple.infoflow.solver.gcSolver.InfoflowSolver(problem, executor, solverConfig.getSleepTime());
 			solverPeerGroup.addSolver(solver);
 			solver.setPeerGroup(solverPeerGroup);
 			return solver;

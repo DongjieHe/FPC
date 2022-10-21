@@ -136,13 +136,13 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	private int maxAbstractionPathLength = 100;
 
 	protected SolverPeerGroup solverPeerGroup;
-
+	protected int sleeptime = 1;
 	/**
 	 * Creates a solver for the given problem, which caches flow functions and edge
 	 * functions. The solver must then be started by calling {@link #solve()}.
 	 */
-	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem) {
-		this(tabulationProblem, DEFAULT_CACHE_BUILDER);
+	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem, int sleeptime) {
+		this(tabulationProblem, DEFAULT_CACHE_BUILDER, sleeptime);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	 *                                 for flow functions.
 	 */
 	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem,
-			@SuppressWarnings("rawtypes") CacheBuilder flowFunctionCacheBuilder) {
+			@SuppressWarnings("rawtypes") CacheBuilder flowFunctionCacheBuilder, int sleeptime) {
 		if (logger.isDebugEnabled())
 			flowFunctionCacheBuilder = flowFunctionCacheBuilder.recordStats();
 		this.zeroValue = tabulationProblem.zeroValue();
@@ -170,6 +170,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		} else {
 			ffCache = null;
 		}
+		this.sleeptime = sleeptime;
 		this.flowFunctions = flowFunctions;
 		this.initialSeeds = tabulationProblem.initialSeeds();
 		this.followReturnsPastSeeds = tabulationProblem.followReturnsPastSeeds();
@@ -188,6 +189,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 //		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
 		ThreadedGarbageCollector<N, D> gc = new ThreadedGarbageCollector<>(icfg, jumpFunctions);
+		gc.setSleepTimeSeconds(sleeptime);
+		logger.info("sleep time is {}", sleeptime);
 		GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
 		gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
 		return garbageCollector = gc;
