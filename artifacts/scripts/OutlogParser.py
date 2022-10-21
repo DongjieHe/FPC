@@ -418,9 +418,9 @@ def scatterPlotSpeedUpAndPE(gc, ngc):
     plt.show()
 
 
-def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
+def ngcIntervalAnalysis(gc, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
     gcMap = classifyByApkName(gc)
-    ngc0Map = classifyByApkName(ngc0)
+    # ngc0Map = classifyByApkName(ngc0)
     ngcMap = classifyByApkName(ngc)
     ngc2Map = classifyByApkName(ngc2)
     ngc3Map = classifyByApkName(ngc3)
@@ -429,7 +429,7 @@ def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     ngc6Map = classifyByApkName(ngc6)
     ngc7Map = classifyByApkName(ngc7)
     ngc8Map = classifyByApkName(ngc8)
-    speedUps0 = []
+    # speedUps0 = []
     speedUps = []
     speedUps2 = []
     speedUps3 = []
@@ -438,7 +438,7 @@ def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     speedUps6 = []
     speedUps7 = []
     speedUps8 = []
-    memoryReductions0 = []
+    # memoryReductions0 = []
     memoryReductions = []
     memoryReductions2 = []
     memoryReductions3 = []
@@ -448,8 +448,10 @@ def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     memoryReductions7 = []
     memoryReductions8 = []
     for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
         appgc = gcMap[k]
-        appngc0 = ngc0Map[k]
+        # appngc0 = ngc0Map[k]
         appngc = ngcMap[k]
         appngc2 = ngc2Map[k]
         appngc3 = ngc3Map[k]
@@ -458,33 +460,35 @@ def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
         appngc6 = ngc6Map[k]
         appngc7 = ngc7Map[k]
         appngc8 = ngc8Map[k]
-        if not appgc.to and not appgc.oom:
-            if k != "com.emn8.mobilem8.nativeapp.bk_5.0.10":
-                print(k)
-                speedUps0.append(appgc.dataSolverTime * 1.0 / appngc0.dataSolverTime)
-                memoryReductions0.append(appngc0.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps.append(appgc.dataSolverTime * 1.0 / appngc.dataSolverTime)
-            memoryReductions.append(appngc.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps2.append(appgc.dataSolverTime * 1.0 / appngc2.dataSolverTime)
-            memoryReductions2.append(appngc2.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps3.append(appgc.dataSolverTime * 1.0 / appngc3.dataSolverTime)
-            memoryReductions3.append(appngc3.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps4.append(appgc.dataSolverTime * 1.0 / appngc4.dataSolverTime)
-            memoryReductions4.append(appngc4.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps5.append(appgc.dataSolverTime * 1.0 / appngc5.dataSolverTime)
-            memoryReductions5.append(appngc5.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps6.append(appgc.dataSolverTime * 1.0 / appngc6.dataSolverTime)
-            memoryReductions6.append(appngc6.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps7.append(appgc.dataSolverTime * 1.0 / appngc7.dataSolverTime)
-            memoryReductions7.append(appngc7.maxmemory * 1.0 / appgc.maxmemory)
-            speedUps8.append(appgc.dataSolverTime * 1.0 / appngc8.dataSolverTime)
-            memoryReductions8.append(appngc8.maxmemory * 1.0 / appgc.maxmemory)
+        # In case where interval = 0, FPC could not analyze this app successfully.
+        if appgc.to or appgc.oom:
+            continue
+        # if k != "com.emn8.mobilem8.nativeapp.bk_5.0.10":
+        #     print(k)
+        #     speedUps0.append(appngc.dataSolverTime * 1.0 / appngc0.dataSolverTime)
+        #     memoryReductions0.append(appngc0.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps2.append(appngc.dataSolverTime * 1.0 / appngc2.dataSolverTime)
+        memoryReductions2.append(appngc2.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps3.append(appngc.dataSolverTime * 1.0 / appngc3.dataSolverTime)
+        memoryReductions3.append(appngc3.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps4.append(appngc.dataSolverTime * 1.0 / appngc4.dataSolverTime)
+        memoryReductions4.append(appngc4.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps5.append(appngc.dataSolverTime * 1.0 / appngc5.dataSolverTime)
+        memoryReductions5.append(appngc5.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps6.append(appngc.dataSolverTime * 1.0 / appngc6.dataSolverTime)
+        memoryReductions6.append(appngc6.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps7.append(appngc.dataSolverTime * 1.0 / appngc7.dataSolverTime)
+        memoryReductions7.append(appngc7.maxmemory * 1.0 / appngc.maxmemory)
+        speedUps8.append(appngc.dataSolverTime * 1.0 / appngc8.dataSolverTime)
+        memoryReductions8.append(appngc8.maxmemory * 1.0 / appngc.maxmemory)
     gmSpeedUpList = []
     gmMemReducList = []
-    gmSpeedUpList.append(np.prod(speedUps0) ** (1.0 / len(speedUps0)))
-    gmMemReducList.append(np.prod(memoryReductions0) ** (1.0 / len(memoryReductions0)))
-    gmSpeedUpList.append(np.prod(speedUps) ** (1.0 / len(speedUps)))
-    gmMemReducList.append(np.prod(memoryReductions) ** (1.0 / len(memoryReductions)))
+    # gmSpeedUpList.append(np.prod(speedUps0) ** (1.0 / len(speedUps0)))
+    # gmMemReducList.append(np.prod(memoryReductions0) ** (1.0 / len(memoryReductions0)))
+    gmSpeedUpList.append(1.0)
+    gmMemReducList.append(1.0)
+    # gmSpeedUpList.append(np.prod(speedUps) ** (1.0 / len(speedUps)))
+    # gmMemReducList.append(np.prod(memoryReductions) ** (1.0 / len(memoryReductions)))
     gmSpeedUpList.append(np.prod(speedUps2) ** (1.0 / len(speedUps2)))
     gmMemReducList.append(np.prod(memoryReductions2) ** (1.0 / len(memoryReductions2)))
     gmSpeedUpList.append(np.prod(speedUps3) ** (1.0 / len(speedUps3)))
@@ -499,30 +503,30 @@ def ngcIntervalAnalysis(gc, ngc0, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
     gmMemReducList.append(np.prod(memoryReductions7) ** (1.0 / len(memoryReductions7)))
     gmSpeedUpList.append(np.prod(speedUps8) ** (1.0 / len(speedUps8)))
     gmMemReducList.append(np.prod(memoryReductions8) ** (1.0 / len(memoryReductions8)))
-    print(speedUps0)
-    print(memoryReductions0)
+    # print(speedUps0)
+    # print(memoryReductions0)
     print(gmSpeedUpList)
     print(gmMemReducList)
-    # x = range(0, len(gmSpeedUpList))
-    # plt.figure(figsize=(8, 4.0))
-    # plt.yticks(np.arange(0, 5, 0.2), weight='bold')
-    # plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
-    # plt.ylim((1.6,3.4))
-    # plt.xlabel("Collecting intervals (s)", weight='bold')
-    # plt.ylabel("Average Speedups", weight='bold')
-    # plt.savefig('SpeedupInterval.pdf')
-    # plt.show()
-
-    x = range(0, len(gmMemReducList))
+    x = range(1, len(gmSpeedUpList) + 1)
     plt.figure(figsize=(8, 4.0))
-    plt.yticks(np.arange(0, 1, 0.05), weight='bold')
-    plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
-    plt.ylim((0.45, 0.7))
-    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
-    plt.xlabel("Collecting intervals (s)")
-    plt.ylabel("Average Memory Consumption")
-    plt.savefig('MemInterval.pdf')
+    plt.yticks(np.arange(0.6, 1.6, 0.1), weight='bold')
+    plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.8,1.2))
+    plt.xlabel("Collecting intervals (s)", weight='bold')
+    plt.ylabel("Average Speedups", weight='bold')
+    plt.savefig('SpeedupInterval.pdf')
     plt.show()
+
+    # x = range(1, len(gmMemReducList) + 1)
+    # plt.figure(figsize=(8, 4.0))
+    # plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
+    # plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
+    # plt.ylim((0.85, 1.1))
+    # plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    # plt.xlabel("Collecting intervals (s)")
+    # plt.ylabel("Average Memory Consumption")
+    # plt.savefig('MemInterval.pdf')
+    # plt.show()
 
 
 # merge three runs into one
@@ -572,19 +576,28 @@ if __name__ == '__main__':
     ngcRun5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FINEGRAIN/", "FPC")
     ngcRun6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run6/FINEGRAIN/", "FPC")
     ngcMerge = mergeRuns(ngcRun4, ngcRun5, ngcRun6)
-    ngc0 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC0/FINEGRAIN/", "NGC")
-    ngc2 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC2/FINEGRAIN/", "NGC")
-    ngc3 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC3/FINEGRAIN/", "NGC")
-    ngc4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC4/FINEGRAIN/", "NGC")
-    ngc5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC5/FINEGRAIN/", "NGC")
-    ngc6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC6/FINEGRAIN/", "NGC")
-    ngc7 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC7/FINEGRAIN/", "NGC")
-    ngc8 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC8/FINEGRAIN/", "NGC")
+    # ngc0Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC0/FINEGRAIN/", "NGC")
+    ngc2Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC2/FINEGRAIN/", "NGC")
+    ngc3Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC3/FINEGRAIN/", "NGC")
+    ngc4Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC4/FINEGRAIN/", "NGC")
+    ngc5Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC5/FINEGRAIN/", "NGC")
+    ngc6Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC6/FINEGRAIN/", "NGC")
+    ngc7Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC7/FINEGRAIN/", "NGC")
+    ngc8Run4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/FPC8/FINEGRAIN/", "NGC")
+
+    ngc2Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC2/FINEGRAIN/", "NGC")
+    ngc3Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC3/FINEGRAIN/", "NGC")
+    ngc4Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC4/FINEGRAIN/", "NGC")
+    ngc5Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC5/FINEGRAIN/", "NGC")
+    ngc6Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC6/FINEGRAIN/", "NGC")
+    ngc7Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC7/FINEGRAIN/", "NGC")
+    ngc8Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/FPC8/FINEGRAIN/", "NGC")
     # buildTable(gcMerge, ngcMerge)
     # buildTable(ngc8, ngcMerge)
     # buildTexTable(gcMerge, ngcMerge)
     # adgEdgeOverPERatio(ngcMerge)
     # computeDummyRatio(ngcMerge)
-    ngcIntervalAnalysis(gcMerge, ngc0, ngcMerge, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8)
+    # ngcIntervalAnalysis(gcMerge, ngcMerge, ngc2Run4, ngc3Run4, ngc4Run4, ngc5Run4, ngc6Run4, ngc7Run4, ngc8Run4)
+    ngcIntervalAnalysis(gcMerge, ngcMerge, ngc2Run5, ngc3Run5, ngc4Run5, ngc5Run5, ngc6Run5, ngc7Run5, ngc8Run5)
     # scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
 
