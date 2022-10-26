@@ -1,0 +1,195 @@
+[main] INFO soot.jimple.infoflow.cmd.MainClass - Analyzing app /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/sparsedroidBenchmark/com.kunzisoft.keepass.libre_2.5.0.0beta18.apk (1 of 1)...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Initializing Soot...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Loading dex files...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.04569323 seconds
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 19 components...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Collecting callbacks in DEFAULT mode...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 21 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot generate constructor for phantom class android.support.v4.app.Fragment
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot create valid constructor for com.nononsenseapps.filepicker.AbstractFilePickerFragment, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.lock.LockingActivity, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.magikeyboard.receiver.LockBroadcastReceiver, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 23 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 21 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot generate constructor for phantom class android.support.v4.app.Fragment
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot create valid constructor for com.nononsenseapps.filepicker.AbstractFilePickerFragment, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.lock.LockingActivity, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.magikeyboard.receiver.LockBroadcastReceiver, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 15 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 21 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot generate constructor for phantom class android.support.v4.app.Fragment
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot create valid constructor for com.nononsenseapps.filepicker.AbstractFilePickerFragment, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.lock.LockingActivity, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.magikeyboard.receiver.LockBroadcastReceiver, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 7 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 21 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot generate constructor for phantom class android.support.v4.app.Fragment
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.FragmentEntryPointCreator - Cannot create valid constructor for com.nononsenseapps.filepicker.AbstractFilePickerFragment, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.lock.LockingActivity, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.getkeepsafe.taptargetview.FloatValueAnimatorBuilder$UpdateListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.BroadcastReceiverEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.magikeyboard.receiver.LockBroadcastReceiver, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.kunzisoft.keepass.fileselect.KeyFileHelper$ClickDataUriCallback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for permissions.dispatcher.PermissionRequest, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 2 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Callback analysis terminated normally
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Entry point calculation done.
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.orm.hibernate3.support.ClobStringType: int[] sqlTypes)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.CsrfBeanDefinitionParser: org.springframework.beans.factory.config.BeanDefinition getCsrfLogoutHandler)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getAbsoluteFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginPage)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.UserCredentials: java.lang.String getClientSecret)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getCanonicalFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getMethod)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.dmfs.oauth2.client.http.requests.ResourceOwnerPasswordTokenRequest: org.dmfs.httpclient.HttpRequestEntity requestEntity)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.concurrent.DelegatingSecurityContextExecutorService: java.util.concurrent.ExecutorService getDelegate)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.builders.HttpSecurity: org.springframework.security.config.'annotation'.web.configurers.HeadersConfigurer headers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.EscapeBodyTag: java.lang.String readBodyContent)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginProcessingUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.configurers.LogoutConfigurer: java.util.List getLogoutHandlers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getHttpVersion)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.DefaultCredentialsProvider: java.io.File getWellKnownCredentialsFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.HttpServletRequestImpl: void parseParameters)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match:     
+[main] INFO soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Created a SourceSinkManager with 68 sources, 194 sinks, and 139 callback methods.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Collecting callbacks and building a callgraph took 17 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Running data flow analysis on /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/sparsedroidBenchmark/com.kunzisoft.keepass.libre_2.5.0.0beta18.apk with 68 sources and 194 sinks...
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Implicit flow tracking is NOT enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Exceptional flow tracking is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Running with a maximum access path length of 5
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using path-agnostic result collection
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Recursive access path shortening is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Taint analysis enabled: true
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using alias algorithm FlowSensitive
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph construction took 0 seconds
+[main] INFO soot.jimple.infoflow.codeOptimization.InterproceduralConstantValuePropagator - Removing side-effect free methods is disabled
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Dead code elimination took 0.46164947 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph has 10687 edges
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Starting Taint Analysis
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] WARN soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Running with limited join point abstractions can break context-sensitive path builders
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Looking for sources and sinks...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Source lookup done, found 6 sources and 230 sinks.
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 4
+[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 4
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 366 methods
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 245170 edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - forward end Summary size: 57842
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - Recorded Maximum Path edges count is 1961
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 490 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 1444942 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 1961
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 922
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 326 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 767862 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 1243
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 1930
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper hits: 88885
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper misses: 87718
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - IFDS problem with 1444942 forward and 767862 backward edges solved in 6 seconds, processing 29 results...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Current memory consumption: 926 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after cleanup: 276 MB
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 1 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 2 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 3 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 4 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 5 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 6 with 4 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 4 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after path building: 324 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Path reconstruction took 1 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink $r4 = interfaceinvoke $r4.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>($r2, $r1) in method <com.kunzisoft.keepass.password.PasswordActivity: void handleEncryptedResult(java.lang.String,java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r0.<android.app.Activity: void setResult(int,android.content.Intent)>($i0, $r1) in method <com.kunzisoft.keepass.autofill.AutofillHelper: void onActivityResultSetResultAndFinish(android.app.Activity,int,int,android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r2.<android.app.Activity: void startActivityForResult(android.content.Intent,int)>($r3, 25645) in method <com.kunzisoft.keepass.fileselect.KeyFileHelper: boolean lookForOpenIntentsFilePicker(android.net.Uri)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r0.<android.app.Activity: void setResult(int,android.content.Intent)>($i0, $r1) in method <com.kunzisoft.keepass.selection.EntrySelectionHelper: void onActivityResultSetResultAndFinish(android.app.Activity,int,int,android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r4.<android.app.Activity: void startActivityForResult(android.content.Intent,int)>($r1, 25845) in method <com.kunzisoft.keepass.fileselect.KeyFileHelper: void openActivityWithActionOpenDocument()> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r6.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <com.kunzisoft.keepass.fileselect.RecentFileHistory: boolean upgradeFromSQL()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Data flow solver took 8 seconds. Maximum memory consumption: 926 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Found 5 leaks

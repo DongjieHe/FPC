@@ -1,0 +1,255 @@
+[main] INFO soot.jimple.infoflow.cmd.MainClass - Analyzing app /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/sparsedroidBenchmark/com.emn8.mobilem8.nativeapp.bk_5.0.10.apk (1 of 1)...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Initializing Soot...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Loading dex files...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.037650252 seconds
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 30 components...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Collecting callbacks in DEFAULT mode...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Callback analysis done.
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 30 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Cannot create valid constructor for io.fabric.sdk.android.a$b, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.FeedbackOptions$Callback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.activities.a.a.e, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ContentProviderEntryPointCreator - Cannot create valid constructor for io.fabric.sdk.android.a$b, because it is abstract and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 30 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 30 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Cannot generate constructor for phantom class androidx.multidex.MultiDexApplication
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.FeedbackOptions$Callback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.activities.a.a.e, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ContentProviderEntryPointCreator - Cannot create valid constructor for io.fabric.sdk.android.a$b, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Could not create call to application callback <androidx.multidex.MultiDexApplication: void attachBaseContext(android.content.Context)>. Local was null.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 15 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 30 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.FeedbackOptions$Callback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.activities.a.a.e, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ContentProviderEntryPointCreator - Cannot create valid constructor for io.fabric.sdk.android.a$b, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Could not create call to application callback <androidx.multidex.MultiDexApplication: void attachBaseContext(android.content.Context)>. Local was null.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 9 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 30 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.SwipeDismissTouchListener$DismissCallbacks, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.models.IInAppMessage, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.appboy.ui.inappmessage.listeners.IInAppMessageViewLifecycleListener, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.FeedbackOptions$Callback, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for com.testfairy.activities.a.a.e, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ContentProviderEntryPointCreator - Cannot create valid constructor for io.fabric.sdk.android.a$b, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Could not create call to application callback <androidx.multidex.MultiDexApplication: void attachBaseContext(android.content.Context)>. Local was null.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Layout class com.appboy.ui.inappmessage.AppboyInAppMessageSimpleDraweeView is not derived from android.view.View
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 7 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Callback analysis terminated normally
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Entry point calculation done.
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.orm.hibernate3.support.ClobStringType: int[] sqlTypes)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.CsrfBeanDefinitionParser: org.springframework.beans.factory.config.BeanDefinition getCsrfLogoutHandler)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getAbsoluteFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginPage)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.UserCredentials: java.lang.String getClientSecret)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getCanonicalFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getMethod)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.dmfs.oauth2.client.http.requests.ResourceOwnerPasswordTokenRequest: org.dmfs.httpclient.HttpRequestEntity requestEntity)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.concurrent.DelegatingSecurityContextExecutorService: java.util.concurrent.ExecutorService getDelegate)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.builders.HttpSecurity: org.springframework.security.config.'annotation'.web.configurers.HeadersConfigurer headers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.EscapeBodyTag: java.lang.String readBodyContent)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginProcessingUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.configurers.LogoutConfigurer: java.util.List getLogoutHandlers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getHttpVersion)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.DefaultCredentialsProvider: java.io.File getWellKnownCredentialsFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.HttpServletRequestImpl: void parseParameters)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match:     
+[main] INFO soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Created a SourceSinkManager with 68 sources, 194 sinks, and 238 callback methods.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Collecting callbacks and building a callgraph took 54 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Running data flow analysis on /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/sparsedroidBenchmark/com.emn8.mobilem8.nativeapp.bk_5.0.10.apk with 68 sources and 194 sinks...
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Implicit flow tracking is NOT enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Exceptional flow tracking is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Running with a maximum access path length of 5
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using path-agnostic result collection
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Recursive access path shortening is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Taint analysis enabled: true
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using alias algorithm FlowSensitive
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph construction took 0 seconds
+[main] INFO soot.jimple.infoflow.codeOptimization.InterproceduralConstantValuePropagator - Removing side-effect free methods is disabled
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Dead code elimination took 1.286507875 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph has 30431 edges
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Starting Taint Analysis
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] WARN soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Running with limited join point abstractions can break context-sensitive path builders
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Looking for sources and sinks...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Source lookup done, found 45 sources and 381 sinks.
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 8
+[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 8
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 1536 methods
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 183216 edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - forward end Summary size: 129664
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - Recorded Maximum Path edges count is 5420
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 2293 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 1988911 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 5420
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 5224
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 1834 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 2808629 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 5088
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 4376
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper hits: 735513
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper misses: 726441
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - IFDS problem with 1988911 forward and 2808629 backward edges solved in 159 seconds, processing 45 results...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Current memory consumption: 1790 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after cleanup: 594 MB
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 1 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 2 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 3 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 4 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 5 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 6 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 7 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 8 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 9 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after path building: 738 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Path reconstruction took 2 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putFloat(java.lang.String,float)>("state_location_long", $f0) in method <io.radar.sdk.d.b: void a(io.radar.sdk.internal.c)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r4.<android.location.Location: double getLongitude()>() in method <io.radar.sdk.d.b: void a(io.radar.sdk.internal.c)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putFloat(java.lang.String,float)>("last_moving_long", $f0) in method <io.radar.sdk.d.b: void a(android.location.Location)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r1.<android.location.Location: double getLongitude()>() in method <io.radar.sdk.d.b: void a(android.location.Location)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink staticinvoke <android.util.Log: int e(java.lang.String,java.lang.String)>("mParticle", $r1) in method <com.mparticle.internal.Logger$DefaultLogHandler: void error(java.lang.Throwable,java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.mparticle.networking.c: java.io.InputStream e()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String)>($r10, $r11) in method <com.appboy.ui.actions.UriAction: android.content.Intent getActionViewIntent(android.content.Context,android.net.Uri,android.os.Bundle)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r5 = virtualinvoke $r4.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r0, 0) in method <com.appboy.ui.actions.UriAction: android.content.Intent getActionViewIntent(android.content.Context,android.net.Uri,android.os.Bundle)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r12.<java.io.BufferedOutputStream: void write(byte[],int,int)>($r9, 0, $i0) in method <com.appboy.support.AppboyFileUtils: java.io.File downloadFileToPath(java.lang.String,java.lang.String,java.lang.String,java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = virtualinvoke $r8.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.appboy.support.AppboyFileUtils: java.io.File downloadFileToPath(java.lang.String,java.lang.String,java.lang.String,java.lang.String)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r18.<com.mparticle.internal.l: boolean sendMessage(android.os.Message)>($r20) in method <com.mparticle.internal.MessageManager: com.mparticle.internal.b.a a(com.mparticle.internal.InternalSession)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = virtualinvoke $r9.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r2, $i0) in method <com.mastercard.mp.checkout.WebLoaderActivity: void onCreate(android.os.Bundle)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r10.<com.mparticle.internal.l: boolean sendMessage(android.os.Message)>($r12) in method <com.mparticle.internal.MessageManager: com.mparticle.internal.b.a a(java.lang.String,boolean)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.mparticle.networking.c: java.io.InputStream e()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("RadarLogger", $r1, $r2) in method <io.radar.sdk.internal.b: void a(java.lang.String,java.lang.Throwable)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r1.<android.location.Location: double getLongitude()>() in method <io.radar.sdk.d.a: io.radar.sdk.internal.c a(android.location.Location)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r1.<android.location.Location: double getLatitude()>() in method <io.radar.sdk.d.a: io.radar.sdk.internal.c a(android.location.Location)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r3.<android.content.Context: void sendBroadcast(android.content.Intent)>($r2) in method <io.radar.sdk.api.a: void a(android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r6 = virtualinvoke $r5.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r1, 0) in method <io.radar.sdk.api.a: void a(android.content.Intent)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r5.<android.content.Context: void sendBroadcast(android.content.Intent)>($r1) in method <io.radar.sdk.d.a: void a(android.location.Location,boolean)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = virtualinvoke $r6.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r4, 0) in method <io.radar.sdk.d.a: void a(android.location.Location,boolean)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r5.<com.mparticle.internal.l: boolean sendMessage(android.os.Message)>($r7) in method <com.mparticle.internal.MessageManager: void b(com.mparticle.internal.InternalSession)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = virtualinvoke $r9.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r2, $i0) in method <com.mastercard.mp.checkout.WebLoaderActivity: void onCreate(android.os.Bundle)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r1.<android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)>($r14) in method <io.radar.sdk.d.a: void a(android.location.Location,boolean)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = virtualinvoke $r6.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r4, 0) in method <io.radar.sdk.d.a: void a(android.location.Location,boolean)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putFloat(java.lang.String,float)>("state_location_lat", $f0) in method <io.radar.sdk.d.b: void a(io.radar.sdk.internal.c)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r4.<android.location.Location: double getLatitude()>() in method <io.radar.sdk.d.b: void a(io.radar.sdk.internal.c)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r24.<com.mparticle.internal.l: boolean sendMessage(android.os.Message)>($r26) in method <com.mparticle.internal.MessageManager: com.mparticle.internal.b.a a(java.lang.String,java.lang.String,java.lang.String,java.lang.String,java.lang.String,long,long,int)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = virtualinvoke $r9.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r2, $i0) in method <com.mastercard.mp.checkout.WebLoaderActivity: void onCreate(android.os.Bundle)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink staticinvoke <android.util.Log: int d(java.lang.String,java.lang.String,java.lang.Throwable)>("mParticle", $r1, $r2) in method <com.mparticle.internal.Logger$DefaultLogHandler: void debug(java.lang.Throwable,java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.mparticle.networking.c: java.io.InputStream e()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r2.<android.content.Context: void sendBroadcast(android.content.Intent)>($r0) in method <com.appboy.support.IntentUtils: void addComponentAndSendBroadcast(android.content.Context,android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r5 = virtualinvoke $r4.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r3, 0) in method <com.appboy.support.IntentUtils: void addComponentAndSendBroadcast(android.content.Context,android.content.Intent)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r0.<android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)>($r1) in method <com.appboy.support.IntentUtils: void addComponentAndSendBroadcast(android.content.Context,android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r5 = virtualinvoke $r4.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r3, 0) in method <com.appboy.support.IntentUtils: void addComponentAndSendBroadcast(android.content.Context,android.content.Intent)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r2.<android.content.Intent: android.content.Intent setComponent(android.content.ComponentName)>($r14) in method <io.radar.sdk.api.a: void a(android.content.Intent)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r6 = virtualinvoke $r5.<android.content.pm.PackageManager: java.util.List queryBroadcastReceivers(android.content.Intent,int)>($r1, 0) in method <io.radar.sdk.api.a: void a(android.content.Intent)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink $r3 = interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putString(java.lang.String,java.lang.String)>("mp::identity::api::context", $r1) in method <com.mparticle.internal.ConfigManager: void b(java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.mparticle.networking.c: java.io.InputStream e()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink interfaceinvoke $r3.<android.content.SharedPreferences$Editor: android.content.SharedPreferences$Editor putFloat(java.lang.String,float)>("last_moving_lat", $f0) in method <io.radar.sdk.d.b: void a(android.location.Location)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $d0 = virtualinvoke $r1.<android.location.Location: double getLatitude()>() in method <io.radar.sdk.d.b: void a(android.location.Location)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink $r0 = virtualinvoke $r0.<java.lang.String: java.lang.String replace(java.lang.CharSequence,java.lang.CharSequence)>($r6, $r7) in method <com.facebook.internal.l: java.lang.String d(java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r3 = virtualinvoke $r1.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.facebook.g: java.util.List a(java.net.HttpURLConnection,com.facebook.f)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink staticinvoke <android.util.Log: int i(java.lang.String,java.lang.String)>("mParticle", $r1) in method <com.mparticle.internal.Logger$DefaultLogHandler: void info(java.lang.Throwable,java.lang.String)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = virtualinvoke $r2.<java.net.HttpURLConnection: java.io.InputStream getInputStream()>() in method <com.mparticle.networking.c: java.io.InputStream e()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r5.<com.mparticle.internal.l: boolean sendMessage(android.os.Message)>($r6) in method <com.mparticle.internal.MessageManager: void c(com.mparticle.internal.InternalSession)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = virtualinvoke $r9.<android.content.pm.PackageManager: java.util.List queryIntentActivities(android.content.Intent,int)>($r2, $i0) in method <com.mastercard.mp.checkout.WebLoaderActivity: void onCreate(android.os.Bundle)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Data flow solver took 164 seconds. Maximum memory consumption: 1790 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Found 23 leaks

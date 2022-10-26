@@ -1,0 +1,102 @@
+[main] INFO soot.jimple.infoflow.cmd.MainClass - Analyzing app /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk (1 of 1)...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Initializing Soot...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Loading dex files...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.02106768 seconds
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 20 components...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Target resource 17367043 for layout include not found
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Collecting callbacks in DEFAULT mode...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Callback analysis done.
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Target resource 17367043 for layout include not found
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 22 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Cannot create valid constructor for org.acra.jraf.android.util.activitylifecyclecallbackscompat.ActivityLifecycleCallbacksCompat, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.api.interfaces.CancellableTask, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.http.interactive.InteractiveException, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.ui.tabs.TabsAdapter$TabSelectListener, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Target resource 17367043 for layout include not found
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 20 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 22 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.api.interfaces.CancellableTask, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.http.interactive.InteractiveException, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.api.interfaces.CancellableTask, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.ui.tabs.TabsAdapter$TabSelectListener, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Target resource 17367043 for layout include not found
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 6 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 22 components...
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.api.interfaces.CancellableTask, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.http.interactive.InteractiveException, because it is abstract and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.api.interfaces.CancellableTask, because it is an interface and cannot substitute with subclass
+[main] WARN soot.jimple.infoflow.android.entryPointCreators.components.ActivityEntryPointCreator - Cannot create valid constructor for nya.miku.wishmaster.ui.tabs.TabsAdapter$TabSelectListener, because it is an interface and cannot substitute with subclass
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
+[main] WARN soot.jimple.infoflow.android.resources.LayoutFileParser - Target resource 17367043 for layout include not found
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Running incremental callback analysis for 0 components...
+[main] INFO soot.jimple.infoflow.android.callbacks.DefaultCallbackAnalyzer - Incremental callback analysis done.
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Callback analysis terminated normally
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Entry point calculation done.
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.orm.hibernate3.support.ClobStringType: int[] sqlTypes)> -> _SINK_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.CsrfBeanDefinitionParser: org.springframework.beans.factory.config.BeanDefinition getCsrfLogoutHandler)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getAbsoluteFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginPage)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.UserCredentials: java.lang.String getClientSecret)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.UrlTag: java.lang.String createUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <java.io.File: java.io.File getCanonicalFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getMethod)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.dmfs.oauth2.client.http.requests.ResourceOwnerPasswordTokenRequest: org.dmfs.httpclient.HttpRequestEntity requestEntity)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.concurrent.DelegatingSecurityContextExecutorService: java.util.concurrent.ExecutorService getDelegate)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.builders.HttpSecurity: org.springframework.security.config.'annotation'.web.configurers.HeadersConfigurer headers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.web.servlet.tags.EscapeBodyTag: java.lang.String readBodyContent)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.http.FormLoginBeanDefinitionParser: java.lang.String getLoginProcessingUrl)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.springframework.security.config.annotation.web.configurers.LogoutConfigurer: java.util.List getLogoutHandlers)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.RequestData: java.lang.String getHttpVersion)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <com.google.auth.oauth2.DefaultCredentialsProvider: java.io.File getWellKnownCredentialsFile)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.HttpServletRequestImpl: void parseParameters)> -> _SOURCE_
+[main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match:     
+[main] INFO soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Created a SourceSinkManager with 68 sources, 194 sinks, and 143 callback methods.
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Collecting callbacks and building a callgraph took 10 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Running data flow analysis on /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk with 68 sources and 194 sinks...
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Implicit flow tracking is NOT enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Exceptional flow tracking is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Running with a maximum access path length of 5
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using path-agnostic result collection
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Recursive access path shortening is enabled
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Taint analysis enabled: true
+[main] INFO soot.jimple.infoflow.InfoflowConfiguration - Using alias algorithm FlowSensitive
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph construction took 0 seconds
+[main] INFO soot.jimple.infoflow.codeOptimization.InterproceduralConstantValuePropagator - Removing side-effect free methods is disabled
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Dead code elimination took 0.702522227 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph has 15311 edges
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Starting Taint Analysis
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] WARN soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Running with limited join point abstractions can break context-sensitive path builders
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Looking for sources and sinks...
+[main] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Source lookup done, found 19 sources and 265 sinks.
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 6
+[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 6
+[FlowDroid] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
+[FlowDroid Timeout Watcher] WARN soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - Timeout reached, stopping the solvers...
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 3088 methods
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 4994773 edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - forward end Summary size: 9466080
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - Recorded Maximum Path edges count is 1220485
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 3088 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 4994773 path edges
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 308647144
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 1220485
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 187821
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 1613 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 2242696 path edges
+[Low memory monitor] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Triggering memory warning at 198172 MB (214748 MB max, 196813 in watched memory pool)...
+[Low memory monitor] WARN soot.jimple.infoflow.memory.FlowDroidMemoryWatcher - Running out of memory, solvers terminated
+Killed
