@@ -1,7 +1,7 @@
 [main] INFO soot.jimple.infoflow.cmd.MainClass - Analyzing app /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk (1 of 1)...
 [main] INFO soot.jimple.infoflow.android.SetupApplication - Initializing Soot...
 [main] INFO soot.jimple.infoflow.android.SetupApplication - Loading dex files...
-[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.023329766 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication - ARSC file parsing took 0.020952564 seconds
 [main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
 [main] INFO soot.jimple.infoflow.android.entryPointCreators.AndroidEntryPointCreator - Creating Android entry point for 20 components...
 [main] INFO soot.jimple.infoflow.android.SetupApplication - Constructing the callgraph...
@@ -59,7 +59,7 @@
 [main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match: <org.apache.xmlrpc.webserver.HttpServletRequestImpl: void parseParameters)> -> _SOURCE_
 [main] WARN soot.jimple.infoflow.android.data.parsers.PermissionMethodParser - Line does not match:     
 [main] INFO soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Created a SourceSinkManager with 68 sources, 194 sinks, and 143 callback methods.
-[main] INFO soot.jimple.infoflow.android.SetupApplication - Collecting callbacks and building a callgraph took 10 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Collecting callbacks and building a callgraph took 11 seconds
 [main] INFO soot.jimple.infoflow.android.SetupApplication - Running data flow analysis on /home/hedj/Work/CleanPathEdge/artifacts/benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk with 68 sources and 194 sinks...
 [main] INFO soot.jimple.infoflow.InfoflowConfiguration - Implicit flow tracking is NOT enabled
 [main] INFO soot.jimple.infoflow.InfoflowConfiguration - Exceptional flow tracking is enabled
@@ -71,7 +71,7 @@
 [main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Registered a memory warning system for 184,320 MiB
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph construction took 0 seconds
 [main] INFO soot.jimple.infoflow.codeOptimization.InterproceduralConstantValuePropagator - Removing side-effect free methods is disabled
-[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Dead code elimination took 0.821870904 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Dead code elimination took 0.763379904 seconds
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Callgraph has 15311 edges
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Starting Taint Analysis
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Using garbage-collecting solver
@@ -84,4 +84,88 @@
 [main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 3
 [FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - sleep time is 3
 [FlowDroid] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
-Killed
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 3977 methods
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - GC removed abstractions for 8299618 edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - forward end Summary size: 8341714
+[main] INFO soot.jimple.infoflow.solver.gcSolver.IFDSSolver - Recorded Maximum Path edges count is 941931
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 4116 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 288317000 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 941931
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 164088
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 2362 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - GC removes 443607205 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Remaining Path edges count is 0
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum Path edges count is 2105340
+[main] INFO soot.jimple.infoflow.solver.gcSolver.ThreadedGarbageCollector - Recorded Maximum memory consumption is 164088
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper hits: 41181421
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper misses: 40650585
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - IFDS problem with 288317000 forward and 434327626 backward edges solved in 7961 seconds, processing 22 results...
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Current memory consumption: 164088 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after cleanup: 866 MB
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher started
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 1 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 2 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 3 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 4 with 5 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 5 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 3...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 4...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 5...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$ShutdownBatchPathBuilder - Running path reconstruction batch 5 with 2 elements
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Obtainted 2 connections between sources and sinks
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 1...
+[main] INFO soot.jimple.infoflow.data.pathBuilders.DefaultPathBuilderFactory$RepeatableContextSensitivePathBuilder - Building path 2...
+[main] INFO soot.jimple.infoflow.memory.MemoryWarningSystem - Shutting down the memory warning system...
+[FlowDroid Timeout Watcher] INFO soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - FlowDroid timeout watcher terminated
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Memory consumption after path building: 2159 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Path reconstruction took 33 seconds
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: android.content.ComponentName startService(android.content.Intent)>(r1) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: void send()> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r3 = virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: android.view.View findViewById(int)>(2131361948) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: void setViews()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r2 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.lib.UriFileUtils: java.lang.String getDataColumn(android.content.Context,android.net.Uri,java.lang.String,java.lang.String[])>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: void startActivityForResult(android.content.Intent,int)>(r2, 1) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: boolean onMenuItemSelected(int,android.view.MenuItem)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r2 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.lib.UriFileUtils: java.lang.String getDataColumn(android.content.Context,android.net.Uri,java.lang.String,java.lang.String[])>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r3 = virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: android.view.View findViewById(int)>(2131361948) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: void setViews()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: void startActivityForResult(android.content.Intent,int)>(r2, 2) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: boolean onMenuItemSelected(int,android.view.MenuItem)> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r2 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.lib.UriFileUtils: java.lang.String getDataColumn(android.content.Context,android.net.Uri,java.lang.String,java.lang.String[])>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r3 = virtualinvoke r0.<nya.miku.wishmaster.ui.posting.PostFormActivity: android.view.View findViewById(int)>(2131361948) in method <nya.miku.wishmaster.ui.posting.PostFormActivity: void setViews()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r1.<nya.miku.wishmaster.ui.tabs.TabsTrackerService: void sendBroadcast(android.content.Intent)>($r5) in method <nya.miku.wishmaster.ui.tabs.TabsTrackerService$TrackerLoop: void run()> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i2) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r9 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i3) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r10 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i4) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i5) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r6 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke r0.<nya.miku.wishmaster.ui.tabs.TabsTrackerService: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r8, $r9) in method <nya.miku.wishmaster.ui.tabs.TabsTrackerService: void onCreate()> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r8 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i2) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r9 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i3) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r10 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i4) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r11 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i5) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r6 = interfaceinvoke $r4.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.ui.Database: java.util.List getFavorites()>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r7 = interfaceinvoke $r8.<android.database.Cursor: java.lang.String getString(int)>($i0) in method <nya.miku.wishmaster.ui.Database: nya.miku.wishmaster.ui.Database$IsHiddenDelegate getCachedIsHiddenDelegate(java.lang.String,java.lang.String,java.lang.String)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - The sink virtualinvoke $r5.<android.content.Context: android.content.Intent registerReceiver(android.content.BroadcastReceiver,android.content.IntentFilter)>($r1, $r2) in method <nya.miku.wishmaster.lib.ClickableToast: void show()> was called with values from the following sources:
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - - $r1 = interfaceinvoke $r7.<android.database.Cursor: java.lang.String getString(int)>($i1) in method <nya.miku.wishmaster.ui.presentation.Subscriptions$SubscriptionsDB: java.lang.String[] getSubscriptions(java.lang.String,java.lang.String,java.lang.String)>
+[main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Data flow solver took 8004 seconds. Maximum memory consumption: 164088 MB
+[main] INFO soot.jimple.infoflow.android.SetupApplication - Found 6 leaks
