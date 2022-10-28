@@ -528,35 +528,38 @@ def ngcIntervalAnalysis(gc, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
     # print(memoryReductions0)
     print(gmSpeedUpList)
     print(gmMemReducList)
-    # x = range(1, len(gmSpeedUpList) + 1)
-    # plt.figure(figsize=(8, 4.0))
-    # plt.yticks(np.arange(0.6, 1.6, 0.1), weight='bold')
-    # plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
-    # plt.ylim((0.8,1.2))
-    # plt.xlabel("Collecting intervals (s)", weight='bold')
-    # plt.ylabel("Average Speedups", weight='bold')
-    # plt.savefig('SpeedupInterval.pdf')
-    # plt.show()
-
-    x = range(1, len(gmMemReducList) + 1)
+    x = range(1, len(gmSpeedUpList) + 1)
     plt.figure(figsize=(8, 4.0))
-    plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
-    plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
-    plt.ylim((0.85, 1.1))
-    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
-    plt.xlabel("Collecting intervals (s)")
-    plt.ylabel("Average Memory Consumption")
-    plt.savefig('MemInterval.pdf')
+    plt.yticks(np.arange(0.6, 1.6, 0.1), weight='bold')
+    plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.8,1.2))
+    plt.xlabel("Collecting intervals (s)", weight='bold')
+    plt.ylabel("Average Speedups", weight='bold')
+    plt.savefig('SpeedupInterval.pdf')
     plt.show()
+
+    # x = range(1, len(gmMemReducList) + 1)
+    # plt.figure(figsize=(8, 4.0))
+    # plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
+    # plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
+    # plt.ylim((0.85, 1.1))
+    # plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    # plt.xlabel("Collecting intervals (s)")
+    # plt.ylabel("Average Memory Consumption")
+    # plt.savefig('MemInterval.pdf')
+    # plt.show()
 
 
 # merge three runs into one
-def mergeRuns(run1, run2, run3):
+def mergeRuns(run1, run2, run3, scaleOnly):
     run1Map = classifyByApkName(run1)
     run2Map = classifyByApkName(run2)
     run3Map = classifyByApkName(run3)
     ret = []
+    filters = ['com.github.axet.bookreader_375', 'org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002']
     for k, v1 in run1Map.items():
+        if scaleOnly and k in filters:
+            continue
         v2 = run2Map[k]
         v3 = run3Map[k]
         if v1.oom or v1.to:
@@ -635,7 +638,7 @@ if __name__ == '__main__':
     gc4Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC4/GC", "NGC")
     gc5Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC5/GC", "NGC")
     gc6Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC6/GC", "NGC")
-    gc7Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/CG7/GC", "NGC")
+    gc7Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC7/GC", "NGC")
     gc8Run5 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run5/GC8/GC", "NGC")
 
     gc2Run6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run6/GC2/GC", "NGC")
@@ -647,23 +650,23 @@ if __name__ == '__main__':
     gc8Run6 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run6/GC8/GC", "NGC")
 
 
-    gcMerge = mergeRuns(gcRun4, gcRun5, gcRun6)
-    gc2Merge = mergeRuns(gc2Run4, gc2Run5, gc2Run6)
-    gc3Merge = mergeRuns(gc3Run4, gc3Run5, gc3Run6)
-    gc4Merge = mergeRuns(gc4Run4, gc4Run5, gc4Run6)
-    gc5Merge = mergeRuns(gc5Run4, gc5Run5, gc5Run6)
-    gc6Merge = mergeRuns(gc6Run4, gc6Run5, gc6Run6)
-    gc7Merge = mergeRuns(gc7Run4, gc7Run5, gc7Run6)
-    gc8Merge = mergeRuns(gc8Run4, gc8Run5, gc8Run6)
+    gcMerge = mergeRuns(gcRun4, gcRun5, gcRun6, False)
+    gc2Merge = mergeRuns(gc2Run4, gc2Run5, gc2Run6, True)
+    gc3Merge = mergeRuns(gc3Run4, gc3Run5, gc3Run6, True)
+    gc4Merge = mergeRuns(gc4Run4, gc4Run5, gc4Run6, True)
+    gc5Merge = mergeRuns(gc5Run4, gc5Run5, gc5Run6, True)
+    gc6Merge = mergeRuns(gc6Run4, gc6Run5, gc6Run6, True)
+    gc7Merge = mergeRuns(gc7Run4, gc7Run5, gc7Run6, True)
+    gc8Merge = mergeRuns(gc8Run4, gc8Run5, gc8Run6, True)
 
-    ngcMerge = mergeRuns(ngcRun4, ngcRun5, ngcRun6)
-    ngc2Merge = mergeRuns(ngc2Run4, ngc2Run5, ngc2Run6)
-    ngc3Merge = mergeRuns(ngc3Run4, ngc3Run5, ngc3Run6)
-    ngc4Merge = mergeRuns(ngc4Run4, ngc4Run5, ngc4Run6)
-    ngc5Merge = mergeRuns(ngc5Run4, ngc5Run5, ngc5Run6)
-    ngc6Merge = mergeRuns(ngc6Run4, ngc6Run5, ngc6Run6)
-    ngc7Merge = mergeRuns(ngc7Run4, ngc7Run5, ngc7Run6)
-    ngc8Merge = mergeRuns(ngc8Run4, ngc8Run5, ngc8Run6)
+    ngcMerge = mergeRuns(ngcRun4, ngcRun5, ngcRun6, False)
+    ngc2Merge = mergeRuns(ngc2Run4, ngc2Run5, ngc2Run6, True)
+    ngc3Merge = mergeRuns(ngc3Run4, ngc3Run5, ngc3Run6, True)
+    ngc4Merge = mergeRuns(ngc4Run4, ngc4Run5, ngc4Run6, True)
+    ngc5Merge = mergeRuns(ngc5Run4, ngc5Run5, ngc5Run6, True)
+    ngc6Merge = mergeRuns(ngc6Run4, ngc6Run5, ngc6Run6, True)
+    ngc7Merge = mergeRuns(ngc7Run4, ngc7Run5, ngc7Run6, True)
+    ngc8Merge = mergeRuns(ngc8Run4, ngc8Run5, ngc8Run6, True)
 
     # buildTable(gcMerge, ngcMerge)
     # buildTable(ngc8, ngcMerge)
