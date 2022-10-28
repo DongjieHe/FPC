@@ -438,118 +438,6 @@ def scatterPlotSpeedUpAndPE(gc, ngc):
     # plt.savefig('mp.pdf')
     # plt.show()
 
-
-def ngcIntervalAnalysis(gc, ngc, ngc2, ngc3, ngc4, ngc5, ngc6, ngc7, ngc8):
-    gcMap = classifyByApkName(gc)
-    # ngc0Map = classifyByApkName(ngc0)
-    ngcMap = classifyByApkName(ngc)
-    ngc2Map = classifyByApkName(ngc2)
-    ngc3Map = classifyByApkName(ngc3)
-    ngc4Map = classifyByApkName(ngc4)
-    ngc5Map = classifyByApkName(ngc5)
-    ngc6Map = classifyByApkName(ngc6)
-    ngc7Map = classifyByApkName(ngc7)
-    ngc8Map = classifyByApkName(ngc8)
-    # speedUps0 = []
-    speedUps = []
-    speedUps2 = []
-    speedUps3 = []
-    speedUps4 = []
-    speedUps5 = []
-    speedUps6 = []
-    speedUps7 = []
-    speedUps8 = []
-    # memoryReductions0 = []
-    memoryReductions = []
-    memoryReductions2 = []
-    memoryReductions3 = []
-    memoryReductions4 = []
-    memoryReductions5 = []
-    memoryReductions6 = []
-    memoryReductions7 = []
-    memoryReductions8 = []
-    for k in benchmarks:
-        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
-            continue
-        appgc = gcMap[k]
-        # appngc0 = ngc0Map[k]
-        appngc = ngcMap[k]
-        appngc2 = ngc2Map[k]
-        appngc3 = ngc3Map[k]
-        appngc4 = ngc4Map[k]
-        appngc5 = ngc5Map[k]
-        appngc6 = ngc6Map[k]
-        appngc7 = ngc7Map[k]
-        appngc8 = ngc8Map[k]
-        # In case where interval = 0, FPC could not analyze this app successfully.
-        if appgc.to or appgc.oom:
-            continue
-        # if k != "com.emn8.mobilem8.nativeapp.bk_5.0.10":
-        #     print(k)
-        #     speedUps0.append(appngc.dataSolverTime * 1.0 / appngc0.dataSolverTime)
-        #     memoryReductions0.append(appngc0.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps2.append(appngc.dataSolverTime * 1.0 / appngc2.dataSolverTime)
-        memoryReductions2.append(appngc2.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps3.append(appngc.dataSolverTime * 1.0 / appngc3.dataSolverTime)
-        memoryReductions3.append(appngc3.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps4.append(appngc.dataSolverTime * 1.0 / appngc4.dataSolverTime)
-        memoryReductions4.append(appngc4.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps5.append(appngc.dataSolverTime * 1.0 / appngc5.dataSolverTime)
-        memoryReductions5.append(appngc5.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps6.append(appngc.dataSolverTime * 1.0 / appngc6.dataSolverTime)
-        memoryReductions6.append(appngc6.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps7.append(appngc.dataSolverTime * 1.0 / appngc7.dataSolverTime)
-        memoryReductions7.append(appngc7.maxmemory * 1.0 / appngc.maxmemory)
-        speedUps8.append(appngc.dataSolverTime * 1.0 / appngc8.dataSolverTime)
-        memoryReductions8.append(appngc8.maxmemory * 1.0 / appngc.maxmemory)
-    gmSpeedUpList = []
-    gmMemReducList = []
-    # gmSpeedUpList.append(np.prod(speedUps0) ** (1.0 / len(speedUps0)))
-    # gmMemReducList.append(np.prod(memoryReductions0) ** (1.0 / len(memoryReductions0)))
-    gmSpeedUpList.append(1.0)
-    gmMemReducList.append(1.0)
-    # gmSpeedUpList.append(np.prod(speedUps) ** (1.0 / len(speedUps)))
-    # gmMemReducList.append(np.prod(memoryReductions) ** (1.0 / len(memoryReductions)))
-    gmSpeedUpList.append(np.prod(speedUps2) ** (1.0 / len(speedUps2)))
-    gmMemReducList.append(np.prod(memoryReductions2) ** (1.0 / len(memoryReductions2)))
-    gmSpeedUpList.append(np.prod(speedUps3) ** (1.0 / len(speedUps3)))
-    gmMemReducList.append(np.prod(memoryReductions3) ** (1.0 / len(memoryReductions3)))
-    gmSpeedUpList.append(np.prod(speedUps4) ** (1.0 / len(speedUps4)))
-    gmMemReducList.append(np.prod(memoryReductions4) ** (1.0 / len(memoryReductions4)))
-    gmSpeedUpList.append(np.prod(speedUps5) ** (1.0 / len(speedUps5)))
-    gmMemReducList.append(np.prod(memoryReductions5) ** (1.0 / len(memoryReductions5)))
-    gmSpeedUpList.append(np.prod(speedUps6) ** (1.0 / len(speedUps6)))
-    gmMemReducList.append(np.prod(memoryReductions6) ** (1.0 / len(memoryReductions6)))
-    gmSpeedUpList.append(np.prod(speedUps7) ** (1.0 / len(speedUps7)))
-    gmMemReducList.append(np.prod(memoryReductions7) ** (1.0 / len(memoryReductions7)))
-    gmSpeedUpList.append(np.prod(speedUps8) ** (1.0 / len(speedUps8)))
-    gmMemReducList.append(np.prod(memoryReductions8) ** (1.0 / len(memoryReductions8)))
-    # print(speedUps0)
-    # print(memoryReductions0)
-    print(gmSpeedUpList)
-    print(gmMemReducList)
-    x = range(1, len(gmSpeedUpList) + 1)
-    plt.figure(figsize=(8, 4.0))
-    plt.yticks(np.arange(0.6, 1.6, 0.1), weight='bold')
-    plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
-    plt.ylim((0.8,1.2))
-    plt.xlabel("Collecting intervals (s)", weight='bold')
-    plt.ylabel("Average Speedups", weight='bold')
-    plt.savefig('SpeedupInterval.pdf')
-    plt.show()
-
-    # x = range(1, len(gmMemReducList) + 1)
-    # plt.figure(figsize=(8, 4.0))
-    # plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
-    # plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
-    # plt.ylim((0.85, 1.1))
-    # plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
-    # plt.xlabel("Collecting intervals (s)")
-    # plt.ylabel("Average Memory Consumption")
-    # plt.savefig('MemInterval.pdf')
-    # plt.show()
-
-
 # merge three runs into one
 def mergeRuns(run1, run2, run3, scaleOnly):
     run1Map = classifyByApkName(run1)
@@ -590,6 +478,149 @@ def computeDummyRatio(ngc):
         print(parser.forwardPECount + parser.backwardPECount)
     print(np.prod(dumSumRatio) ** (1.0 / len(dumSumRatio)))
     print(np.prod(dumPERatio) ** (1.0 / len(dumPERatio)))
+
+# could be used by cleandroid and FPC.
+def intervalAnalysisOnMemoryReduction(intervalDatas):
+    toolMaps = []
+    memoryReductions = []
+    for data in intervalDatas:
+        toolMaps.append(classifyByApkName(data))
+        memoryReductions.append([])
+
+    for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
+        baseline = toolMaps[0][k] # the base line is fixed.
+        idx = 0
+        for toolMap in toolMaps:
+            appx = toolMap[k]
+            memoryReductions[idx].append(appx.maxmemory * 1.0 / baseline.maxmemory)
+            idx = idx + 1
+
+    gmMemReducList = []
+    for mr in memoryReductions:
+        gmMemReducList.append(np.prod(mr) ** (1.0 / len(mr)))
+
+    print(gmMemReducList)
+
+    x = range(1, len(gmMemReducList) + 1)
+    plt.figure(figsize=(8, 4.0))
+    plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
+    plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.85, 1.1))
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    plt.xlabel("Collecting intervals (s)")
+    plt.ylabel("Average Memory Consumption")
+    plt.savefig('MemInterval.pdf')
+    plt.show()
+
+def intervalAnalysisOnMemoryReductionOverCleandroid(fpcDatas, cleandroidDatas):
+    FPCMaps = []
+    cleanDroidMaps = []
+    memoryReductions = []
+    for data in fpcDatas:
+        FPCMaps.append(classifyByApkName(data))
+        memoryReductions.append([])
+    for data in cleandroidDatas:
+        cleanDroidMaps.append(classifyByApkName(data))
+
+    for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
+        idx = 0
+        for fpcMap in FPCMaps:
+            baseline = cleanDroidMaps[idx][k] # the base line is fixed.
+            appx = fpcMap[k]
+            memoryReductions[idx].append(appx.maxmemory * 1.0 / baseline.maxmemory)
+            idx = idx + 1
+
+    gmMemReducList = []
+    for mr in memoryReductions:
+        gmMemReducList.append(np.prod(mr) ** (1.0 / len(mr)))
+
+    print(gmMemReducList)
+    gmGm = np.prod(gmMemReducList) ** (1.0 / len(gmMemReducList))
+    x = range(1, len(gmMemReducList) + 1)
+    plt.figure(figsize=(8, 4.0))
+    plt.yticks(np.arange(0, 1.5, 0.02), weight='bold')
+    plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.65, 0.75))
+    plt.axhline(y=gmGm, color='r', linestyle='--')
+    plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
+    plt.xlabel("Collecting intervals (s)")
+    plt.ylabel("Average Memory Consumption")
+    plt.savefig('MemInterval2.pdf')
+    plt.show()
+
+def intervalAnalysisOnSpeedUpsOverCleandroid(fpcDatas, cleandroidDatas):
+    FPCMaps = []
+    cleanDroidMaps = []
+    speedUps = []
+    for data in fpcDatas:
+        FPCMaps.append(classifyByApkName(data))
+        speedUps.append([])
+    for data in cleandroidDatas:
+        cleanDroidMaps.append(classifyByApkName(data))
+
+    for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
+        idx = 0
+        for fpcMap in FPCMaps:
+            baseline = cleanDroidMaps[idx][k] # the base line is fixed.
+            appx = fpcMap[k]
+            speedUps[idx].append(baseline.dataSolverTime * 1.0 / appx.dataSolverTime)
+            idx = idx + 1
+
+    gmSpeedUpList = []
+    for su in speedUps:
+        gmSpeedUpList.append(np.prod(su) ** (1.0 / len(su)))
+
+    print(gmSpeedUpList)
+    gmGm = np.prod(gmSpeedUpList) ** (1.0 / len(gmSpeedUpList))
+    x = range(1, len(gmSpeedUpList) + 1)
+    plt.figure(figsize=(8, 4.0))
+    plt.yticks(np.arange(0.9, 2.6, 0.02), weight='bold')
+    plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
+    plt.axhline(y=gmGm, color='r', linestyle='--')
+    plt.ylim((1.65,1.85))
+    plt.xlabel("Collecting intervals (s)", weight='bold')
+    plt.ylabel("Average Speedups", weight='bold')
+    plt.savefig('SpeedupInterval2.pdf')
+    plt.show()
+
+# could be used by cleandroid and FPC.
+def intervalAnalysisOnSpeedUps(intervalDatas):
+    toolMaps = []
+    speedUps = []
+    for data in intervalDatas:
+        toolMaps.append(classifyByApkName(data))
+        speedUps.append([])
+    for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
+        # appngc0 = ngc0Map[k]
+        baseline = toolMaps[0][k] # the base line is fixed.
+        idx = 0
+        for toolMap in toolMaps:
+            appx = toolMap[k]
+            speedUps[idx].append(appx.dataSolverTime * 1.0 / baseline.dataSolverTime)
+            idx = idx + 1
+    gmSpeedUpList = []
+    for su in speedUps:
+        gmSpeedUpList.append(np.prod(su) ** (1.0 / len(su)))
+
+    print(gmSpeedUpList)
+    x = range(1, len(gmSpeedUpList) + 1)
+    plt.figure(figsize=(8, 4.0))
+    plt.yticks(np.arange(0.6, 1.6, 0.1), weight='bold')
+    plt.scatter(x, gmSpeedUpList, c="b", alpha=0.5, marker='x')
+    plt.ylim((0.8,1.2))
+    plt.xlabel("Collecting intervals (s)", weight='bold')
+    plt.ylabel("Average Speedups", weight='bold')
+    plt.savefig('SpeedupInterval.pdf')
+    plt.show()
+
 
 if __name__ == '__main__':
     gcRun4 = loadParserList("/home/hedj/Work/CleanPathEdge/artifacts/run4/GC", "CleanDroid")
@@ -673,7 +704,13 @@ if __name__ == '__main__':
     # buildTexTable(gc4Run6, ngcMerge)
     # adgEdgeOverPERatio(ngcMerge)
     # computeDummyRatio(ngcMerge)
-    # ngcIntervalAnalysis(gcMerge, ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge)
-    ngcIntervalAnalysis(gcMerge, gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge)
+
+    # intervalAnalysisOnMemoryReduction([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge])
+    # intervalAnalysisOnSpeedUps([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge])
+    # intervalAnalysisOnMemoryReduction([gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    # intervalAnalysisOnSpeedUps([gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+
+    intervalAnalysisOnMemoryReductionOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    intervalAnalysisOnSpeedUpsOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
     # scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
 
