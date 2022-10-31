@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
 from prettytable import PrettyTable
 from statistics import mean
+from statistics import stdev
 
 class LogParser():
     def __init__(self):
@@ -502,7 +503,7 @@ def intervalAnalysisOnMemoryReduction(intervalDatas):
         gmMemReducList.append(np.prod(mr) ** (1.0 / len(mr)))
 
     print(gmMemReducList)
-
+    
     x = range(1, len(gmMemReducList) + 1)
     plt.figure(figsize=(8, 4.0))
     plt.yticks(np.arange(0, 1.5, 0.05), weight='bold')
@@ -531,7 +532,8 @@ def intervalAnalysisOnMemoryReductionOverCleandroid(fpcDatas, cleandroidDatas):
         for fpcMap in FPCMaps:
             baseline = cleanDroidMaps[idx][k] # the base line is fixed.
             appx = fpcMap[k]
-            memoryReductions[idx].append(appx.maxmemory * 1.0 / baseline.maxmemory)
+            # memoryReductions[idx].append(appx.maxmemory * 1.0 / baseline.maxmemory)
+            memoryReductions[idx].append(baseline.maxmemory * 1.0 / appx.maxmemory)
             idx = idx + 1
 
     gmMemReducList = []
@@ -539,12 +541,13 @@ def intervalAnalysisOnMemoryReductionOverCleandroid(fpcDatas, cleandroidDatas):
         gmMemReducList.append(np.prod(mr) ** (1.0 / len(mr)))
 
     print(gmMemReducList)
+    print("memory standard deviation is %s" % (stdev(gmMemReducList)))
     gmGm = np.prod(gmMemReducList) ** (1.0 / len(gmMemReducList))
     x = range(1, len(gmMemReducList) + 1)
     plt.figure(figsize=(8, 4.0))
-    plt.yticks(np.arange(0, 1.5, 0.02), weight='bold')
+    plt.yticks(np.arange(0, 1.8, 0.02), weight='bold')
     plt.scatter(x, gmMemReducList, c="b", alpha=0.5, marker='x')
-    plt.ylim((0.65, 0.75))
+    plt.ylim((1.05, 1.5))
     plt.axhline(y=gmGm, color='r', linestyle='--')
     plt.gca().yaxis.set_major_formatter(mtick.PercentFormatter(1))
     plt.xlabel("Collecting intervals (s)")
@@ -577,6 +580,8 @@ def intervalAnalysisOnSpeedUpsOverCleandroid(fpcDatas, cleandroidDatas):
         gmSpeedUpList.append(np.prod(su) ** (1.0 / len(su)))
 
     print(gmSpeedUpList)
+    print("SpeedUps standard deviation is %s" % (stdev(gmSpeedUpList)))
+
     gmGm = np.prod(gmSpeedUpList) ** (1.0 / len(gmSpeedUpList))
     x = range(1, len(gmSpeedUpList) + 1)
     plt.figure(figsize=(8, 4.0))
@@ -587,6 +592,67 @@ def intervalAnalysisOnSpeedUpsOverCleandroid(fpcDatas, cleandroidDatas):
     plt.xlabel("Collecting intervals (s)", weight='bold')
     plt.ylabel("Average Speedups", weight='bold')
     plt.savefig('SpeedupInterval2.pdf')
+    plt.show()
+
+
+def intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcDatas, cleandroidDatas):
+    FPCMaps = []
+    cleanDroidMaps = []
+    speedUps = []
+    memoryReductions = []
+    for data in fpcDatas:
+        FPCMaps.append(classifyByApkName(data))
+        memoryReductions.append([])
+        speedUps.append([])
+    for data in cleandroidDatas:
+        cleanDroidMaps.append(classifyByApkName(data))
+
+    for k in benchmarks:
+        if k in ['org.openpetfoodfacts.scanner_2.9.8', 'bus.chio.wishmaster_1002', 'com.github.axet.bookreader_375']:
+            continue
+        idx = 0
+        for fpcMap in FPCMaps:
+            baseline = cleanDroidMaps[idx][k] # the base line is fixed.
+            appx = fpcMap[k]
+            speedUps[idx].append(baseline.dataSolverTime * 1.0 / appx.dataSolverTime)
+            # memoryReductions[idx].append(appx.maxmemory * 1.0 / baseline.maxmemory)
+            memoryReductions[idx].append(baseline.maxmemory * 1.0 / appx.maxmemory)
+            idx = idx + 1
+
+    gmSpeedUpList = []
+    for su in speedUps:
+        gmSpeedUpList.append(np.prod(su) ** (1.0 / len(su)))
+    gmMemReducList = []
+    for mr in memoryReductions:
+        gmMemReducList.append(np.prod(mr) ** (1.0 / len(mr)))
+
+    print(gmMemReducList)
+    print("memory standard deviation is %s, mean is %s" % (stdev(gmMemReducList), mean(gmMemReducList)))
+    print(gmSpeedUpList)
+    print("SpeedUps standard deviation is %s, mean is %s" % (stdev(gmSpeedUpList), mean(gmSpeedUpList)))
+
+    x = range(1, len(gmSpeedUpList) + 1)
+    fig, ax1 = plt.subplots()
+    ax2 = ax1.twinx()
+
+    ax1.scatter(x, gmSpeedUpList, c='black', alpha=1.0, marker='x')
+    ax1.set_ylim(1.0, 2.0)
+    # gmGm1 = np.prod(gmSpeedUpList) ** (1.0 / len(gmSpeedUpList))
+    gmGm1 = mean(gmSpeedUpList)
+    ax1.axhline(y=gmGm1, linestyle='--', alpha=0.5, color='black')
+    ax1.set_xlabel("GC intervals (s)", weight='bold')
+    ax1.set_ylabel("Average Speedups", weight='bold', color='black')
+
+    x = range(1, len(gmMemReducList) + 1)
+    orange = "chocolate"
+    ax2.scatter(x, gmMemReducList, c=orange, alpha=1.0, marker='+')
+    ax2.set_ylim(1.1, 1.9)
+    # gmGm2 = np.prod(gmMemReducList) ** (1.0 / len(gmMemReducList))
+    gmGm2 = mean(gmMemReducList)
+    ax2.axhline(y=gmGm2, color=orange, alpha=0.5, linestyle='--')
+    ax2.set_ylabel("Average Memory Reduction", weight='bold', color=orange)
+
+    plt.savefig('SpeedUpMemInterval.pdf')
     plt.show()
 
 # could be used by cleandroid and FPC.
@@ -710,7 +776,8 @@ if __name__ == '__main__':
     # intervalAnalysisOnMemoryReduction([gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
     # intervalAnalysisOnSpeedUps([gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
 
-    intervalAnalysisOnMemoryReductionOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
-    intervalAnalysisOnSpeedUpsOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    # intervalAnalysisOnMemoryReductionOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    # intervalAnalysisOnSpeedUpsOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
     # scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
 
