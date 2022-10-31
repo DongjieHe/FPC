@@ -429,15 +429,15 @@ def scatterPlotSpeedUpAndPE(gc, ngc):
     plt.savefig('tp.pdf')
     plt.show()
 
-    # plt.figure(figsize=(8,2.5))
-    # plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
-    # plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory / Fpc's Memory")
-    # plt.xticks(x, x, weight = 'bold')
-    # ax = plt.gca()
-    # plt.yticks(weight = 'bold')
-    # plt.legend(loc='upper left', prop={ 'weight' : 'bold'})
-    # plt.savefig('mp.pdf')
-    # plt.show()
+    plt.figure(figsize=(8,2.5))
+    plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
+    plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory Usage / Fpc's Memory Usage")
+    plt.xticks(x, x, weight = 'bold')
+    ax = plt.gca()
+    plt.yticks(weight = 'bold')
+    plt.legend(loc='upper left', prop={ 'weight' : 'bold'})
+    plt.savefig('mp.pdf')
+    plt.show()
 
 # merge three runs into one
 def mergeRuns(run1, run2, run3, scaleOnly):
@@ -778,6 +778,6 @@ if __name__ == '__main__':
 
     # intervalAnalysisOnMemoryReductionOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
     # intervalAnalysisOnSpeedUpsOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
-    intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
-    # scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
+    # intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid([ngcMerge, ngc2Merge, ngc3Merge, ngc4Merge, ngc5Merge, ngc6Merge, ngc7Merge, ngc8Merge], [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge])
+    scatterPlotSpeedUpAndPE(gcMerge, ngcMerge)
 
