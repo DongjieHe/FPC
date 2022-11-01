@@ -2,8 +2,15 @@
 import os,sys, shutil
 
 '''
-Use FlowDroid to analyze a single Android application.
-The only argument is the path to the application.
+Use FlowDroid/CleanDroid/FPC to analyze a set of Android applications.
+The only argument should be provided is the path to the application.
+The grammar for running this script is given below:
+cmd := ./driver.py argumentList
+argumentList := argument | argument argumentList
+argument := -print | -out={OUTPUT-PATH} | -st={SLEEP-TIME} | -ds={SOLVER} | APP-PATH
+
+When multiple output path, sleeping time, and solvers are specified, only the last occurence is used.
+When multiple app paths are specified, all of them will be analyzed.
 '''
 
 # terminal colors
@@ -24,7 +31,7 @@ RESULT_TIMEOUT = 7200
 DATAFLOW_TIMEOUT = 10800
 MAX_THREAD_NUM = 8
 isPrint = False
-SOLVER = 'FINEGRAIN' # "GC"
+SOLVER = 'FPC' # "GC"
 OUTPUTPATH = 'output'
 SLEEP_TIME = 1
 

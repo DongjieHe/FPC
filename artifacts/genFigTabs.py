@@ -287,7 +287,7 @@ def intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcDatas, cleandroidDatas)
     plt.show()
 
 if __name__ == '__main__':
-    samplePath = "/home/hedj/Work/CleanPathEdge/artifacts/sample/"
+    samplePath = "sample/"
     fpcRun1 = loadParserList(os.path.join(samplePath, "run1/FPC1/"), "FPC")
     fpc2Run1 = loadParserList(os.path.join(samplePath, "run1/FPC2/"), "FPC")
     fpc3Run1 = loadParserList(os.path.join(samplePath, "run1/FPC3/"), "FPC")

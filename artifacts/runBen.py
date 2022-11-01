@@ -18,6 +18,7 @@ FPC5 = "./driver.py -solver=FPC -out=" + run + "FPC5 -st=5"
 FPC6 = "./driver.py -solver=FPC -out=" + run + "FPC6 -st=6"
 FPC7 = "./driver.py -solver=FPC -out=" + run + "FPC7 -st=7"
 FPC8 = "./driver.py -solver=FPC -out=" + run + "FPC8 -st=8"
+
 TOOLS = [FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, CLEANDROID2, CLEANDROID3, CLEANDROID4, CLEANDROID5, CLEANDROID6, CLEANDROID7, CLEANDROID8]
 
 # for cmd in "./runFineGrainedNGC.py" "./runCleanDroid.py" 

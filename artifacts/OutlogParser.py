@@ -1,23 +1,24 @@
 #!/usr/bin/python3
 import os
 
+# This class is used to store the key information in the output log file of each app under each solver.
 class LogParser():
     def __init__(self):
-        self.solver = ''
-        self.apkName = ''
+        self.solver = '' # solver name
+        self.apkName = '' # App name
         self.leakCount = -1
-        self.resultsCount = -1
+        self.resultsCount = -1 # the number of taint values at the sink statements.
         self.dataSolverTime = -1 # in seconds
         self.maxmemory = -1 # in MB
-        self.forwardPECount = -1
+        self.forwardPECount = -1 # |PathEdge| in the forward IFDS solver
         self.backwardPECount = -1
-        self.recordedFWPECnt = -1
+        self.recordedFWPECnt = -1 # |PathEdge_max| in the forward IFDS solver
         self.recordedBWPECnt = -1
-        self.adgEdgeCnt = -1
-        self.sumEdgeCnt = -1
-        self.dummySumCnt = -1
-        self.oom = False
-        self.to = False
+        self.adgEdgeCnt = -1 # the number of ADG edges
+        self.sumEdgeCnt = -1 # the number of summary edges
+        self.dummySumCnt = -1 # the number of dummy summary edges
+        self.oom = False # Out of memory?
+        self.to = False # Out of Time?
 
     def clone(self):
         logParser = LogParser()
