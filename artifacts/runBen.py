@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 import os
 
-run="sample/run1/"
-CLEANDROID = "./run.py -solver=GC -out=" + run
-CLEANDROID2 = "./run.py -solver=GC -out=" + run + "GC2 -st=2"
-CLEANDROID3 = "./run.py -solver=GC -out=" + run + "GC3 -st=3"
-CLEANDROID4 = "./run.py -solver=GC -out=" + run + "GC4 -st=4"
-CLEANDROID5 = "./run.py -solver=GC -out=" + run + "GC5 -st=5"
-CLEANDROID6 = "./run.py -solver=GC -out=" + run + "GC6 -st=6"
-CLEANDROID7 = "./run.py -solver=GC -out=" + run + "GC7 -st=7"
-CLEANDROID8 = "./run.py -solver=GC -out=" + run + "GC8 -st=8"
-FPC = "./run.py -solver=FINEGRAIN -out=" + run
-FPC2 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC2 -st=2"
-FPC3 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC3 -st=3"
-FPC4 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC4 -st=4"
-FPC5 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC5 -st=5"
-FPC6 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC6 -st=6"
-FPC7 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC7 -st=7"
-FPC8 = "./run.py -solver=FINEGRAIN -out=" + run + "FPC8 -st=8"
+run="sample/run3/"
+CLEANDROID = "./driver.py -solver=GC -out=" + run + "GC1 -st=1"
+CLEANDROID2 = "./driver.py -solver=GC -out=" + run + "GC2 -st=2"
+CLEANDROID3 = "./driver.py -solver=GC -out=" + run + "GC3 -st=3"
+CLEANDROID4 = "./driver.py -solver=GC -out=" + run + "GC4 -st=4"
+CLEANDROID5 = "./driver.py -solver=GC -out=" + run + "GC5 -st=5"
+CLEANDROID6 = "./driver.py -solver=GC -out=" + run + "GC6 -st=6"
+CLEANDROID7 = "./driver.py -solver=GC -out=" + run + "GC7 -st=7"
+CLEANDROID8 = "./driver.py -solver=GC -out=" + run + "GC8 -st=8"
+FPC = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC1 -st=1"
+FPC2 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC2 -st=2"
+FPC3 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC3 -st=3"
+FPC4 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC4 -st=4"
+FPC5 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC5 -st=5"
+FPC6 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC6 -st=6"
+FPC7 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC7 -st=7"
+FPC8 = "./driver.py -solver=FINEGRAIN -out=" + run + "FPC8 -st=8"
 TOOLS = [FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, CLEANDROID2, CLEANDROID3, CLEANDROID4, CLEANDROID5, CLEANDROID6, CLEANDROID7, CLEANDROID8]
 
 # for cmd in "./runFineGrainedNGC.py" "./runCleanDroid.py" 
@@ -159,7 +159,7 @@ appPaths = [
 # done
 
 UNSCALABLE = {
-    'CLEANDROID': ['benchmarks/diskDroidBenchmarks/group1/nya.miku.wishmaster_54.apk', 'benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk', 
+    'CLEANDROID': ['benchmarks/diskDroidBenchmarks/group1/bus.chio.wishmaster_1002.apk', 'benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk', 
         'benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk'],
     'FPC': []
 }
@@ -170,5 +170,7 @@ for tool in TOOLS:
             print(appPath + " is unscalable under cleandroid!")
         elif appPath in UNSCALABLE['FPC'] and '-solver=FINEGRAIN' in tool:
             print(appPath + " is unscalable under FPC!")
+        elif appPath in UNSCALABLE['CLEANDROID'] and tool in [FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8]:
+            print(appPath + " is unscalable under cleandroid thus do not need to run")
         else:
             os.system(tool + ' ' + appPath)
