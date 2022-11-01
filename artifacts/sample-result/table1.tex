@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{multicol, multirow, xcolor, adjustbox}
+\begin{document}
+\begin{table*}
+\begin{adjustbox}{angle=90, max height=\textheight}
+\centering
+\begin{tabular}{c|l|r|r|r|r|r|r|r} \hline
+\multicolumn{1}{c|}{\multirow{2}{*}{Group}} & \multicolumn{1}{|c|}{\multirow{2}{*}{APP}} & \multicolumn{1}{|c|}{\multirow{2}{*}{Version}} & \multicolumn{2}{c|}{Analysis Time (s)} & \multicolumn{2}{c|}{Memory Usage (GB)} & \multicolumn{2}{c}{$|PathEdge_{max}|$ (K)} \\ \cline{4-9}
+ & & & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c|}{\textsc{Fpc}} & \multicolumn{1}{|c|}{\textsc{CleanDroid}} & \multicolumn{1}{|c}{\textsc{Fpc}} \\ \hline   \hline
+& com.github.yeriomin.dumbphoneassistant&0.5&4&4 (1.0$\times$)&0.7&0.8 (0.9$\times$)&4.1&2.5 (1.6$\times$)\\ \cline{2-9}
+& org.csploit.android&1.6.5&4&4 (1.0$\times$)&1.8&2.1 (0.9$\times$)&0.3&0.1 (3.0$\times$)\\ \cline{2-9}
+& com.ilm.sandwich&2.2.4f&5&4 (1.2$\times$)&1.0&1.3 (0.8$\times$)&2.5&1.1 (2.2$\times$)\\ \cline{2-9}
+& com.kunzisoft.keepass.libre&2.5.0.0beta18&6&6 (1.0$\times$)&2.4&2.7 (0.9$\times$)&3.4&1.4 (2.5$\times$)\\ \cline{2-9}
+& dk.jens.backup&0.3.4&6&6 (1.0$\times$)&1.7&1.4 (1.2$\times$)&3.9&2.1 (1.9$\times$)\\ \cline{2-9}
+& org.gateshipone.odyssey&1.1.18&12&12 (1.0$\times$)&1.2&1.2 (1.0$\times$)&12.1&3.4 (3.6$\times$)\\ \cline{2-9}
+& com.alfray.timeriffic&1.09.05&21&17 (1.2$\times$)&3.7&2.7 (1.4$\times$)&33.6&22.9 (1.5$\times$)\\ \cline{2-9}
+& org.decsync.sparss.floss&1.13.4&31&33 (0.9$\times$)&4.7&3.2 (1.5$\times$)&21.5&8.2 (2.6$\times$)\\ \cline{2-9}
+& com.github.axet.callrecorder&1.7.13&54&46 (1.2$\times$)&7.1&5.4 (1.3$\times$)&53.4&7.2 (7.4$\times$)\\ \cline{2-9}
+& org.materialos.icons&2.1&55&33 (1.7$\times$)&4.6&4.7 (1.0$\times$)&121.0&54.6 (2.2$\times$)\\ \cline{2-9}
+& com.app.Zensuren&1.21&57&47 (1.2$\times$)&5.8&5.2 (1.1$\times$)&55.1&31.1 (1.8$\times$)\\ \cline{2-9}
+& name.myigel.fahrplan.eh17&1.33.16&66&47 (1.4$\times$)&2.5&2.1 (1.2$\times$)&36.6&6.5 (5.6$\times$)\\ \cline{2-9}
+\multirow{-13}{*}{$\leq 3$ mins} &com.emn8.mobilem8.nativeapp.bk&5.0.10&151&127 (1.2$\times$)&2.0&2.7 (0.7$\times$)&11.2&2.3 (4.8$\times$)\\ \hline \hline
+& com.genonbeta.TrebleShot&1.4.2&207&175 (1.2$\times$)&7.0&5.8 (1.2$\times$)&54.7&22.5 (2.4$\times$)\\ \cline{2-9}
+& com.microsoft.office.word&16.0.11425.20132&259&184 (1.4$\times$)&5.0&4.8 (1.0$\times$)&43.1&7.9 (5.5$\times$)\\ \cline{2-9}
+& org.secuso.privacyfriendlytodolist&2.1&288&160 (1.8$\times$)&17.0&14.7 (1.2$\times$)&211.4&104.5 (2.0$\times$)\\ \cline{2-9}
+& com.vonglasow.michael.satstat&3.3&316&218 (1.4$\times$)&23.1&20.6 (1.1$\times$)&200.2&146.1 (1.4$\times$)\\ \cline{2-9}
+& com.igisw.openmoneybox&3.4.1.8&331&189 (1.8$\times$)&20.0&13.2 (1.5$\times$)&331.7&115.9 (2.9$\times$)\\ \cline{2-9}
+& com.kanedias.vanilla.metadata&1.0.4&367&345 (1.1$\times$)&22.7&13.4 (1.7$\times$)&283.3&17.7 (16.0$\times$)\\ \cline{2-9}
+& org.secuso.privacyfriendlyweather&2.1.1&388&21 (18.5$\times$)&24.5&1.9 (12.8$\times$)&463.0&5.4 (86.4$\times$)\\ \cline{2-9}
+& com.adobe.reader&19.2.1.9183&416&191 (2.2$\times$)&5.2&3.0 (1.7$\times$)&8.0&0.8 (9.5$\times$)\\ \cline{2-9}
+& org.totschnig.myexpenses&3.0.1.2&1904&146 (13.0$\times$)&94.7&14.7 (6.5$\times$)&1067.3&32.2 (33.1$\times$)\\ \cline{2-9}
+& org.fdroid.fdroid&1.8-alpha0&1906&270 (7.1$\times$)&12.6&5.1 (2.5$\times$)&76.2&6.1 (12.5$\times$)\\ \cline{2-9}
+& org.lumicall.android&1.13.1&2549&2111 (1.2$\times$)&41.4&24.9 (1.7$\times$)&366.5&49.0 (7.5$\times$)\\ \cline{2-9}
+\multirow{-12}{*}{$> 3$ mins} &nya.miku.wishmaster&1.5.0&8142&1852 (4.4$\times$)&152.5&80.1 (1.9$\times$)&2947.9&685.3 (4.3$\times$)\\ \hline \hline
+& org.openpetfoodfacts.scanner&2.9.8&-&2629&\textcolor{red}{OoM}&85.9&-&1015.5\\ \cline{2-9}
+& bus.chio.wishmaster&1.0.2&-&5769&\textcolor{red}{OoM}&142.2&-&1542.2\\ \cline{2-9}
+\multirow{-3}{*}{Unscalable} &com.github.axet.bookreader&1.12.14&-&8154&\textcolor{red}{OoM}&104.5&-&3313.8\\ \hline \hline
+Geometric Mean&-&-&-&1.7$\times$&-&1.4$\times$&-&4.4$\times$\\ \hline
+\end{tabular}
+\end{adjustbox}
+\end{table*}
+\end{document}
