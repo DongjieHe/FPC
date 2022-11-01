@@ -67,29 +67,29 @@
 [main] WARN soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Running with limited join point abstractions can break context-sensitive path builders
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Looking for sources and sinks...
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Source lookup done, found 6 sources and 74 sinks.
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.IFDSSolver - sleep time is 2
-[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.IFDSSolver - sleep time is 2
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.IFDSSolver - forward end Summary size: 22481
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - GC removes 10049 abstractions
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - GC removes 574967 path edges
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Remaining Path edges count is 115
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum Path edges count is 587
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum memory consumption is 1082
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - class soot.jimple.infoflow.solver.cfg.InfoflowCFG
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #nodes of forward Abstraction Dependency Graph: 9134
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #edges of forward Abstraction Dependency Graph: 8945
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #dummy end summary edges of forward: 10012
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #end summary edges of forward: 22481
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - GC removes 4113 abstractions
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - GC removes 323232 path edges
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Remaining Path edges count is 4
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum Path edges count is 260
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum memory consumption is 1095
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - class soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #nodes of backward Abstraction Dependency Graph: 1587
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #edges of backward Abstraction Dependency Graph: 1420
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #dummy end summary edges of backward: 4060
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.NormalGarbageCollector - #end summary edges of backward: 8658
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.IFDSSolver - sleep time is 2
+[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.fpc.IFDSSolver - sleep time is 2
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.IFDSSolver - forward end Summary size: 22481
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - GC removes 10049 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - GC removes 574967 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Remaining Path edges count is 115
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum Path edges count is 587
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum memory consumption is 1082
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - class soot.jimple.infoflow.solver.cfg.InfoflowCFG
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #nodes of forward Abstraction Dependency Graph: 9134
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #edges of forward Abstraction Dependency Graph: 8945
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #dummy end summary edges of forward: 10012
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #end summary edges of forward: 22481
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - GC removes 4113 abstractions
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - GC removes 323232 path edges
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Remaining Path edges count is 4
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum Path edges count is 260
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.FineGrainedReferenceCountingGarbageCollector - Recorded Maximum memory consumption is 1095
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - class soot.jimple.infoflow.solver.cfg.BackwardsInfoflowCFG
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #nodes of backward Abstraction Dependency Graph: 1587
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #edges of backward Abstraction Dependency Graph: 1420
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #dummy end summary edges of backward: 4060
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.NormalGarbageCollector - #end summary edges of backward: 8658
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper hits: 59873
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Taint wrapper misses: 59207
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - IFDS problem with 574967 forward and 322815 backward edges solved in 5 seconds, processing 13 results...

@@ -82,8 +82,8 @@
 [main] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
 [main] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
 [main] INFO soot.jimple.infoflow.android.SetupApplication$InPlaceInfoflow - Source lookup done, found 27 sources and 291 sinks.
-[main] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.IFDSSolver - sleep time is 7
-[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.finegrain.IFDSSolver - sleep time is 7
+[main] INFO soot.jimple.infoflow.solver.gcSolver.fpc.IFDSSolver - sleep time is 7
+[FlowDroid] INFO soot.jimple.infoflow.solver.gcSolver.fpc.IFDSSolver - sleep time is 7
 [FlowDroid] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
 [FlowDroid] ERROR soot.jimple.infoflow.android.source.AccessPathBasedSourceSinkManager - Constant <nya.miku.wishmaster.api.models.UrlPageModel: int type> was of unexpected type
 [FlowDroid Timeout Watcher] WARN soot.jimple.infoflow.memory.FlowDroidTimeoutWatcher - Timeout reached, stopping the solvers...

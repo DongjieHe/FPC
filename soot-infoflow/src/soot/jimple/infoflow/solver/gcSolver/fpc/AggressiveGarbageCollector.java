@@ -1,4 +1,4 @@
-package soot.jimple.infoflow.solver.gcSolver.finegrain;
+package soot.jimple.infoflow.solver.gcSolver.fpc;
 
 import heros.solver.Pair;
 import heros.solver.PathEdge;

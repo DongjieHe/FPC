@@ -92,8 +92,6 @@ import soot.jimple.infoflow.solver.gcSolver.GCSolverPeerGroup;
 import soot.jimple.infoflow.solver.memory.DefaultMemoryManagerFactory;
 import soot.jimple.infoflow.solver.memory.IMemoryManager;
 import soot.jimple.infoflow.solver.memory.IMemoryManagerFactory;
-import soot.jimple.infoflow.solver.onlineSolver.InfoflowSolver;
-import soot.jimple.infoflow.solver.onlineSolver.OnlineSolverPeerGroup;
 import soot.jimple.infoflow.sourcesSinks.manager.IOneSourceAtATimeManager;
 import soot.jimple.infoflow.sourcesSinks.manager.ISourceSinkManager;
 import soot.jimple.infoflow.threading.DefaultExecutorFactory;
@@ -388,9 +386,6 @@ public class Infoflow extends AbstractInfoflow {
 
 			// Create the solver peer group
 			switch (manager.getConfig().getSolverConfiguration().getDataFlowSolver()) {
-				case Online:
-					solverPeerGroup = new OnlineSolverPeerGroup();
-					break;
 				case FineGrainedGC:
 					solverPeerGroup = new GCSolverPeerGroup<Pair<SootMethod, Abstraction>>();
 					break;
@@ -813,15 +808,7 @@ public class Infoflow extends AbstractInfoflow {
 	 * @param backwardSolver The backward data flow solver
 	 */
 	protected void onTaintPropagationCompleted(IInfoflowSolver forwardSolver, IInfoflowSolver backwardSolver) {
-		if (solverPeerGroup instanceof OnlineSolverPeerGroup) {
-			InfoflowSolver fs = (InfoflowSolver) forwardSolver;
-			InfoflowSolver bs = (InfoflowSolver) backwardSolver;
-			// fs.printPartitions();
-			fs.printPathEdgeNum();
-			if (bs != null) {
-				bs.printPathEdgeNum();
-			}
-		}
+
 	}
 
 	/**
@@ -1085,16 +1072,10 @@ public class Infoflow extends AbstractInfoflow {
 			return solver;
 		case FineGrainedGC:
 			logger.info("Using fine-grained garbage-collecting solver");
-			IInfoflowSolver fgSolver = new soot.jimple.infoflow.solver.gcSolver.finegrain.InfoflowSolver(problem, executor, solverConfig.getSleepTime());
+			IInfoflowSolver fgSolver = new soot.jimple.infoflow.solver.gcSolver.fpc.InfoflowSolver(problem, executor, solverConfig.getSleepTime());
 			solverPeerGroup.addSolver(fgSolver);
 			fgSolver.setPeerGroup(solverPeerGroup);
 			return fgSolver;
-		case Online:
-			logger.info("Using online solver");
-			IInfoflowSolver onlineSolver = new soot.jimple.infoflow.solver.onlineSolver.InfoflowSolver(problem, executor);
-			solverPeerGroup.addSolver(onlineSolver);
-			onlineSolver.setPeerGroup(solverPeerGroup);
-			return onlineSolver;
 		default:
 			throw new RuntimeException("Unsupported data flow solver");
 		}

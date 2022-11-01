@@ -8,7 +8,7 @@
  * Contributors: Christian Fritz, Steven Arzt, Siegfried Rasthofer, Eric
  * Bodden, and others.
  ******************************************************************************/
-package soot.jimple.infoflow.solver.gcSolver.finegrain;
+package soot.jimple.infoflow.solver.gcSolver.fpc;
 
 import java.util.Collection;
 import java.util.Map;

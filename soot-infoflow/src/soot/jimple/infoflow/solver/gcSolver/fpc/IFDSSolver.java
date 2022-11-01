@@ -11,7 +11,7 @@
  *     Marc-Andre Laverdiere-Papineau - Fixed race condition
  *     Steven Arzt - Created FastSolver implementation
  ******************************************************************************/
-package soot.jimple.infoflow.solver.gcSolver.finegrain;
+package soot.jimple.infoflow.solver.gcSolver.fpc;
 
 import java.util.Collection;
 import java.util.Collections;
