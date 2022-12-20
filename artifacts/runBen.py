@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import os
 
-run="sample/run3/"
+run="sample/run2/"
+FLOWDROID = "./driver.py -out=" + run + "FD1"
 CLEANDROID = "./driver.py -solver=GC -out=" + run + "GC1 -st=1"
 CLEANDROID2 = "./driver.py -solver=GC -out=" + run + "GC2 -st=2"
 CLEANDROID3 = "./driver.py -solver=GC -out=" + run + "GC3 -st=3"
@@ -19,7 +20,8 @@ FPC6 = "./driver.py -solver=FPC -out=" + run + "FPC6 -st=6"
 FPC7 = "./driver.py -solver=FPC -out=" + run + "FPC7 -st=7"
 FPC8 = "./driver.py -solver=FPC -out=" + run + "FPC8 -st=8"
 
-TOOLS = [FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, CLEANDROID2, CLEANDROID3, CLEANDROID4, CLEANDROID5, CLEANDROID6, CLEANDROID7, CLEANDROID8]
+TOOLS = [FLOWDROID]
+# TOOLS = [FLOWDROID, FPC, CLEANDROID, FPC2, FPC3, FPC4, FPC5, FPC6, FPC7, FPC8, CLEANDROID2, CLEANDROID3, CLEANDROID4, CLEANDROID5, CLEANDROID6, CLEANDROID7, CLEANDROID8]
 
 # for cmd in "./runFineGrainedNGC.py" "./runCleanDroid.py" 
 # for cmd in "./runFineGrainedNGC.py"
@@ -160,6 +162,8 @@ appPaths = [
 # done
 
 UNSCALABLE = {
+    'FLOWDROID': ['benchmarks/diskDroidBenchmarks/group1/bus.chio.wishmaster_1002.apk', 'benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk', 
+        'benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk'],
     'CLEANDROID': ['benchmarks/diskDroidBenchmarks/group1/bus.chio.wishmaster_1002.apk', 'benchmarks/diskDroidBenchmarks/group2/com.github.axet.bookreader_375.apk', 
         'benchmarks/sparsedroidBenchmark/org.openpetfoodfacts.scanner_2.9.8.apk'],
     'FPC': []
@@ -167,6 +171,8 @@ UNSCALABLE = {
 
 for tool in TOOLS:
     for appPath in appPaths:
+        if appPath in UNSCALABLE['FLOWDROID'] and '-solver=' not in tool:
+            print(appPath + " is unscalable under flowdroid!")
         if appPath in UNSCALABLE['CLEANDROID'] and '-solver=GC' in tool:
             print(appPath + " is unscalable under cleandroid!")
         elif appPath in UNSCALABLE['FPC'] and '-solver=FINEGRAIN' in tool:

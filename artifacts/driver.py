@@ -31,7 +31,7 @@ RESULT_TIMEOUT = 7200
 DATAFLOW_TIMEOUT = 10800
 MAX_THREAD_NUM = 8
 isPrint = False
-SOLVER = 'FPC' # "GC"
+SOLVER = None # 'FPC' # "GC"
 OUTPUTPATH = 'output'
 SLEEP_TIME = 1
 
@@ -51,6 +51,7 @@ def genCmd(app):
     if not os.path.exists(outDir):
         os.makedirs(outDir)
     outlog = os.path.join(outDir, app.split("/")[-1][:-4] + ".log")
+    print(outlog)
     if isPrint is False:
         if os.path.exists(outlog):
             print('old result found. skip this.')
