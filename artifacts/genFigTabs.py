@@ -12,19 +12,47 @@ from BenchInfo import benchmarks
 from BenchInfo import ben2name
 from BenchInfo import ben2version
 
-def buildTable(gc, fpc):
+def buildTable(fd, gc, fpc):
+    fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
     fpcMap = classifyByApkName(fpc)
     integratedTable = PrettyTable()
-    integratedTable.field_names = ["APK", "CDT(s)", "NGCT(s)", "CDMaxM(MB)", "NGCMaxM(MB)", "#CDRDPEs", "#NGCRDPEs"]
-    for k, v in sorted(gcMap.items(), key = lambda x : x[1].dataSolverTime):
+    integratedTable.field_names = ["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"]
+    fdovgc = []
+    fdovfpc = []
+    for k in benchmarks:
+        fdElem = fdMap[k]
         gcElem = gcMap[k]
         fpcElem = fpcMap[k]
-        integratedTable.add_row([v.apkName, gcElem.dataSolverTime, fpcElem.dataSolverTime, 
-                                 gcElem.maxmemory, fpcElem.maxmemory, 
-                                 gcElem.recordedFWPECnt + gcElem.recordedBWPECnt,
-                                 fpcElem.recordedFWPECnt + fpcElem.recordedBWPECnt])
+        fdStr = "OoT" if fdElem.to else "OoM" if fdElem.oom else str(fdElem.dataSolverTime)
+        gcStr = "OoT" if gcElem.to else "OoM" if gcElem.oom else str(gcElem.dataSolverTime)
+        fpcStr = "OoT" if fpcElem.to else "OoM" if fpcElem.oom else str(fpcElem.dataSolverTime)
+        otom = ["OoT", "OoM"]
+        if fdStr not in otom and gcStr not in otom and fpcStr not in otom:
+            fdovgc.append(fdElem.dataSolverTime * 1.0 / gcElem.dataSolverTime)
+            fdovfpc.append(fdElem.dataSolverTime * 1.0 / fpcElem.dataSolverTime)
+        integratedTable.add_row([k, fdStr, gcStr, fpcStr])
     print(integratedTable)
+
+    # draw the speedup bars
+    print(fdovfpc)
+    print(fdovgc)
+    ind = range(1, len(fdovfpc) + 1)
+    ind1 = [i - 0.2 for i in ind]
+    ind2 = [i + 0.2 for i in ind]
+    width = 0.3  # the width of the bars: can also be len(x) sequence
+    plt.figure(figsize=(8, 2.5))
+    p1 = plt.bar(ind1, fdovgc, width, color='gray', label = 'CleanDroid')
+    p2 = plt.bar(ind2, fdovfpc, width, color='red', label = 'FPC')
+    plt.yticks(np.arange(0, 50, 5), weight='bold')
+    plt.axhline(y = 1.0, linestyle = 'dashed')
+    plt.xlim([0, len(fdovfpc) + 1])
+    plt.xticks(ind, ind, weight='bold')
+    plt.ylabel("Speedups over FlowDroid", weight='bold')
+    plt.legend(loc='upper left', prop={ 'weight' : 'bold'}, handles=[p1, p2])
+    # plt.savefig('adgSize.pdf')
+    plt.show()
+
 
 def buildTexTable(gc, fpc):
     gcMap = classifyByApkName(gc)
@@ -168,6 +196,8 @@ def scatterPlotSpeedUpAndPE(gc, fpc):
     plt.figure(figsize=(8,2.5))
     plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
     plt.scatter(x, spList, c="k", alpha=0.5, marker='+', label="CleanDroid's Time / Fpc's Time")
+    print(peList)
+    print(spList)
     plt.xticks(x, x, weight = 'bold')
     plt.yticks(weight = 'bold')
     plt.legend(loc='upper left', prop={ 'weight' : 'bold'})
@@ -177,6 +207,8 @@ def scatterPlotSpeedUpAndPE(gc, fpc):
     plt.figure(figsize=(8,2.5))
     plt.scatter(x, peList, c="r", alpha=0.5, marker='o', label="CleanDroid's $|PathEdge|_{max}$ / Fpc's $|PathEdge|_{max}$")
     plt.scatter(x, memList, c="k", alpha=0.5, marker='*', label="CleanDroid's Memory Usage / Fpc's Memory Usage")
+    print(peList)
+    print(memList)
     plt.xticks(x, x, weight = 'bold')
     ax = plt.gca()
     plt.yticks(weight = 'bold')
@@ -288,6 +320,9 @@ def intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcDatas, cleandroidDatas)
 
 if __name__ == '__main__':
     samplePath = "sample/"
+    fdRun3 = loadParserList(os.path.join(samplePath, "run3/FD1/"), "FlowDroid")
+    print(len(fdRun3))
+
     fpcRun1 = loadParserList(os.path.join(samplePath, "run1/FPC1/"), "FPC")
     fpc2Run1 = loadParserList(os.path.join(samplePath, "run1/FPC2/"), "FPC")
     fpc3Run1 = loadParserList(os.path.join(samplePath, "run1/FPC3/"), "FPC")
@@ -361,11 +396,11 @@ if __name__ == '__main__':
     fpc7Merge = mergeRuns(fpc7Run1, fpc7Run2, fpc7Run3, True)
     fpc8Merge = mergeRuns(fpc8Run1, fpc8Run2, fpc8Run3, True)
 
-    # buildTable(gcMerge, fpcMerge)
-    buildTexTable(gcMerge, fpcMerge)
-    adgEdgeOverPERatio(fpcMerge)
-    computeDummyRatio(fpcMerge)
-    fpcList = [fpcMerge, fpc2Merge, fpc3Merge, fpc4Merge, fpc5Merge, fpc6Merge, fpc7Merge, fpc8Merge]
-    gcList = [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge]
-    intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcList, gcList)
-    scatterPlotSpeedUpAndPE(gcMerge, fpcMerge)
+    buildTable(fdRun3, gcMerge, fpcMerge)
+    # buildTexTable(gcMerge, fpcMerge)
+    # adgEdgeOverPERatio(fpcMerge)
+    # computeDummyRatio(fpcMerge)
+    # fpcList = [fpcMerge, fpc2Merge, fpc3Merge, fpc4Merge, fpc5Merge, fpc6Merge, fpc7Merge, fpc8Merge]
+    # gcList = [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge]
+    # intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcList, gcList)
+    # scatterPlotSpeedUpAndPE(gcMerge, fpcMerge)
