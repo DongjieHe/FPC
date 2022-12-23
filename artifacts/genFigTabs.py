@@ -29,14 +29,18 @@ def buildTable(fd, gc, fpc):
         fpcStr = "OoT" if fpcElem.to else "OoM" if fpcElem.oom else str(fpcElem.dataSolverTime)
         otom = ["OoT", "OoM"]
         if fdStr not in otom and gcStr not in otom and fpcStr not in otom:
-            fdovgc.append(fdElem.dataSolverTime * 1.0 / gcElem.dataSolverTime)
-            fdovfpc.append(fdElem.dataSolverTime * 1.0 / fpcElem.dataSolverTime)
+            gcsu = fdElem.dataSolverTime * 1.0 / gcElem.dataSolverTime
+            fdovgc.append(gcsu)
+            fpcsu = fdElem.dataSolverTime * 1.0 / fpcElem.dataSolverTime
+            fdovfpc.append(fpcsu)
+            gcStr = gcStr + "({v:.1f}X)".format(v = gcsu)
+            fpcStr = fpcStr + "({v:.1f}X)".format(v = fpcsu)
         integratedTable.add_row([k, fdStr, gcStr, fpcStr])
     print(integratedTable)
 
     # draw the speedup bars
-    print(fdovfpc)
-    print(fdovgc)
+    # print(fdovfpc)
+    # print(fdovgc)
     ind = range(1, len(fdovfpc) + 1)
     ind1 = [i - 0.2 for i in ind]
     ind2 = [i + 0.2 for i in ind]
@@ -50,7 +54,7 @@ def buildTable(fd, gc, fpc):
     plt.xticks(ind, ind, weight='bold')
     plt.ylabel("Speedups over FlowDroid", weight='bold')
     plt.legend(loc='upper left', prop={ 'weight' : 'bold'}, handles=[p1, p2])
-    # plt.savefig('adgSize.pdf')
+    # plt.savefig('speedupsOverFD.pdf')
     plt.show()
 
 
@@ -320,8 +324,9 @@ def intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcDatas, cleandroidDatas)
 
 if __name__ == '__main__':
     samplePath = "sample/"
+    fdRun1 = loadParserList(os.path.join(samplePath, "run1/FD1/"), "FlowDroid")
+    fdRun2 = loadParserList(os.path.join(samplePath, "run2/FD1/"), "FlowDroid")
     fdRun3 = loadParserList(os.path.join(samplePath, "run3/FD1/"), "FlowDroid")
-    print(len(fdRun3))
 
     fpcRun1 = loadParserList(os.path.join(samplePath, "run1/FPC1/"), "FPC")
     fpc2Run1 = loadParserList(os.path.join(samplePath, "run1/FPC2/"), "FPC")
@@ -377,6 +382,7 @@ if __name__ == '__main__':
     gc7Run3 = loadParserList(os.path.join(samplePath, "run3/GC7/"), "CleanDroid")
     gc8Run3 = loadParserList(os.path.join(samplePath, "run3/GC8/"), "CleanDroid")
 
+    fdMerge = mergeRuns(fdRun1, fdRun2, fdRun3, False)
 
     gcMerge = mergeRuns(gcRun1, gcRun2, gcRun3, False)
     gc2Merge = mergeRuns(gc2Run1, gc2Run2, gc2Run3, True)
@@ -396,7 +402,7 @@ if __name__ == '__main__':
     fpc7Merge = mergeRuns(fpc7Run1, fpc7Run2, fpc7Run3, True)
     fpc8Merge = mergeRuns(fpc8Run1, fpc8Run2, fpc8Run3, True)
 
-    buildTable(fdRun3, gcMerge, fpcMerge)
+    buildTable(fdMerge, gcMerge, fpcMerge)
     # buildTexTable(gcMerge, fpcMerge)
     # adgEdgeOverPERatio(fpcMerge)
     # computeDummyRatio(fpcMerge)
