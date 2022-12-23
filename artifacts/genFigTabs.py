@@ -11,12 +11,39 @@ from OutlogParser import classifyByApkName
 from BenchInfo import benchmarks
 from BenchInfo import ben2name
 from BenchInfo import ben2version
+from brokenaxes import brokenaxes
+
+class MarkDownTable:
+    rows = []
+    def __init__(self, head):
+        self.head = head
+        self.columnSize = len(head)
+    def addRow(self, row):
+        if len(row) != self.columnSize:
+            print("invalid row size")
+        else:
+            self.rows.append(row)
+    def getMDStr(self, row):
+        ret = "| " + " | ".join(row) + " |"
+        return ret
+    def print(self):
+        contents = []
+        contents.append(self.getMDStr(self.head))
+        content = "| "
+        for i in range(self.columnSize):
+            content += " --- |"
+        contents.append(content)
+        for ith in self.rows:
+            contents.append(self.getMDStr(ith))
+        print("\n".join(contents))
+        
 
 def buildTable(fd, gc, fpc):
     fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
     fpcMap = classifyByApkName(fpc)
     integratedTable = PrettyTable()
+    markdownTable = MarkDownTable(["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"])
     integratedTable.field_names = ["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"]
     fdovgc = []
     fdovfpc = []
@@ -36,24 +63,47 @@ def buildTable(fd, gc, fpc):
             gcStr = gcStr + "({v:.1f}X)".format(v = gcsu)
             fpcStr = fpcStr + "({v:.1f}X)".format(v = fpcsu)
         integratedTable.add_row([k, fdStr, gcStr, fpcStr])
+        markdownTable.addRow([k, fdStr, gcStr, fpcStr])
     print(integratedTable)
+    markdownTable.print()
 
     # draw the speedup bars
     # print(fdovfpc)
     # print(fdovgc)
+    lim = 8.0
+    print(np.prod(fdovfpc) ** (1.0 / len(fdovfpc)))
+    print(np.prod(fdovgc) ** (1.0 / len(fdovgc)))
     ind = range(1, len(fdovfpc) + 1)
     ind1 = [i - 0.2 for i in ind]
     ind2 = [i + 0.2 for i in ind]
     width = 0.3  # the width of the bars: can also be len(x) sequence
-    plt.figure(figsize=(8, 2.5))
-    p1 = plt.bar(ind1, fdovgc, width, color='gray', label = 'CleanDroid')
-    p2 = plt.bar(ind2, fdovfpc, width, color='red', label = 'FPC')
-    plt.yticks(np.arange(0, 50, 5), weight='bold')
-    plt.axhline(y = 1.0, linestyle = 'dashed')
-    plt.xlim([0, len(fdovfpc) + 1])
-    plt.xticks(ind, ind, weight='bold')
-    plt.ylabel("Speedups over FlowDroid", weight='bold')
-    plt.legend(loc='upper left', prop={ 'weight' : 'bold'}, handles=[p1, p2])
+    fig = plt.figure(figsize=(12, 4.5))
+    bax = brokenaxes(ylims=((0.0, 18.0), (43.0, 46.0)), wspace=0.05, hspace=0.05)
+    p1 = bax.bar(ind1, fdovgc, width, color='gray', label = 'CleanDroid')
+    p2  = bax.bar(ind2, fdovfpc, width, color='red', label = 'FPC')
+    for i , v in enumerate(fdovgc):
+        bax.text(ind1[i] - 0.12, v + 0.25, "{x:.1f}X".format(x = v), color = "k" if v < lim else "r", rotation=(90 if v < lim else 0), fontdict=None, size=8 )
+    for i , v in enumerate(fdovfpc):
+        bax.text(ind2[i] - 0.12, v + 0.25, "{x:.1f}X".format(x = v), color = "k" if v < lim else "r", rotation=(90 if v < lim else 0), fontdict=None, size=8 )
+    
+    # fdovgcx = [i if i < lim else lim for i in fdovgc]
+    # fdovfpcx = [i if i < lim else lim for i in fdovfpc]
+    # # p1 = plt.bar(ind1, fdovgcx, width, color='gray', label = 'CleanDroid')
+    # p1 = pnp.plot_bars_with_breaks(ind1, fdovgcx, [(10)], width, color='gray', label = 'CleanDroid')
+    # p2  = plt.bar(ind2, fdovfpcx, width, color='red', label = 'FPC')
+    # for i , v in enumerate(fdovgc):
+    #     plt.text(ind1[i] - 0.12, (v if v < lim else lim) + 0.25, "{x:.1f}X".format(x = v), color = "k" if v < lim else "r", rotation=(90 if v < lim else 0), fontdict=None, size=8 )
+    # for i , v in enumerate(fdovfpc):
+    #     plt.text(ind2[i] - 0.12, (v if v < lim else lim) + 0.25, "{x:.1f}X".format(x = v), color = "k" if v < lim else "r", rotation=(90 if v < lim else 0), fontdict=None, size=8 )
+    
+    # plt.bar_label(p1, padding=3, fmt='%.1f')
+    # plt.bar_label(p2, padding=3, fmt='%.1f')
+    # plt.yticks(np.arange(0, 48, 2), weight='bold')
+    bax.axhline(y = 1.0, linestyle = 'dashed')
+    bax.set_xlim([0, len(fdovfpc) + 1])
+    bax.set_xticks(ind, ind, weight='bold')
+    bax.set_ylabel("Speedups over FlowDroid", weight='bold')
+    bax.legend(loc='upper center', prop={ 'weight' : 'bold'})
     # plt.savefig('speedupsOverFD.pdf')
     plt.show()
 
