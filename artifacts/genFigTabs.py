@@ -36,15 +36,11 @@ class MarkDownTable:
         for ith in self.rows:
             contents.append(self.getMDStr(ith))
         print("\n".join(contents))
-        
 
-def buildTable(fd, gc, fpc):
+def speedupOverFd(fd, gc, fpc):
     fdMap = classifyByApkName(fd)
     gcMap = classifyByApkName(gc)
     fpcMap = classifyByApkName(fpc)
-    integratedTable = PrettyTable()
-    markdownTable = MarkDownTable(["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"])
-    integratedTable.field_names = ["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"]
     fdovgc = []
     fdovfpc = []
     for k in benchmarks:
@@ -60,12 +56,6 @@ def buildTable(fd, gc, fpc):
             fdovgc.append(gcsu)
             fpcsu = fdElem.dataSolverTime * 1.0 / fpcElem.dataSolverTime
             fdovfpc.append(fpcsu)
-            gcStr = gcStr + "({v:.1f}X)".format(v = gcsu)
-            fpcStr = fpcStr + "({v:.1f}X)".format(v = fpcsu)
-        integratedTable.add_row([k, fdStr, gcStr, fpcStr])
-        markdownTable.addRow([k, fdStr, gcStr, fpcStr])
-    print(integratedTable)
-    markdownTable.print()
 
     # draw the speedup bars
     # print(fdovfpc)
@@ -104,8 +94,37 @@ def buildTable(fd, gc, fpc):
     bax.set_xticks(ind, ind, weight='bold')
     bax.set_ylabel("Speedups over FlowDroid", weight='bold')
     bax.legend(loc='upper center', prop={ 'weight' : 'bold'})
-    # plt.savefig('speedupsOverFD.pdf')
-    plt.show()
+    plt.savefig('speedupsOverFD.pdf')
+    plt.show()        
+
+def buildTable(fd, gc, fpc):
+    fdMap = classifyByApkName(fd)
+    gcMap = classifyByApkName(gc)
+    fpcMap = classifyByApkName(fpc)
+    integratedTable = PrettyTable()
+    markdownTable = MarkDownTable(["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"])
+    integratedTable.field_names = ["APK", "FlowDroid (s)", "CleanDroid (s)", "FPC (s)"]
+    fdovgc = []
+    fdovfpc = []
+    for k in benchmarks:
+        fdElem = fdMap[k]
+        gcElem = gcMap[k]
+        fpcElem = fpcMap[k]
+        fdStr = "OoT" if fdElem.to else "OoM" if fdElem.oom else str(fdElem.dataSolverTime)
+        gcStr = "OoT" if gcElem.to else "OoM" if gcElem.oom else str(gcElem.dataSolverTime)
+        fpcStr = "OoT" if fpcElem.to else "OoM" if fpcElem.oom else str(fpcElem.dataSolverTime)
+        otom = ["OoT", "OoM"]
+        if fdStr not in otom and gcStr not in otom and fpcStr not in otom:
+            gcsu = fdElem.dataSolverTime * 1.0 / gcElem.dataSolverTime
+            fdovgc.append(gcsu)
+            fpcsu = fdElem.dataSolverTime * 1.0 / fpcElem.dataSolverTime
+            fdovfpc.append(fpcsu)
+            gcStr = gcStr + "({v:.1f}X)".format(v = gcsu)
+            fpcStr = fpcStr + "({v:.1f}X)".format(v = fpcsu)
+        integratedTable.add_row([k, fdStr, gcStr, fpcStr])
+        markdownTable.addRow([k, fdStr, gcStr, fpcStr])
+    print(integratedTable)
+    markdownTable.print()
 
 
 def buildTexTable(gc, fpc):
@@ -452,11 +471,12 @@ if __name__ == '__main__':
     fpc7Merge = mergeRuns(fpc7Run1, fpc7Run2, fpc7Run3, True)
     fpc8Merge = mergeRuns(fpc8Run1, fpc8Run2, fpc8Run3, True)
 
-    buildTable(fdMerge, gcMerge, fpcMerge)
-    # buildTexTable(gcMerge, fpcMerge)
-    # adgEdgeOverPERatio(fpcMerge)
-    # computeDummyRatio(fpcMerge)
-    # fpcList = [fpcMerge, fpc2Merge, fpc3Merge, fpc4Merge, fpc5Merge, fpc6Merge, fpc7Merge, fpc8Merge]
-    # gcList = [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge]
-    # intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcList, gcList)
-    # scatterPlotSpeedUpAndPE(gcMerge, fpcMerge)
+    # buildTable(fdMerge, gcMerge, fpcMerge)
+    buildTexTable(gcMerge, fpcMerge)
+    adgEdgeOverPERatio(fpcMerge)
+    computeDummyRatio(fpcMerge)
+    fpcList = [fpcMerge, fpc2Merge, fpc3Merge, fpc4Merge, fpc5Merge, fpc6Merge, fpc7Merge, fpc8Merge]
+    gcList = [gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge]
+    intervalAnalysisOnSpeedUpsAndMemoryOverCleandroid(fpcList, gcList)
+    scatterPlotSpeedUpAndPE(gcMerge, fpcMerge)
+    speedupOverFd(fdMerge, gcMerge, fpcMerge)
