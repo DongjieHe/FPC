@@ -461,6 +461,21 @@ def loadRun(runPath):
     gc8Run = loadParserList(os.path.join(runPath, "GC8/"), "CleanDroid")
     return fdRun, gcRun, gc2Run, gc3Run, gc4Run, gc5Run, gc6Run, gc7Run, gc8Run, fpcRun, fpc2Run, fpc3Run, fpc4Run, fpc5Run, fpc6Run, fpc7Run, fpc8Run
 
+def filterBenchmarks(benchmarks, runLists):
+    ret = []
+    runMaps = []
+    for run in runLists:
+        run1Map = classifyByApkName(run)
+        runMaps.append(run1Map)
+    
+    for app in benchmarks:
+        flag = True
+        for runMap in runMaps:
+            if app not in runMap:
+                flag = False
+        if flag:
+            ret.append(app)
+    return ret
 
 '''
 The grammar for running this script:
@@ -511,6 +526,8 @@ if __name__ == '__main__':
     fpc7Merge = mergeRuns(fpc7Run1, fpc7Run2, fpc7Run3, True)
     fpc8Merge = mergeRuns(fpc8Run1, fpc8Run2, fpc8Run3, True)
 
+    benchmarks = filterBenchmarks(benchmarks, [fdMerge, gcMerge, gc2Merge, gc3Merge, gc4Merge, gc5Merge, gc6Merge, gc7Merge, gc8Merge,
+                                               fpcMerge, fpc2Merge, fpc3Merge, fpc4Merge, fpc5Merge, fpc6Merge, fpc7Merge, fpc8Merge])
     # buildTable(fdMerge, gcMerge, fpcMerge)
     buildTexTable(gcMerge, fpcMerge)
     adgEdgeOverPERatio(fpcMerge)
