@@ -20,6 +20,19 @@ We have prepared them in `requirements.txt` so that users can use the following 
 
 As described in the experimental Setting in our paper, our experiments are performed on a Linux server, running Ubuntu 22.04.1 LTS (Jammy Jellyfish), with 8 CPU cores and 256GB RAM. The time budget we use is 3 hours per app. We wish the reviewers could obtain enough resources to evaluate our artefact.
 
+## Getting Started
+### Prepare Docker and Ready go!
+* install Docker on your machine: https://docs.docker.com/engine/install/
+* load docker image:
+```
+# docker load < fpc_artifact.tar.gz
+```
+* run the docker image:
+```
+# docker run -it hdjay2013/fpc:latest
+```
+If everything is correct, you should be in the `/FPC/` directory.
+
 ### Directory Structure
 In this artifact, 
 * `android-platforms/` contains many `android.jar` files in different platform versions. They will be used by `FlowDroid` (as well as `CleanDroid` and `FPC`) when analyzing Android applications. 
@@ -28,8 +41,6 @@ In this artifact,
 * `soot-infoflow-cmd-jar-with-dependencies.jar` is the only executable files used in the evaluation. It can be compiled from the source code by using `mvn -DskipTests install` (the compilation result will be in `soot-infoflow-cmd/target/`).
 * `sample/` includes the three runs of experimental data used in our paper. Lazy reviewers can use these provided data to reproduce all evaluation results used in our paper ^^.
 
-## Getting Started
-### Prepare Docker and Ready go!
 ### Test driven script
 `driver.py` is the driven script for running different benchmarks with different tools (`FlowDroid`|`CleanDroid`|`FPC`). The grammar for running this script is given below:
 ```
@@ -101,5 +112,12 @@ just run the following commands:
 # python3 genFigTabs.py -out=output/
 # xelatex table1.tex
 ```
+
+The files and their corresponding names used in the paper have already given in the table above.
+
+The paper makes the following claims:
+* `FPC` can collect more path edges than CleanDroid (evidenced by `table1.pdf`, `mp.pdf`, `tp.pdf`).
+* `FPC` is more efficient than `CleanDroid` in both analysis time and memory consumption (evidenced by `table1.pdf`, `mp.pdf`, `tp.pdf`, and `speedupsOverFD.pdf`).
+* Overhead of `FPC` is small (evidenced by `adgSize.pdf` and  `SpeedUpMemInterval.pdf`).
 
 That's all. Have fun.
