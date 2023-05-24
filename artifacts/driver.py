@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-import os,sys, shutil
+import os
+import sys
+import shutil
 
 '''
 Use FlowDroid/CleanDroid/FPC to analyze a set of Android applications.
@@ -7,7 +9,7 @@ The only argument should be provided is the path to the application.
 The grammar for running this script is given below:
 cmd := ./driver.py argumentList
 argumentList := argument | argument argumentList
-argument := -print | -out={OUTPUT-PATH} | -st={SLEEP-TIME} | -ds={SOLVER} | APP-PATH
+argument := -print | -out={OUTPUT-PATH} | -st={SLEEP-TIME} | -solver={SOLVER} | APP-PATH
 
 When multiple output path, sleeping time, and solvers are specified, only the last occurence is used.
 When multiple app paths are specified, all of them will be analyzed.
@@ -31,9 +33,10 @@ RESULT_TIMEOUT = 7200
 DATAFLOW_TIMEOUT = 10800
 MAX_THREAD_NUM = 8
 isPrint = False
-SOLVER = None # 'FPC' # "GC"
+SOLVER = None  # 'FPC' # "GC"
 OUTPUTPATH = 'output'
 SLEEP_TIME = 1
+
 
 def genCmd(app):
     args = ['java', JVMARG, '-jar', FLOWDROID]
@@ -60,12 +63,15 @@ def genCmd(app):
     cmd = ' '.join(args)
     return cmd
 
+
 def run(app):
-    print(YELLOW + BOLD + 'Analyzing ' + RED + BOLD + app + YELLOW + BOLD + ' ...' + RESET)
+    print(YELLOW + BOLD + 'Analyzing ' + RED +
+          BOLD + app + YELLOW + BOLD + ' ...' + RESET)
     cmd = genCmd(app)
     if cmd is not None:
         print(cmd)
         os.system(cmd)
+
 
 if __name__ == '__main__':
     appPaths = []
