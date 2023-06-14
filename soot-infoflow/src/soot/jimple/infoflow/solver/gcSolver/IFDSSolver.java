@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -106,8 +107,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	@DontSynchronize("only used by single thread")
 	protected final Map<N, Set<D>> initialSeeds;
 
-	@DontSynchronize("benign races")
-	public long propagationCount;
+	@SynchronizedBy("thread safe data structure")
+	public LongAdder propagationCount = new LongAdder();
 
 	@DontSynchronize("stateless")
 	protected final D zeroValue;
@@ -134,12 +135,14 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 	protected SolverPeerGroup solverPeerGroup;
 
+	protected int sleepTime = 1;
+
 	/**
 	 * Creates a solver for the given problem, which caches flow functions and edge
 	 * functions. The solver must then be started by calling {@link #solve()}.
 	 */
-	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem) {
-		this(tabulationProblem, DEFAULT_CACHE_BUILDER);
+	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem, int sleepTime) {
+		this(tabulationProblem, DEFAULT_CACHE_BUILDER, sleepTime);
 	}
 
 	/**
@@ -153,7 +156,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 	 *                                 for flow functions.
 	 */
 	public IFDSSolver(IFDSTabulationProblem<N, D, SootMethod, I> tabulationProblem,
-			@SuppressWarnings("rawtypes") CacheBuilder flowFunctionCacheBuilder) {
+			@SuppressWarnings("rawtypes") CacheBuilder flowFunctionCacheBuilder, int sleepTime) {
 		if (logger.isDebugEnabled())
 			flowFunctionCacheBuilder = flowFunctionCacheBuilder.recordStats();
 		this.zeroValue = tabulationProblem.zeroValue();
@@ -167,6 +170,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		} else {
 			ffCache = null;
 		}
+		this.sleepTime = sleepTime;
 		this.flowFunctions = flowFunctions;
 		this.initialSeeds = tabulationProblem.initialSeeds();
 		this.followReturnsPastSeeds = tabulationProblem.followReturnsPastSeeds();
@@ -185,6 +189,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 //		DefaultGarbageCollector<N, D> gc = new DefaultGarbageCollector<>(icfg, jumpFunctions);
 		ThreadedGarbageCollector<N, D> gc = new ThreadedGarbageCollector<>(icfg, jumpFunctions);
+		gc.setSleepTimeSeconds(sleepTime);
 		GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
 		gc.setPeerGroup(gcSolverGroup.getGCPeerGroup());
 		return garbageCollector = gc;
@@ -215,8 +220,20 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		for (IMemoryBoundedSolverStatusNotification listener : notificationListeners)
 			listener.notifySolverTerminated(this);
 
-		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedMethods()));
-		this.garbageCollector.notifySolverTerminated();
+		logger.info(String.format("GC removed abstractions for %d methods", garbageCollector.getGcedAbstractions()));
+		logger.info(String.format("GC removed abstractions for %d edges", garbageCollector.getGcedEdges()));
+		if (garbageCollector instanceof ThreadedGarbageCollector) {
+			ThreadedGarbageCollector threadedgc =(ThreadedGarbageCollector) garbageCollector;
+			int fwEndSumCnt = 0;
+			for(Map<EndSummary<N, D>, EndSummary<N, D>> map: this.endSummary.values()) {
+				fwEndSumCnt += map.size();
+			}
+			int bwEndSumCnt = 0;
+			logger.info(String.format("forward end Summary size: %d", fwEndSumCnt));
+			logger.info(String.format("Recorded Maximum Path edges count is %d", threadedgc.getMaxPathEdgeCount()));
+		}
+		GCSolverPeerGroup gcSolverGroup = (GCSolverPeerGroup) solverPeerGroup;
+		gcSolverGroup.getGCPeerGroup().notifySolverTerminated();
 	}
 
 	/**
@@ -291,7 +308,7 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 
 		garbageCollector.notifyEdgeSchedule(edge);
 		executor.execute(new PathEdgeProcessingTask(edge, solverId));
-		propagationCount++;
+		propagationCount.increment();
 		garbageCollector.gc();
 	}
 
@@ -634,10 +651,8 @@ public class IFDSSolver<N, D extends FastSolverLinkedNode<D, N>, I extends BiDiI
 		if (maxAbstractionPathLength >= 0 && targetVal.getPathLength() > maxAbstractionPathLength)
 			return;
 
-		D activeVal = targetVal.getActiveCopy();
-		final PathEdge<N, D> activeEdge = new PathEdge<N, D>(sourceVal, target, activeVal);
 		final PathEdge<N, D> edge = new PathEdge<>(sourceVal, target, targetVal);
-		final D existingVal = addFunction(activeEdge);
+		final D existingVal = addFunction(edge);
 		if (existingVal != null) {
 			if (existingVal != targetVal) {
 				// Check whether we need to retain this abstraction

@@ -8,29 +8,27 @@
  * Contributors: Christian Fritz, Steven Arzt, Siegfried Rasthofer, Eric
  * Bodden, and others.
  ******************************************************************************/
-package soot.jimple.infoflow.solver.fastSolver;
+package soot.jimple.infoflow.solver.gcSolver.fpc;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 
 import heros.FlowFunction;
 import heros.solver.PathEdge;
 import soot.SootMethod;
 import soot.Unit;
-import soot.jimple.infoflow.collect.MyConcurrentHashMap;
 import soot.jimple.infoflow.data.Abstraction;
 import soot.jimple.infoflow.problems.AbstractInfoflowProblem;
 import soot.jimple.infoflow.solver.EndSummary;
 import soot.jimple.infoflow.solver.IFollowReturnsPastSeedsHandler;
 import soot.jimple.infoflow.solver.IInfoflowSolver;
-import soot.jimple.infoflow.solver.SolverPeerGroup;
 import soot.jimple.infoflow.solver.executors.InterruptableExecutor;
 import soot.jimple.infoflow.solver.functions.SolverCallFlowFunction;
 import soot.jimple.infoflow.solver.functions.SolverCallToReturnFlowFunction;
 import soot.jimple.infoflow.solver.functions.SolverNormalFlowFunction;
 import soot.jimple.infoflow.solver.functions.SolverReturnFlowFunction;
 import soot.jimple.toolkits.ide.icfg.BiDiInterproceduralCFG;
+import soot.util.ConcurrentHashMultiMap;
 
 /**
  * We are subclassing the JimpleIFDSSolver because we need the same executor for
@@ -44,8 +42,8 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 	private IFollowReturnsPastSeedsHandler followReturnsPastSeedsHandler = null;
 	private final AbstractInfoflowProblem problem;
 
-	public InfoflowSolver(AbstractInfoflowProblem problem, InterruptableExecutor executor) {
-		super(problem);
+	public InfoflowSolver(AbstractInfoflowProblem problem, InterruptableExecutor executor, int sleepTime) {
+		super(problem, sleepTime);
 		this.problem = problem;
 		this.executor = executor;
 		problem.setSolver(this);
@@ -58,7 +56,15 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 
 	@Override
 	public boolean processEdge(PathEdge<Unit, Abstraction> edge) {
-		propagate(edge.factAtSource(), edge.getTarget(), edge.factAtTarget(), null, false, ScheduleTarget.EXECUTOR);
+		// We might not have a garbage collector yet
+		if (this.garbageCollector == null) {
+			synchronized (this) {
+				if (this.garbageCollector == null)
+					this.garbageCollector = createGarbageCollector();
+			}
+		}
+
+		propagate(edge.factAtSource(), edge.getTarget(), edge.factAtTarget(), null, false, null);
 		return true;
 	}
 
@@ -111,7 +117,7 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 
 	@Override
 	public void cleanup() {
-		this.jumpFunctions = new MyConcurrentHashMap<PathEdge<Unit, Abstraction>, Abstraction>();
+		this.jumpFunctions = new ConcurrentHashMultiMap<>();
 		this.incoming.clear();
 		this.endSummary.clear();
 		if (this.ffCache != null)
@@ -133,7 +139,7 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 			final Abstraction d2 = edge.factAtTarget();
 
 			final SootMethod methodThatNeedsSummary = icfg.getMethodOf(u);
-			final Map<Unit, Map<Abstraction, Abstraction>> inc = incoming(d1, methodThatNeedsSummary);
+			final Set<IncomingRecord<Unit, Abstraction>> inc = incoming(d1, methodThatNeedsSummary);
 
 			if (inc == null || inc.isEmpty())
 				followReturnsPastSeedsHandler.handleFollowReturnsPastSeeds(d1, u, d2);
@@ -153,16 +159,6 @@ public class InfoflowSolver extends IFDSSolver<Unit, Abstraction, BiDiInterproce
 	@Override
 	public AbstractInfoflowProblem getTabulationProblem() {
 		return problem;
-	}
-
-	@Override
-	public void setPeerGroup(SolverPeerGroup solverPeerGroup) {
-		// we don't need peers
-	}
-
-	@Override
-	public void terminate() {
-		// not required
 	}
 
 }

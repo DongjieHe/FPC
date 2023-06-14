@@ -1208,6 +1208,16 @@ public class SetupApplication implements ITaintWrapperDataFlowAnalysis {
 
 		// Load whatever we need
 		logger.info("Loading dex files...");
+
+		Scene.v().addBasicClass("androidx.activity.ComponentActivity", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.fragment.app.FragmentActivity", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.work.impl.diagnostics.DiagnosticsReceiver", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.work.impl.background.systemalarm.SystemAlarmService", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.work.impl.foreground.SystemForegroundService", SootClass.BODIES);
+		Scene.v().addBasicClass("androidx.lifecycle.LifecycleService", SootClass.BODIES);
+		Scene.v().addBasicClass("android.app.Service", SootClass.HIERARCHY);
 		Scene.v().loadNecessaryClasses();
 
 		// Make sure that we have valid Jimple bodies
