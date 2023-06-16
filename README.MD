@@ -1,4 +1,7 @@
+
 This is the source code of FPC, the proto-typing tool introduced in our paper "Reducing the Memory Footprint of IFDS-based Data-Flow Analyses Using Fine-Grained Garbage Collection". 
+
+** FPC has been merged into FlowDroid.**
 
 Our artifact is avaliable at https://doi.org/10.5281/zenodo.7965678 and our paper is avaliable at https://dongjiehe.github.io/mypaper/ISSTA2023_FPC_Final.pdf.
 
@@ -6,6 +9,7 @@ If you have any questions about this paper, please email me (hedongjie15@gmail.c
 
 
 **Below are the README Content of FlowDroid**
+
 FPC is built on top of FlowDroid, thus sharing the same dependencies and compilation instructions.
 
 # FlowDroid Data Flow Analysis Tool
